@@ -1,0 +1,375 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%       PLEASE DO NOT REMOVE WHEN SHARING!!!        %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Somehow everything on this main page is useful    %%%
+%%% Change things at own risk xP                      %%%
+%%% Recommendations are as follows:                   %%%
+%%% 1) Create a folder for each chapter               %%%
+%%% 2) Create a text file for each major chapter      %%%
+%%%     sections, i.e. 1.1, 1.2, 1.3                  %%%
+%%% 3) Create an image folder for each chapter in     %%%
+%%%     said folder                                   %%%
+%%% 4) Create a table folder for each chapter in      %%%
+%%%     said folder and use \input to put them in     %%%
+%%% 5) Use an index text file in each chapter to      %%%
+%%%     \input each text file for 1.1, 1.2, 1.3 etc   %%%
+%%% 6) When using \longtable also use \raggedbottom   %%%
+%%%     to keep it on the page                        %%%
+%%% 7) https://www.tablesgenerator.com/ make tables   %%%
+%%%     here                                          %%%
+%%% 8) Never use Word or Google Docs again :D         %%%
+%%% You will understand this main page more and       %%%
+%%%     more as time goes on ^-^                      %%%
+%%% 9) If you fail to compile the fatal error is      %%%
+%%%     always the last one in the list               %%%-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[a4paper,12pt,oneside]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\renewcommand\familydefault{\sfdefault}
+% \usepackage[backref=true,backend=biber,hyperref=true]{biblatex}
+% \bibliography{help}
+\usepackage[hidelinks,bookmarksnumbered,colorlinks]{hyperref}
+\hypersetup{
+  colorlinks = black
+  citecolor=true}
+  
+
+%\usepackage[none]{hyphenat}
+\usepackage{float}
+%\usepackage{subfig} Removed this bc it overrides the subcaption one, if it caused problems for anyone contact me // Lucas
+\usepackage{graphicx}
+%\graphicspath{} Always search for images in this folder. Dont need to add foldername in includegraphics.
+\usepackage{csquotes}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{amsmath}
+\usepackage{ae}
+\usepackage{boldline}
+\usepackage{units}
+%\usepackage{lscape}
+\usepackage{pdflscape}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{icomma}
+\usepackage{color}
+\usepackage{eurosym}
+\usepackage{bbm}
+\usepackage{multicol}
+\usepackage{multirow}
+%\usepackage{listings}
+\usepackage{color}
+\usepackage{verbatim}
+\usepackage{wrapfig}
+\usepackage[table]{xcolor}
+\usepackage[utf8]{inputenc}
+\usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage[square,sort,comma,numbers]{natbib} % (tar bort konstigt fel från \usepackage{natbib})
+\usepackage{textcomp}
+\usepackage{siunitx}
+\usepackage{pdfpages,picture} %
+\usepackage{listings}
+%\usepackage[final]{pdfpages} %Use \includepdf[pages={#,#,#,#,#}]{myfile.pdf}
+%To be clear, you need to specify the pages you wish to include, i.e. \includepdf[pages={1,3,5}]{myfile.pdf} would include pages 1, 3, and 5 of the file. To include the entire file, you specify pages={-}, where {-} is a range without the endpoints specified which default to the first and last pages, respectively. The first two things I had to also do were to scale and to reenable my outer page design (to show page numbers again) which can both be set using the configuration, e.g.: \includepdf[pages=-,scale=.8,pagecommand={}]{file}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{amsfonts}
+\usepackage{afterpage}
+\usepackage{longtable}
+\usepackage{tabularx} %Extended tabular
+\usepackage{ltxtable}
+\usepackage{booktabs}
+\usepackage{fancyhdr}
+\usepackage{gensymb}
+\usepackage{parskip} %% Vince added this to standardize paragraph spacing
+\usepackage{textcomp}
+\usepackage{lastpage,lipsum} %% lipsum for dummy text remove in your file
+\usepackage[margin=3cm]{geometry}
+\usepackage{xfrac}
+\usepackage{array}
+\usepackage{filecontents}
+\usepackage{etoolbox}
+\usepackage{nameref}
+\usepackage{ragged2e}
+\usepackage{xcolor}
+\usepackage{pdfpages}
+\usepackage[title]{appendix}
+\usepackage[bottom]{footmisc}
+\usepackage{rotating}
+\usepackage{tablefootnote}
+\usepackage{spreadtab} %% Vince added this to test table sum function [2017-01-25, 15:27]
+% For prettifying Matlab code.
+\usepackage{courier}
+\lstset{basicstyle=\footnotesize\ttfamily,breaklines=true}
+\lstset{framextopmargin=50pt,frame=bottomline}
+
+% Again, for prettifying Matlab code.
+\usepackage{color} %red, green, blue, yellow, cyan, magenta, black, white
+\definecolor{mygreen}{RGB}{28,172,0} % color values Red, Green, Blue
+\definecolor{mylilas}{RGB}{170,55,241}
+    
+    % Still, for prettifying Matlab code.
+\lstset{language=Matlab,%
+        breaklines=true,%
+        morekeywords={matlab2tikz},
+        keywordstyle=\color{blue},%
+        morekeywords=[2]{1}, keywordstyle=[2]{\color{black}},
+        identifierstyle=\color{black},%
+        stringstyle=\color{mylilas},
+        commentstyle=\color{mygreen},%
+        showstringspaces=false,%without this there will be a symbol in the places where there is a space
+        numbers=left,%
+        numberstyle={\tiny \color{black}},% size of the numbers
+        numbersep=9pt, % this defines how far the numbers are from the text
+        emph=[1]{for,end,break},emphstyle=[1]\color{red}, %some words to emphasise
+    } %Just experimenting to see if this will fix the code compiling issue in Appendix J. -Ivan
+
+
+\newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
+\newcolumntype{M}[1]{>{\centering\arraybackslash}m{#1}}
+% % For references
+% %\bibliographystyle{plain}
+% \usepackage[numbib]{tocbibind}
+% %\usepackage[nottoc]{tocbibind}
+% \usepackage[paper=A4,pagesize]{typearea}    %% For putting in A3 / Hannah
+%%%%%%%%%%%%%%% to be able to higlight text, for PDR update %%%%%%%%%%%%%%
+\usepackage{soul} %/Hannah 
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \usepackage[acronym]{glossaries} %natalie added 13/01/18
+% \makeglossaries
+% \usepackage[nopostdot]{glossaries}
+\usepackage[xindy,toc]{glossaries} %natalie added 14/01/18
+\makeglossaries
+\usepackage[xindy]{imakeidx}
+\makeindex
+\usepackage{makecell} % natalie added 15/01/18 this lets you put breaks inside table boxes :3
+\usepackage{siunitx}
+\usepackage{dcolumn} 
+  \newcolumntype{d}[1]{D{.}{.}{#1}} %hopefully one of these aligns tables decimal places, natalie
+
+
+\DeclareCaptionType[fileext=ext]{Test}
+%\newfloat{Test}{luc}{Test}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                                                                         %%%
+%%               DO NOT CHANGE IN TEX BELOW (that is literally all i have done/robo)      %%%
+%%                                                                                         %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%         THIS IS WHERE THE FIRST PAGE BEGINS, HERE IS WHERE YOU UPDATE ISSUE NUMBERS ETC
+%%%%%%
+
+
+\title{SED}
+\author{tba}
+
+%TODO \renewcommand*{\appendixsection}{Appendix~\arabic{section}}
+
+\newcommand{\highlight}[1]{%
+  \colorbox{yellow}{$\displaystyle#1$}}
+  \makeatletter
+\newcommand{\skipitems}[1]{%
+  \addtocounter{\@enumctr}{#1}%
+}
+\makeatother
+\newcommand\blankpage{%
+
+    \null
+    \thispagestyle{empty}%
+    %\addtocounter{page}{-1}%
+    \newpage
+}
+%
+\fancypagestyle{SED}
+{
+    \fancyhf{}
+    \renewcommand{\headrulewidth}{0.5pt}
+    \chead{-\hspace{0.05cm}\thepage \hspace{0.05cm}-}
+    
+    %\renewcommand{\footrulewidth}{0pt}
+    \fancyfoot[RE,LO]{\textit{BX28\_IRISC\_SEDv1-0\_16Jan19}}
+    %\fancyfoot[RO]{Page \thepage}  % <--- uncomment this if you want DOUBLE page number on every other page
+}
+\fancypagestyle{cover}
+{
+   \fancyhf{}
+   \renewcommand{\footrulewidth}{0.5pt}  
+   \lfoot{\centering\textit{BX28\_IRISC\_SEDv1-0\_16Jan19}}
+  %\cfoot{}
+  % \rfoot{} 
+}
+
+\fancypagestyle{firstp}
+{
+    \fancyhf{}
+    \renewcommand{\headrulewidth}{0pt}
+   \chead{-\hspace{0.05cm}\thepage \hspace{0.05cm}-}
+   \renewcommand{\footrulewidth}{0.5pt}  
+   \fancyfoot[RE,LO]{\textit{BXxx\_xxx\_SEDvx-x\_00xxx19}}
+   %\fancyfoot[RO]{Page \thepage}
+}
+
+% \pagestyle{cover}
+% \pagenumbering{roman}
+
+\begin{document}
+
+%\pagenumbering{arabic}
+\hypersetup{allcolors=black}
+
+\newgeometry{left=3cm,right=2.5cm,top=1cm,bottom=3cm,headheight=20pt,headsep=10pt}
+\thispagestyle{cover}
+
+
+\begin{flushright}
+\includegraphics[width=.25\textwidth]{0-cover/img/logo-rexus-bexus.png} 
+\end{flushright}
+
+\begin{flushright}
+
+\begin{tabular}{p{0.70\textwidth} r}
+\vspace{-1cm}
+{{\hspace{-8pt}\huge{\textbf{SED}}} \vspace{15pt} \newline \vspace{15pt}
+{\hspace{-11pt}\large{\textbf{Student Experiment Documentation}}} \newline \vspace{30pt}
+{\hspace{-11pt}\footnotesize{Document ID: BX28\_IRISC\_SEDv1-0\_16Jan19}}}
+& \hspace{3pt}\multirow{3}{*}{\includegraphics[width=.25\textwidth]{0-cover/img/logo-irisc.png}} %% HERE IS WHERE YOU INPUT YOUR OWN LOGO!!
+\end{tabular}
+\end{flushright}
+\begin{flushleft}
+\vspace{5pt}
+
+\noindent \textbf{\hspace{-1pt}Mission: BEXUS 28} \\
+
+\vspace{20pt}
+
+{\hspace{-2pt}\noindent \Large{\textbf{Team Name:} } IRISC} \\
+
+\vspace{20pt}
+
+\hspace{-1pt}Experiment Title: InfraRed Imaging of astronomical targets with a Stabilized Camera\\
+
+\vspace{20pt}
+\begin{tabular}{p{.33\textwidth} p{.34\textwidth} p{.33\textwidth}}
+\textbf{Team} & \textbf{Name}  \\
+Student Team Leader: & Diego Octavio Talavera Maya \\
+\end{tabular}
+\vspace{5pt}
+\begin{tabular}{p{.33\textwidth} p{.34\textwidth} p{.33\textwidth}}
+Team Members:  & Anja M\"oslinger \\
+& Eligius Franciscus Maria Weterings \\
+& Kimberly Tuija Steele \\
+& Veronika Haberle \\
+& Adam Smialek \\
+& Ajith Kumar Baskar \\
+& Harald Magnusson \\
+& Niklas Ulfvarson \\
+& Sabina Bj\"ork \\
+& William Eriksson \\
+\end{tabular}
+\begin{tabular}{p{.33\textwidth} p{.34\textwidth} p{.33\textwidth}}
+University: & Lule\aa \ University of Technology
+\end{tabular}
+
+\vspace{0.25cm} 
+
+
+\begin{tabular}{p{.15\textwidth} p{.3\textwidth} p{.25\textwidth} p{.25\textwidth}}
+\footnotesize{Version:}     & \footnotesize{Issue Date:} & \footnotesize{Document Type:} & \footnotesize{Valid from} \\
+\textbf{1.0}          & \textbf{January 16, 2019}    & \textbf{Spec}   & \textbf{January 16, 2019} \\ 
+\end{tabular}
+
+\vspace{10pt}
+
+\small
+{
+Issued by:\\
+}
+
+\vspace{0.3cm}
+
+\large
+{
+\textbf{The IRISC Team} \\
+}
+
+\vspace{0.3cm}
+
+\small
+{
+Approved by:\\
+}
+
+\vspace{0.3cm}
+
+\large
+{
+\textbf{Dr. Thomas Kuhn}
+}
+\end{flushleft}
+
+\newgeometry{left=2.5cm,right=2.5cm,top=2.5cm,bottom=3cm,headheight=30pt,headsep=30pt}
+
+
+
+\pagestyle{firstp}
+%\thispagestyle{firstp}
+\section*{\small{\textbf{CHANGE RECORD}}}
+\addcontentsline{toc}{section}{CHANGE RECORD}%
+
+\input{change-record.tex}
+\newpage
+
+\vspace{1cm}
+\begin{tabular}{p{.15\textwidth} p{.85\textwidth}}
+\textbf{Abstract:}     & \input{0-cover/abstract.tex} \\ %Document Abstract
+\textbf{Keywords:}     & %Document Keywords
+\input{0-cover/keywords.tex}
+\end{tabular}
+
+\vfill
+
+\newpage
+\tableofcontents
+%\newpage
+
+\newpage
+\input{0-cover/preface.tex}
+
+\newpage
+\input{0-cover/acknowledgement.tex}
+
+\pagestyle{SED}
+\newgeometry{left=2.5cm,right=2.5cm,top=2.5cm,bottom=3cm,headheight=30pt,headsep=30pt}
+\raggedbottom  % Fixed random spacing in text /H
+
+%\pagenumbering{arabic}
+%\input sections
+
+% MAIN TEXT DOCUMENT 
+\input{1-introduction/index.tex}
+\input{2-experiment-requirements-and-constraints/index.tex}
+\input{3-project-planning/index.tex}
+\input{4-experiment-design/index.tex}
+\input{5-experiment-verification-and-testing/index.tex}
+\input{6-launch-campaign-preparation/index.tex}
+\input{7-data-analysis-and-results/index.tex}
+\input{8-abbreviations-and-references/index.tex}
+\input{appendix/index.tex}
+
+% \glossarystyle{list}
+% \printglossaries
+% \printglossary[title=Abbreviations,toctitle=Acronyms]
+%\addcontentsline{toc}{section}{Bibliography} 
+%\bibliography{refs}
+%\bibliographystyle{plain}
+
+\restoregeometry
+
+
+\end{document}

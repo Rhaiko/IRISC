@@ -1,0 +1,22 @@
+% https://www.tablesgenerator.com/ highly recommended.
+
+\makeatletter
+\renewcommand\@makefntext[1]{\leftskip=3em\hskip-1em\@makefnmark#1}
+\makeatother
+
+\begin{longtable}[]{|m{0.06\textwidth}| m{0.48\textwidth} |m{0.13\textwidth} |m{0.1\textwidth}|m{0.15\textwidth}|}
+
+\hline
+\textbf{ID}   & \textbf{Written requirement}                                                                                                                                                     & \textbf{Verification} & \textbf{Test number} & \textbf{Status} \\ \hline
+F.2  & The experiment \textit{shall} collect air samples by the CAC.&  A, R & - & Pass \\ \hline % by similarity \cite{AircoreFlights}
+F.3  & The experiment \textit{shall} collect air samples by the AAC. & A, T& 2, 16 & Pass\\ \hline %Analysis passed, see Section \ref{sec:aac-analysis}
+F.9  & The experiment \textit{should} collect data on the air intake flow to the AAC. & A, T & 24, 31, 32 & Pass \footnote{sensor libraries are available online and used by many users\label{fn:sensor-libraries}}\\ \hline
+F.10 & The experiment \textit{shall} collect data on the air pressure. & A, T& 24, 31, 32 & Pass \textsuperscript{\ref{fn:sensor-libraries}}\\ \hline
+F.11 & The experiment \textit{shall} collect data on the temperature. &  A, T& 24, 31, 32 & Pass \textsuperscript{\ref{fn:sensor-libraries}}\\ \hline
+P.12 & The accuracy of the ambient pressure measurements \textit{shall} be -1.5/+1.5 hPa for 25$\degree{C}$.                                                                              &        R      &  -          & Pass        \\ \hline %from data sheet
+P.13 & The accuracy of the temperature measurements \textit{shall} be +3.5/-3$\degree{C}$(max) for condition of -55$\degree{C}$ to 150$\degree{C}$.                                   &       R       & -            &    Pass   \\ \hline 
+
+\caption{Verification Matrix.}
+\label{tab:var-mat}
+\end{longtable}
+\raggedbottom

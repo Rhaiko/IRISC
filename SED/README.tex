@@ -1,0 +1,40 @@
+\subsection{How to use me, for the uninitiated}
+
+When making long tables to prevent them from going off the page you should always use the longtable function. Otherwise your tables will go off into the abyss. If you have wide tables then use the begin{landscape} end{landscape} function. This will turn your page side ways for nice viewing :)
+
+If you're finding there's random white space under your tables or figures using raggedbottom will solve your life's problems and the text will stop being so scared of the table and come back underneath it. You can see that in Table \ref{tab:DELETE}. We just used raggedbottom on all tables and longtables on most tables, since if the text shifts the table down the page even a relatively short table can enter into problems.
+
+When you want to make a highlighted copy of your SED the manual way to do this is to use the \st{strikethrough} and \hl{highlight} functions when you start making changes. This is what the cool sounding soul package is used for in the preamble. However we found this to be long a laborious so we actually wrote a script for it. It simply compares the file you have now to the previous version of the same file and highlights and strikethroughs itself, however it was also super buggy and we had to manually do tables and appendices ourselves in the end.
+
+The philosophy behind having all these sections and keeping images and tables in separate files is that by the time you get to even CDR your document is gonna be big and this is one way to keep it a little less messy. You will also find tables to be your number one source of compiling errors and so you can simply \% comment your table out in one line and go fix it while others continue to work on the document. The bigger your document gets the happier you will be with this decision. Using the index for each chapter helps keep each workspace a little shorter too which also will make it easier to work.
+
+Footnotes can be your friend, don't be afraid to use them, especially later when you may start removing stuff and want to say why \footnote{I'm super regular\label{fn:footnote}}. If you want multiple footnotes for the same thing don't repeat the footnote command. Use the textsuperscript command and call the footnote like so\textsuperscript{\ref{fn:footnote}}. If you find footnotes in tables are not working try using \tablefootnote{table footnotes} instead.
+
+
+%\begin{longtable}[H]{|m{0.05\textwidth}| m{0.4\textwidth} |m{0.1\textwidth} |m{0.1\textwidth}|m{0.1\textwidth}| m{0.1\textwidth} |}
+%
+%\caption{I am a Long Table with a Ragged Bottom, Hello}\label{tab:DELETE}
+%\hline \textbf{1} & \textbf{Tips} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} \\ \hline
+%1 & https://www.tablesgenerator.com/ & &   &   &   \\ \hline
+%2 & Compress Whitespace \textsuperscript{\ref{fn:footnote}} &  & & &  \\ \hline
+%3 & \begin{tabular}[c]{@{}l@{}}hello\\ I'm a multicolumn \\ wow\end{tabular} & --- & 000 & 000 & \\ \hline
+%\end{longtable}
+%\raggedbottom
+
+If you want to have multiple rows in the same box of a table you will need to use either the minipage feature or the multicolumn feature. This can be done easily on  https://www.tablesgenerator.com/. If your text is spilling outside of its column there are a few things you can try. You can manually set the column widths until it fits, you can change the column text style, for example there is 1, c, p and m styles to name a few. if your text is just really long consider making the page landscape to give more space. If you're missing verticle lines you need to add them where you began your table so if it looks like {ccc} you need to make it look like {|c|c|c|}. If you're missing horizontal lines you must add hline at the end of each row, including the beginning! If your table is flying around the document and you don't want it to [H] tells it to stay where it was told, [t] should tell it to stay at the top of the page and there's more commands you can google. 
+
+For the references I left all our references we used in. References will only appear in the reference section of your document if you call them in the text, so no lazy referencing! Calling them is really easy, for example to reference the BEXUS manual you just go \cite{BexusManual}. If you want you can change the style of referencing but I recommend this style.
+
+To add an image is simple, again use [H] if your picture keeps wandering around the document willy nilly. Referencing is always easy but make sure to call things sensible names like in Figure \ref{fig:testing}.
+\begin{figure}[H]
+    \centering
+    \includegraphics{0-cover/img/logo-rexus-bexus.png}
+    \caption{I am a figure.}
+    \label{fig:testing}
+\end{figure}
+
+We always stuck with the reference labels of fig: for figures, tab: for tables, fn: for footnotes, sec: for sections and app: for appendices. Again when you start to have a lot your life becomes easier. 
+
+I recommend you also turn on the history tracker. Not only does it let you reject changes to the document it also lets you see who is making changes to where. This can be useful if someone is making a mistake because then you can teach them how to do it correctly and get fewer compilation errors. Plus its also useful for reviewing things later so you don't reread everything or if you're manually highlighting and striking through you can see if someone forgot to add it.
+
+Also don't forget to still look at the main template, I was too lazy to copy all things across. But I save you some formatting time ;) If you have any questions just contact me. 

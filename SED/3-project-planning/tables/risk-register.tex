@@ -1,0 +1,15 @@
+% highy recommend https://www.tablesgenerator.com/
+
+
+\begin{longtable}{|m{0.075\textwidth}| m{0.48\textwidth} |m{0.02\textwidth} |m{0.02\textwidth}|m{0.10\textwidth}| m{0.64\textwidth}|}
+
+\hline
+\textbf{ID} & \textbf{Risk (\& consequence if)} & \textbf{P} & \textbf{S} & \textbf{P * S} & \textbf{Action} \\ \hline
+TC10 & Software fails to store data & B & 2 & \cellcolor[HTML]{34FF34}Very Low & Acceptable Risk: Extensive testing will be done. Using telemetry, all data gathered from sensors will be sent to ground station. \\ \hline
+TC20 & Failure of several sensors & B & 2 & \cellcolor[HTML]{34FF34}Very Low & Acceptable Risk: Thermal test (Test Number 5) to approve the functionality of the experiment. \\ \hline
+TC30 & Critical component is destroyed in testing & B & 1 & \cellcolor[HTML]{34FF34}Very Low & Acceptable Risk: Spare components can be ordered but for expensive ones, they will be ordered and tested early in the project in case we need to order more. \\ \hline
+TC40 & Electrical connections dislodges or short circuits because of vibration or shock & B & 4 & \cellcolor[HTML]{FCFF2F}Low & Acceptable Risk. D-sub connections will be screwed in place. It will be ensured that there are no loose connections and zip ties will be used to help keep wires in place. Careful soldering and extensive testing will be applied. \\ \hline
+\caption{Risk Register.}
+\label{tab:risk-register}
+\end{longtable}
+\raggedbottom
