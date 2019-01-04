@@ -5,10 +5,58 @@
 
 \hline
 \textbf{ID} & \textbf{Risk (\& consequence if)} & \textbf{P} & \textbf{S} & \textbf{P * S} & \textbf{Action} \\ \hline
-TC10 & Software fails to store data & B & 2 & \cellcolor[HTML]{34FF34}Very Low & Acceptable Risk: Extensive testing will be done. Using telemetry, all data gathered from sensors will be sent to ground station. \\ \hline
-TC20 & Failure of several sensors & B & 2 & \cellcolor[HTML]{34FF34}Very Low & Acceptable Risk: Thermal test (Test Number 5) to approve the functionality of the experiment. \\ \hline
-TC30 & Critical component is destroyed in testing & B & 1 & \cellcolor[HTML]{34FF34}Very Low & Acceptable Risk: Spare components can be ordered but for expensive ones, they will be ordered and tested early in the project in case we need to order more. \\ \hline
-TC40 & Electrical connections dislodges or short circuits because of vibration or shock & B & 4 & \cellcolor[HTML]{FCFF2F}Low & Acceptable Risk. D-sub connections will be screwed in place. It will be ensured that there are no loose connections and zip ties will be used to help keep wires in place. Careful soldering and extensive testing will be applied. \\ \hline
+
+
+TC10 & Optics and/ or camera destroyed due to testing						& C & 2 & \cellcolor[HTML]{FCFF2F}Low 		& There is budget for a spare part, it is quite easy to get and test where it will likely fail (e.g. drop test) will not be done with this part.\\\hline
+
+TC20 & Optics and/ or camera destroyed due to looking directly into the sun & B & 3 & \cellcolor[HTML]{FCFF2F}Low 		& A model will be made and sufficient testing will make sure that the probability gets very low.\\\hline
+
+TC30 & Software failure														& B & 3 & \cellcolor[HTML]{FCFF2F}Low 		& A watchdog with power-on-reset will be added to the design.\\\hline
+
+TC40 & Motors of the gimbal are uncontrollable								& B & 4 & \cellcolor[HTML]{FCFF2F}Low 		& It will be made sure that a single component failure will not result in this consequence.\\\hline
+
+TC50 & Motors overloaded													& A & 3 & \cellcolor[HTML]{34FF34}Very Low 	& Sufficient testing and modeling will be done to decrease the probability.\\\hline
+
+TC60 & PCB failure															& B & 3 & \cellcolor[HTML]{FCFF2F}Low 		& Sufficient testing will be done on each PCB to decrease the probability.\\\hline
+
+TC70 & Single component failure gives unprecedented failure					& B & 4 & \cellcolor[HTML]{FCFF2F}Low			& A Failure mode and effects analysis (FMEA) study will be done so that single failure components with a high impact will be documented and migrated.\\\hline
+
+
+MS10 & Target not found														& D & 2 & \cellcolor[HTML]{FCFF2F}Low			& The ground station will be able to correct this, or send the system to another target.\\\hline
+
+MS20 & Gears get jammed														& B & 4 & \cellcolor[HTML]{FCFF2F}Low			& Gear will be oiled on the day of the launch. \\\hline
+
+MS30 & Damage to the system on landing										& D & 1 & \cellcolor[HTML]{FCFF2F}Low			& Optics will move inside a frame for protection.\\\hline
+
+MS40 & Damage to the hard disk on landing									& C & 2 & \cellcolor[HTML]{FCFF2F}Low			& Data will be send over telemetry\\\hline
+
+MS50 & Hard disk full during flight											& A & 3 & \cellcolor[HTML]{34FF34}Very Low	& Sufficient modeling will be done to decrease the probability.\\\hline
+
+MS60 & BEXUS balloon power failure											& A & 4 & \cellcolor[HTML]{34FF34}Very Low	& -\\\hline
+
+MS70 & BEXUS balloon telemetry failure										& B & 2 & \cellcolor[HTML]{34FF34}Very Low	& The system will be able to function autonomously.\\\hline
+
+
+SF10 & Components falling off the gondola									& A & 4 & \cellcolor[HTML]{34FF34}Very Low	& All parts sufficiently fastened. Testing conducted to ensure fastening is able to hold all parts in place in case of turbulence. Where possible, add assurance by adding additional fixations.\\\hline
+
+
+VE10 & Short circuiting														& B & 3 & \cellcolor[HTML]{FCFF2F}Low			& A fuse is in the power system added.\\\hline
+
+VE20 & Collision of telescope with landing mechanism						& A & 4 & \cellcolor[HTML]{34FF34}Very Low	& The experiment will be inside a frame for protection.\\\hline
+
+
+PE10 & Miscommunication in the team											& B & 2 & \cellcolor[HTML]{34FF34}Very Low	& The management team should be responsible for ensuring proper information is conveyed to all team members.\\\hline
+
+PE20 & People are not available												& C & 1 & \cellcolor[HTML]{34FF34}Very Low	& An availability sheet is made so a planning can be made. This will be kept up to date during the entire project.\\\hline
+
+PE30 & Management team unavailable to oversee project						& C & 1 & \cellcolor[HTML]{34FF34}Very Low	& There is always someone as a backup.\\\hline
+
+PE40 & Sudden resignation of project members								& B & 2 & \cellcolor[HTML]{34FF34}Very Low	& Management team ensure morale remains high through a variety of techniques (group building activities).\\\hline
+
+
+EN10 & Rays focused on someone due to damage to the telescope (camera)		& A & 4 & \cellcolor[HTML]{34FF34}Very Low	& Calibration of telescope set properly so that rays do not get misguided\\\hline
+
+
 \caption{Risk Register.}
 \label{tab:risk-register}
 \end{longtable}
