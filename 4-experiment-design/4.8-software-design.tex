@@ -14,7 +14,7 @@ The purpose of the on-board software consists of:
 
 
 
-\subsubsection{Design} \label{sec:4.8.2}
+\subsubsection{Design}
 
 \paragraph{a)} Process Overview\\
 
@@ -25,7 +25,7 @@ The purpose of the on-board software consists of:
 	\label{fig:software-process-overview}
 \end{figure}
 
-Figure \ref{fig:software-process-overview} shows how all externally connected components relates to the on board computer.
+All external components connected to the on board computer and their interface are displayed in figure \ref{fig:software-process-overview}. 
 
 \paragraph{b)} General and safety related concepts\\
 
@@ -33,15 +33,17 @@ To ensure that the software is not erroneous rigorous testing will be done durin
 
 \paragraph{c)} Interfaces\\
 
+If connection to ground is available, images compressed with a lossless compression will be sent down over the E-link over the course of the experiment. If the storage were to fail on touchdown for any reason, this would mean that not all data is lost.
+
+
 \input{4-experiment-design/tables/software-interfaces.tex}
+
 
 \paragraph{d)} Data acquisition and storage\\
 
-The main bulk of data handled is the images taken by the camera. Housekeeping data such as positioning, camera direction, time, etc will also be stored along with the images. This data will be stored on board without compression and sent to ground using a lossless compression.
+The main bulk of data handled is the images taken by the camera. Housekeeping data such as positioning, camera direction, time, etc will also be stored along with the images.
 
 %need amount of data
-
-%something about cutting out blue & green data ?
 
 \paragraph{e)} Process Flow\\
 
@@ -66,7 +68,7 @@ At the end of the floating phase the camera shall be oriented in a landing posit
     \label{fig:software-activity-diagram}
 \end{figure}
 
-
+\newpage
 \paragraph{f)} Modularisation and pseudo code\\
 
 \begin{figure}[H]
@@ -79,7 +81,7 @@ At the end of the floating phase the camera shall be oriented in a landing posit
 Figure \ref{fig:software-composition-tree} shows how the complete software is modularised. Each component is described below.
 
 \begin{itemize}
-	\item Img Proc: Image processing, parent
+	\item Img Processing: Image processing, parent
 		\begin{itemize}
 			\item Image Handler: Module processing and storing images taken by camera.
 			\item Data Queue: Buffer to hold camera data until Handler is ready
@@ -101,16 +103,17 @@ Figure \ref{fig:software-composition-tree} shows how the complete software is mo
 	\item Telemetry: Module responsible for sending telemetry to ground.
 	\item Sensors: parent
 		\begin{itemize}
-			\item I2C: Module responsible for communications over I$^2$C bus.
+			\item I2C: Module responsible for communications over the I$^2$C bus.
 			\item Temperature: Thermal sensors.
 			\item Camera Orientation: Module keeping track of camera orientation and location.
 			\item Sun: Module keeping track of position of the sun.
 			\item Sanity Camera: Connection to the small sanity camera.
+			\item SPI: Module responsible for communications over the SPI bus.
 		\end{itemize}
 		
 \end{itemize}
 
-\subsubsection{Implementation}\label{sec:4.8.3}
+\subsubsection{Implementation}
 
 The code for the on-board software shall be implemented in C. An operating system will be used to enable the modularisation required.
 
