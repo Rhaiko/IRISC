@@ -1,0 +1,26 @@
+\begin{table}[H]
+	\centering
+	\begin{tabular}{l|l}
+		\textbf{Component}                                                          		& \textbf{Interface} \\ \hline
+		Ground Station                                                              		& E-link             \\
+		Controller Actuators                                                        		& Digital PWM        \\
+		External Data Storage
+		& USB            \\
+		NIR Camera
+		& USB                \\
+		Sanity Camera
+		& USB                \\
+		Watchdog
+		& Digital Interrupts \\
+		Gondola GPS
+		& SPI                \\
+		Compass
+		& SPI                \\
+		Gondola Gyroscope
+		& I2C                \\
+		Camera Gyroscope   
+		& I2C                \\
+	\end{tabular}
+	\caption{Table showing the interface that each external component is connected with. This is also visually represented in figure \ref{fig:software-process-overview}.}
+	\label{tab:software-interfaces}
+\end{table}
