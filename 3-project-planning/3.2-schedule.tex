@@ -1,3 +1,19 @@
 \subsection{Schedule}
 
-%aka gantt chart fun :D
+\begin{ganttchart}[
+	hgrid,
+	vgrid,
+	expand chart=\textwidth,
+	time slot format=isodate-yearmonth,
+	time slot unit=month,
+	]{2018-12}{2019-12}
+	\gantttitle{BEXUS - IRISC}{13}\\
+	\gantttitlecalendar{year, month=shortname} \\
+	\ganttbar{Design Phase}{2018-12}{2019-04}\\
+	\ganttbar{Unit testing}{2019-03}{2019-05}\\
+	\ganttbar{Manufacturing Phase}{2019-04}{2019-07}\\
+	\ganttmilestone {First Prototype}{2019-04}\\
+	\ganttbar{Complete System Testing}{2019-06}{2019-09}\\
+	\ganttbar{Launch Campaign}{2019-10}{2019-10}\\
+	\ganttbar{Data Analysis Phase}{2019-11}{2019-12}
+\end{ganttchart}
