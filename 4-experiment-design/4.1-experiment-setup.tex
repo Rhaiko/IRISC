@@ -12,7 +12,7 @@ The experiments mounts a telescope with an attached CMOS sensor inside the gondo
 % telescope and CMOS sensor
 The telescope chosen is a Skywatcher~BKP~130~DS, a parabolic newtonian reflector with a focal length of 650\,mm, an optical diameter of 130\,mm and therefore featuring an aperture ratio of $f/5$. 
 
-The imaging sensor used is ZWO ASI183MM (mono), a CMOS sensor with only one channel (mono, not color) with a resolution of 20.18\,MP (5496x3672), a sensor size of 13.2x8.8\,mm (diagonal: 15.86\,mm) and a pixel size of 2.4x2.4\,$\mu$m. To limit the wavelength bandwidth imaged, an IR filter that filters out any wavelengths below \colorbox{orange}{720\,nm} is used in order to use the sensor as a NIR camera.
+The imaging sensor used is ZWO ASI183MM (mono), a CMOS sensor with only one channel (mono, not color) with a resolution of 20.18\,MP (5496x3672), a sensor size of 13.2x8.8\,mm (diagonal: 15.86\,mm) and a pixel size of 2.4x2.4\,$\mu$m. To limit the wavelength bandwidth imaged, an IR filter that filters out any wavelengths below 720\,nm is used in order to use the sensor as a NIR camera.
 
 This combination of telescope and sensor features the following specifications:
 
@@ -34,10 +34,10 @@ This combination of telescope and sensor features the following specifications:
 
 \subsubsection{Electronics}
 % content of electronics box
-The onboard \colorbox{orange}{processor/microcontroller} is hosted by the electronics box that also features the onboard storage as well as the power supply unit, one set of gyroscopes and accelerometers to measure the movement of the gondola in order to provide input data to the control system, a GPS (for the control system, only applicable if there is no real-time access to the GPS data from the BEXUS gondola), temperature sensors for housekeeping data and the heat management system inside the electronics box and heating elements. The sensors are located on a PCB designed by the electronics team, along with the power supply unit. 
+The On-Board Computer is hosted by the electronics box that also features the onboard storage as well as the power supply unit, one set of gyroscopes and accelerometers to measure the movement of the gondola in order to provide input data to the control system, a GPS (for the control system, only applicable if there is no real-time access to the GPS data from the BEXUS gondola), temperature sensors for housekeeping data and the heat management system inside the electronics box and heating elements. The sensors are located on a PCB designed by the electronics team, along with the power supply unit. 
 
 % data storage, electronics box
-The CMOS sensor data is transmitted to the onboard \colorbox{orange}{processor/microcontroller} where it is compressed with lossless compression and sent down via E-link and is also stored onboard the BEXUS balloon. The onboard storage is located in the electronics box that is designed considering compatibility with the harsh environmental conditions as well as redundancy. The mechanical structure that features the onboard storage ensures survival in case of shock due to hard impact when landing or if the BEXUS balloon lands in a lake or wetlands.
+The CMOS sensor data is transmitted to the On-Board Computer where it is compressed with lossless compression and sent down via E-link and is also stored onboard the BEXUS balloon. The onboard storage is located in the electronics box that is designed considering compatibility with the harsh environmental conditions as well as redundancy. The mechanical structure that features the onboard storage ensures survival in case of shock due to hard impact when landing or if the BEXUS balloon lands in a lake or wetlands.
 
 % thermal shielding - required?
 
@@ -51,7 +51,7 @@ The control system is responsible for tracking the target in the sky and stabili
 
 
 
-\colorbox{red}{currently not included: guiding scope \& camera}
+\colorbox{red}{currently not included: guiding scope \& camera -> needs to be included!}
 
 
 
