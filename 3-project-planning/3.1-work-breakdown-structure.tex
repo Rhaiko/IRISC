@@ -1,37 +1,80 @@
 
 \subsection{Work Breakdown Structure}
 
+\tikzset{
+	basic/.style  = {draw, text width=2cm, font=\sffamily, rectangle},
+	root/.style   = {basic, rounded corners=2pt, thin, align=center,
+		fill=green!30},
+	level 2/.style = {basic,sibling distance=15mm, rounded corners=6pt, thin,align=center, fill=green!60,
+		text width=6em},
+	level 3/.style = {basic, thin, align=left, fill=red!40, text width=6em},
+	level 4/.style = {basic, thin, align=left, fill=red!20, text width=8em}
+}
 
-\begin{figure}[h!]
-	\includegraphics[width=1\textwidth]{3-project-planning/img/WBS_1.JPG}
-	\caption{Yes, it looks ugly, I'll change it later, also the WBS below (Diego)}
-\end{figure}
-
-
-\begin{tikzpicture}[scale=\textwidth/18cm,
-level 1/.style={sibling distance=40mm},
+\begin{tikzpicture}[grow=right, , anchor=west, growth parent anchor=east, parent anchor=east, scale=\textwidth/15cm,
+level 1/.style={sibling distance=37mm},
 edge from parent/.style={->,draw},
->=latex]
+>=stealth]
 
 % root of the the initial tree, level 1
 \node[root] {IRISC}
 % The first level, as children of the initial tree
-child {node[level 2] (c1) {Management}}
-child {node[level 2] (c2) {Science}}
-child {node[level 2] (c3) {Mechanical}}
-child {node[level 2] (c4) {Electrical}}
-child {node[level 2] (c5) {Software}};
+child {node[level 2] (c1) {Management}
+	child{node[level 3] (c11){Project Manager}
+		child{node[level 4](c111){Diego Talavera}}
+		}
+	child{node[level 3] (c12){Outreach}
+		child{node[level 4](c121){Veronika Haberle}}
+		}
+	}
+child {node[level 2] (c2) {Science}
+	child {node [level 3] (c21) {Astronomy}
+		child{node[level 4](c211){Kim Steele}}
+		}
+	child {node [level 3] (c22) {Data Analysis}
+		child{node[level 4](c221){Kim Steele \\ Veronika Haberle}}
+		}
+	}
+child {node[level 2] (c3) {Mechanical}
+	child {node [level 3](c31) {Thermal Engineering}
+		child{node[level 4](c311){Jack Hooper}}
+		}
+	child {node [level 3](c32) {Structures and Materials}
+		child{node[level 4](c321){Ajith Kumar}}
+		}
+	}
+child {node[level 2] (c4) {Electrical}
+	child {node [level 3] (c41) {Embedded systems}
+		child{node[level 4](c411){Elrick Weterings}}
+		}
+	child {node [level 3] (c42) {Energy Technologies}
+		child{node[level 4](c421){Sabina Bj{\"o}rk}}
+		}
+	}
+child {node[level 2] (c5) {Software}
+	child {node [level 3] (c51) {Control System}
+		child{node[level 4](c511){Anja M{\"o}slinger \\ Adam Smialek}}
+		}
+	child {node [level 3] (c52) {Onboard data}
+		child{node[level 4](c521){Harald Magnusson \\ William Eriksson}}
+		}
+	child {node [level 3] (c53) {Ground station systems}
+		child{node[level 4](c531){Niklas Ulfvarson}}
+		}
+	};
 % The second level, relatively positioned nodes
 
-\begin{scope}[every node/.style={level 3}]
-\node [below of = c1, xshift=15pt] (c11) {Setting shape};
-\node [below of = c11] (c12) {Choosing color};
-\node [below of = c12] (c13) {Adding shading};
+\begin{comment}
 
-\node [below of = c2, xshift=15pt] (c21) {Using a Matrix};
-\node [below of = c21] (c22) {Relatively};
-\node [below of = c22] (c23) {Absolutely};
-\node [below of = c23] (c24) {Using overlays};
+\begin{scope}[every node/.style={level 3}]
+\node [right of = c11, xshift=10pt] (c111) {Setting shape};
+\node [below of = c111] (c112) {Choosing color};
+\node [below of = c112] (c113) {Adding shading};
+
+\node [below of = c22, xshift=10pt] (c221) {Using a Matrix};
+\node [below of = c221] (c222) {Relatively};
+\node [below of = c222] (c223) {Absolutely};
+\node [below of = c223] (c224) {Using overlays};
 
 \node [below of = c3, xshift=15pt] (c31) {Default arrows};
 \node [below of = c31] (c32) {Arrow library};
@@ -39,15 +82,8 @@ child {node[level 2] (c5) {Software}};
 \node [below of = c33] (c34) {Shortening};
 \node [below of = c34] (c35) {Bending};
 \end{scope}
-
+\end{comment}
 % lines from each level 1 node to every one of its "children"
-\foreach \value in {1,2,3}
-\draw[->] (c1.195) |- (c1\value.west);
 
-\foreach \value in {1,...,4}
-\draw[->] (c2.195) |- (c2\value.west);
-
-\foreach \value in {1,...,5}
-\draw[->] (c3.195) |- (c3\value.west);
 \end{tikzpicture}
 \end{document}
