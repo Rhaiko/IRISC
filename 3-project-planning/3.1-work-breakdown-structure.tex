@@ -1,6 +1,15 @@
 
 \subsection{Work Breakdown Structure}
 
+\tikzset{
+	basic/.style  = {draw, text width=2cm, font=\sffamily, rectangle},
+	root/.style   = {basic, rounded corners=2pt, thin, align=center,
+		fill=green!30},
+	level 2/.style = {basic,sibling distance=15mm, rounded corners=6pt, thin,align=center, fill=green!60,
+		text width=6em},
+	level 3/.style = {basic, thin, align=left, fill=red!40, text width=6em},
+	level 4/.style = {basic, thin, align=left, fill=red!20, text width=8em}
+}
 
 \tikzset{
 	basic/.style  = {draw, text width=2cm, font=\sffamily, rectangle},
