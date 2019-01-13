@@ -10,12 +10,22 @@ A 28.8V battery package can be provided by the gondola, according to the BEXUS u
 
 A schematic of the power system can be found in the appendix C.
 
-The estimated power consumption of the components are shown in table \ref{tab: power consumption}. The experiment should be able to run for at least for 10 hours. 
+The estimated power consumption of the components are shown in table \ref{tab: power consumption}. 
 % import table of estimated power for components.
 \input{4-experiment-design/tables/component-power.tex}
 
-The BEXUS manual recommends the instrument to be prepared to have power supplies for 2 hours of testing, 2 hours on ground and for a flight time of 6 hours as a minimum. The instrument therefore needs to be in active mode for at least 8 h, because on ground the instrument will be in sleep mode. In active mode the instrument needs 38.02 W per hour, see table \ref{tab: power consumption}. Thus the instrument need at least 304 Wh for active mode. 
+\newpage
 
+The BEXUS manual recommends the instrument to be prepared to have power supplies for 2 hours of testing, 2 hours on ground and for a flight time of 6 hours as a minimum. The instrument therefore needs to be in active mode for at least 8 h, because on ground the instrument will be in sleep mode. The instrument will also be in sleep mode for ascending and descending of the gondola. 
+
+The total estimated power for the instrument:
+
+\begin{itemize}
+    \item Active mode: 38.02 W  --> 304 Wh (8h)
+    \item Sleep mode: 15 W --> 45Wh (3h) 
+\end{itemize}
+
+Thus the instrument will require at least 349 Wh. The maximum power provided by the gondola will be 375 Wh, which should satisfy the instruments needs.
 
 
 
