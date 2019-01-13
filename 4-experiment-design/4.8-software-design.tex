@@ -1,14 +1,15 @@
-\pagebreak
+$  $\pagebreak
 \subsection{Software Design}
 
 \subsubsection{Purpose}
 
-The purpose of the on-board software consists of:
+The purpose of the On-Board Software consists of:
 \begin{itemize}
 	\item Controlling the tracking and choosing of targets to observe.
 	\item Ensuring that the camera is not oriented towards the sun.
-	\item Process and store images taken by camera.
-	\item Log housekeeping data.
+	\item Reading data from sensors and controlling actuators when needed. 
+	\item Processing and storing images taken by camera.
+	\item Logging housekeeping data.
 	\item When possible, send images and housekeeping data to ground station.
 \end{itemize}
 
@@ -21,15 +22,15 @@ The purpose of the on-board software consists of:
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=\textwidth]{4-experiment-design/img/software/process-overview.png}
-	\caption{Relations between on board computer and connected components.}
+	\caption{Relations between On-Board Computer and connected components.}
 	\label{fig:software-process-overview}
 \end{figure}
 
-All external components connected to the on board computer and their interface are displayed in figure \ref{fig:software-process-overview}. 
+All external components connected to the On-Board Computer and their interface are displayed in figure \ref{fig:software-process-overview}.
 
 \paragraph{b)} General and safety related concepts\\
 
-To ensure that the software is not erroneous rigorous testing will be done during development and after completion. A watchdog timer will be used to avoid software freezing. This timer will reset the on-board computer if it is not itself reset by the software within a certain period. In the case of a reset, the camera shall move to the launch position and tracking restarted.
+To ensure that the software is not erroneous rigorous testing will be done during development and after completion. A watchdog timer will be used to avoid software freezing. This timer will reset the On-Board Computer if it is not itself reset by the software within a certain period. In the case of a reset, the camera shall move to the launch position and tracking restarted.
 
 \paragraph{c)} Interfaces\\
 
@@ -43,7 +44,9 @@ If connection to ground is available, images compressed with a lossless compress
 
 The main bulk of data handled is the images taken by the camera. Housekeeping data such as positioning, camera direction, time, etc will also be stored along with the images.
 
-%need amount of data
+As the camera has a resolution of $5496 * 3672$ and a colour depth of 12 bits, the raw image size will be 30.27 MB. For a 4 hour float phase and an exposure time of 30 s a total of  14.53 GB is required in on-board data storage for the images. 
+
+With a maximum of 1 Mbit per second data transfer rate to ground it takes at least 145.5 s to transfer one image compressed losslessly to 60\% of original size. This means that with little down time between observations and for most exposure times, not all images can be transmitted to ground.
 
 \paragraph{e)} Process Flow\\
 
@@ -57,9 +60,9 @@ Astronomical targets are prioritised. The software shall track and observe the h
 	\item A higher priority target enters the field of view.
 \end{itemize}
 
-If one of the aforementioned events happen, the software will switch current target following prioritisation. While observing targets, the on-board software shall store images and housekeeping data. If connection to ground is available this data shall be compressed using a lossless compression method and sent to ground.
+If one of the aforementioned events happen, the software will switch current target following prioritisation. While observing targets, the On-Board Software shall store images and housekeeping data. If connection to ground is available this data shall be compressed using a lossless compression method and sent to ground.
 
-At the end of the floating phase the camera shall be oriented in a landing position and the system shall shut down. Figure \ref{fig:software-activity-diagram} shows the complete process flow.
+At the end of the floating phase the camera shall be oriented in a landing position and the system shall shut down. Figure \ref{fig:software-activity-diagram} shows the complete process flow. Figure \ref{fig:software-state-diagram} shows a simple state diagram for the experiment. Observations are done in the Normal state. In the rare case of a software freeze, it will be reset without entering sleep mode. 
 
 \begin{figure}[H]
     \centering
@@ -68,53 +71,76 @@ At the end of the floating phase the camera shall be oriented in a landing posit
     \label{fig:software-activity-diagram}
 \end{figure}
 
-\newpage
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.55\textwidth]{4-experiment-design/img/software/state-diagram.png}
+	\caption{State diagram for On-Board Software}
+	\label{fig:software-state-diagram}
+\end{figure}
+
 \paragraph{f)} Modularisation and pseudo code\\
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=\textwidth]{4-experiment-design/img/software/composition-tree.png}
-	\caption{Composition tree of on board software.}
+	\caption{Composition tree of On-Board Software.}
 	\label{fig:software-composition-tree}
 \end{figure}
 
 Figure \ref{fig:software-composition-tree} shows how the complete software is modularised. Each component is described below.
 
 \begin{itemize}
+
 	\item Img Processing: Image processing, parent
 		\begin{itemize}
 			\item Image Handler: Module processing and storing images taken by camera.
 			\item Data Queue: Buffer to hold camera data until Handler is ready
 		\end{itemize}
+		
 	\item Thermal: Module responsible for active thermal control
-	\item Camera: Parent
-		\begin{itemize}
-			\item Camera Control: Module responsible for selecting target, camera settings and capturing images.
-			\item Data Link: Communication link to camera.
-		\end{itemize}
+	
 	\item Watchdog: Timer to reset external watchdog.
-	\item Init: Module initialising each component.
+	
 	\item Tracking: parent
 		\begin{itemize}
 			\item Current Target: Module holding the current target to be observed.
 			\item Controller: Module responsible for keeping camera on target.
 			\item Target Choosing: Module responsible for keeping track of target prioritisation.
 		\end{itemize}
+
+	\item Init: Module initialising each component.
+		
+	\item Mode: Module responsible for the current state of the software.
+	
 	\item Telemetry: Module responsible for sending telemetry to ground.
+	
 	\item Sensors: parent
 		\begin{itemize}
-			\item I2C: Module responsible for communications over the I$^2$C bus.
 			\item Temperature: Thermal sensors.
 			\item Camera Orientation: Module keeping track of camera orientation and location.
 			\item Sun: Module keeping track of position of the sun.
-			\item Sanity Camera: Connection to the small sanity camera.
-			\item SPI: Module responsible for communications over the SPI bus.
 		\end{itemize}
+		
+	\item E-link: Module responsible for communications over the E-link interface. 
+
+	\item I2C: Module responsible for communications over the I$^2$C bus.
+
+	\item SPI: Module responsible for communications over the SPI bus.
+
+	\item Camera: Parent
+		\begin{itemize}
+			\item Camera Control: Module responsible for selecting target, camera settings and capturing images.
+			\item NIR Camera: Communication link to the NIR camera.
+			\item Sanity Camera: Communication link to the sanity camera.
+			\item Guiding Camera: Communication link to the guiding camera.
+		\end{itemize}
+		
+	\item Command: Module responsible for handling incoming commands from ground.
 		
 \end{itemize}
 
 \subsubsection{Implementation}
 
-The code for the on-board software shall be implemented in C. An operating system will be used to enable the modularisation required.
+The code for the On-Board Software shall be implemented in C. An operating system will be used to enable the modularisation required. Additional libraries may be needed. 
 
 \raggedbottom
