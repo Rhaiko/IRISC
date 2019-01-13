@@ -5,12 +5,12 @@
 
 
 %very general experiment setup
-The experiments mounts a telescope with an attached CMOS sensor inside the gondola, looking out as shown in figure \colorbox{red}{CAD-model of experiment setup is still missing}. The telescope is mounted on a gimbal system that provides stabilisation along two axis (three if required, depending on simulation results, hardware is available) and tracking in three dimensions. The sensor/telescope/gimbal system will be shielded from the Sun's radiation and climatized in order to provide the required operation temperatures. This is achieved by using Peltier elements where heating or cooling may be necessary (e.\,g.~the sensor) and heating pads where there is only a chance of freezing (e.\,g.~the moving parts of the gimbal). The individual sections of the experiment are described below.
+The experiments mounts a telescope with an attached CMOS sensor inside the gondola, looking out as shown in figure \colorbox{red}{CAD-model of experiment setup is still missing}. The telescope is mounted on a gimbal system that provides stabilisation along two axis (three if required, depending on simulation results, hardware is available) and tracking in three dimensions. The sensor/telescope/gimbal system will be shielded from the Sun's radiation and climatized in order to provide the required operation temperatures. This is achieved by using Peltier elements where heating or cooling may be necessary (e.\,g.~the sensor) and heating pads where there is only a chance of freezing (e.\,g.~the moving parts of the gimbal). The general setup with the data flows can be seen in figure \colorbox{red}{very general block diagram still missing}. The individual sections of the experiment are described below.
 
 
 \subsubsection{Telescope and CMOS sensor}
 % telescope and CMOS sensor
-The telescope chosen is a Sky-Watcher~BKP~130~DS (see figure \ref{fig::4.1-telescope}), a parabolic newtonian reflector with a focal length of 650\,mm, an optical diameter of 130\,mm and therefore featuring an aperture ratio of $f/5$. 
+The telescope chosen is a Sky-Watcher~BKP~130~DS (see figure \ref{fig::4.1-telescope}), a parabolic newtonian reflector with a focal length of 650\,mm, an optical diameter of 130\,mm and therefore featuring an aperture ratio of $f/5$.
 
 The imaging sensor used is ZWO ASI183MM (mono) (see figure \ref{fig::4.1-sensor}), a CMOS sensor with only one channel (mono, not color) with a resolution of 20.18\,MP (5496x3672), a sensor size of 13.2x8.8\,mm (diagonal: 15.86\,mm) and a pixel size of 2.4x2.4\,$\mu$m. To limit the wavelength bandwidth imaged, an IR filter that filters out any wavelengths below 720\,nm is used in order to use the sensor as a NIR camera.
 
@@ -30,7 +30,7 @@ The imaging sensor used is ZWO ASI183MM (mono) (see figure \ref{fig::4.1-sensor}
 		\caption{ZWO ASI183MM (mono) \cite{CMOS_sensor} }
 		\label{fig::4.1-sensor}
 	\end{minipage}
-	
+
 \end{figure}
 
 This combination of telescope and sensor features the following specifications:
