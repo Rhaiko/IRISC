@@ -2,6 +2,10 @@
 
 \subsubsection{Mechanical Interfaces}
 \label{sec:4.2.1}
+
+\colorbox{red}{AN UPDATED CAD WILL BE MADE BEFORE JAN 16TH}\\
+\colorbox{orange}{\parbox{\textwidth}{THIS SECTION WILL BE FINALISED WHEN AN UPDATED CAD MODEL AND INTERFACE DESIGN WILL BE AVAILABLE}}\\
+
 The experiment mounting platform will be attached to the upper rails of the gondola.
 
 % Discuss mounting safety
@@ -25,6 +29,11 @@ The experiment mounting platform will be attached to the upper rails of the gond
 
 
 \subsubsection{Thermal Interfaces}
+
+\colorbox{orange}{\parbox{\textwidth}{THIS SECTION REQUIRES THERMAL ANALYSIS AND DESIGN}}\\
+
+The IRISC experiment will be shielded from heat transfer between gondola and itself.
+
 \label{sec:4.2.2}
 
 
@@ -40,6 +49,24 @@ The downlink will be used to send science and housekeeping data to the ground st
 $$ bits\, per\, downlink\, packet \leq [TBD] + 32 + 480 + 144 $$
 
 \textbf{Power:}\\
+
+Power will be delivered to the electric box from the provided 28.8 V/1 mA (13 Ah) battery pack. Only one pack is required. The expected minimum current is [\hl{TBD}], the average is [\hl{TBD}] and the maximum is [\hl{TBD}]. More details in \ref{sec:4.7}.
+
+\textbf{Connectors:}\\
+The power cable are attached as it can be seen on Figure \ref{fig:power_cables}, and the E-link cables are attached as on Figure \ref{fig:elink_cables}.
+
+\begin{figure}[H]
+    \centering
+	\includegraphics[width=0.2\linewidth]{4-experiment-design/img/interfaces/power_cables.jpg}
+	\caption{[\hl{PLACEHOLDER}] Position of power cable socket}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+	\includegraphics[width=0.2\linewidth]{4-experiment-design/img/interfaces/elink_cables.jpg}
+	\caption{[\hl{PLACEHOLDER}] Position of E-link cable socket}
+\end{figure}
+
 Info about power cables, their length/resistivity and thus power loss, their connection to gondola power relay. 
 
 
