@@ -44,9 +44,9 @@ If connection to ground is available, images compressed with a lossless compress
 
 The main bulk of data handled is the images taken by the camera. Housekeeping data such as positioning, camera direction, time, etc will also be stored along with the images.
 
-As the camera has a resolution of $5496 * 3672$ and a colour depth of 12 bits, the raw image size will be 30.27 MB. For a 4 hour float phase and an exposure time of 30 s a total of  14.53 GB is required in on-board data storage for the images. 
+As the camera has a resolution of $5496 * 3672$ and a colour depth of 12\,bits, the raw image size will be 30.27\,MB. For a 4 hour float phase and an exposure time of 30\,s a total of  14.53\,GB is required in on-board data storage for the images.
 
-With a maximum of 1 Mbit per second data transfer rate to ground it takes at least 145.5 s to transfer one image compressed losslessly to 60\% of original size. This means that with little down time between observations and for most exposure times, not all images can be transmitted to ground.
+With a maximum of 1\,Mbit per second data transfer rate to ground it takes at least 145.5\,s to transfer one image compressed losslessly to 60\,\% of original size. This means that with little down time between observations and for most exposure times, not all images can be transmitted to ground.
 
 \paragraph{e)} Process Flow\\
 
@@ -123,7 +123,7 @@ Figure \ref{fig:software-composition-tree} shows how the complete software is mo
 		
 	\item E-link: Module responsible for communications over the E-link interface. 
 
-	\item I2C: Module responsible for communications over the I$^2$C bus.
+	\item I2C: Module responsible for communications over the I2C bus.
 
 	\item SPI: Module responsible for communications over the SPI bus.
 
