@@ -143,4 +143,22 @@ Figure \ref{fig:software-composition-tree} shows how the complete software is mo
 
 The code for the On-Board Software shall be implemented in C. An operating system will be used to enable the modularisation required. Additional libraries may be needed. 
 
+\subsubsection{Control system}
+The main task of the control system is selecting and tracking the astronomical targets and stabilising the telescope during exposure. Other tasks include minor tasks like the thermal control of the CMOS sensor and the electronics box as well as control of the actuators.
+
+\paragraph{Selecting and tracking targets} 
+
+The selection and tracking of targets is done by using the current time, position (GPS) and orientation (compass/magnetometer) of the gondola. Once a suitable target in the operational field of view is selected, it is tracked during exposure. This includes the compensation of the following motions: 
+\begin{itemize}
+	\item Time-dependent rotational motion of the astronomical targets in the sky. This will be continuously compensated during exposure using models and/or interpolation of tables.
+	\item Position-dependent rotational motion of the astronomical targets in the sky. This will be corrected once for every picture, using the GPs data.
+	\item Rotation of the gondola in the z-axis; can be corrected during exposure using a gyroscope sensor.
+\end{itemize}
+
+Due to the nature of the motion of astronomical targets, it is necessary to use a 3-axis gimbal.
+
+\paragraph{Stabilisation of the gimbal}
+The stabilisation of the gimbal only needs to be active during exposure in order to avoid blurred pictures. It is responsible for compensating all kinds of small-scale, unpredicted movements of the gondola. In order to achieve this, an active feedback loop that requires information about the gondola movements is needed. This information is gathered by using accelerometers and gyroscopes for all 3 axis. 
+
+
 \raggedbottom
