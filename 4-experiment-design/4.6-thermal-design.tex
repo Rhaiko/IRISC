@@ -24,15 +24,9 @@ The ASI183 camera is specified as having a read noise of 1.6e @30db gain and a Q
 	\begin{figure}[h!]
     \centering
     \includegraphics[scale=0.8]{4-experiment-design/img/mechanical/darkcurrent.png}
-	\label{fig: darkcurrent}
+    	\caption{Dark current through the camera at various temperatures.}
+	\label{fig:darkcurrent}
 	\end{figure}
-
-
-As an example, the SNR as affected by dark current at -10\,\textsuperscript{o}C versus 10\,\textsuperscript{o}C is\\
-
- SNR(-10\,\textsuperscript{o}C) =  $\frac{I\times (0.84)\times (300s)}{\sqrt{I\times (0.84)\times (300s)+(0.00391e/pixel/s)\times (300s)+(1.6e)^2}}$ = \\
- 
- SNR(10\,\textsuperscript{o}C) =  $\frac{I\times (0.84)\times (300s)}{\sqrt{I\times (0.84)\times (300s)+(0.01563e/pixel/s)\times (300s)+(1.6e)^2}}$ = \\
 
 
 \paragraph{Optothermal stability}
@@ -48,7 +42,8 @@ IRISC will ascend to and float in the stratosphere at an altitude of between 25 
 	\begin{figure}[h!]
     \centering
     \includegraphics[scale=0.6]{4-experiment-design/img/mechanical/atmosphere.PNG}
-	\label{fig: atmosphere}
+	\caption{Temperature profile of the atmosphere.}
+	\label{fig:atmosphere}
 	\end{figure}
 	
 \begin{center}
@@ -72,7 +67,8 @@ The total solar irradiance, neglecting atmospheric effects, at the Esrange latit
 	\begin{figure}[h!]
     \centering
     \includegraphics[scale=0.6]{4-experiment-design/img/mechanical/directradiation.png}
-	\label{fig: directradiation}
+	\caption{Estimate of direct solar radiation at the top of the atmosphere.}
+	\label{fig:directradiation}
 	\end{figure}
 
 The degree of attenuation of solar radiation through the atmosphere can be described using the Beer–Lambert law, which relates the transmittance of radiation to optical depth. For an atmosphere with properties that change exponentially with respect to altitude, the optical depth can be estimated to also change exponentially with respect to altitude. \
@@ -102,19 +98,19 @@ In order to heat the electronics to the desired temperature, Polyimide Thermofoi
 The motor is 37.8\,mm long with a diameter of 33\,mm, so the 5572 heater with dimensions 12.7\,mm x 12.7\,mm and a resistance of 26.5\,\si{\ohm} is selected.\\
 
 \begin{center}
- $P = \frac{5V\textsuperscript{2}}{26.5\,\si{\ohm}} = 0.94\,W $\\
+ $P = \frac{\SI{5}{V}\textsuperscript{2}}{\SI{26.5}{\ohm}} = \SI{0.95}{W} $\\
 \end{center}
 
 The camera is 73.5\,mm long with a diameter of 78\,mm, so the 5587 heater with dimensions 31.8\,mm x 31.8\,mm and a resistance of 13.1\,\si{\ohm} is selected.\\
 
 \begin{center}
- $P = \frac{5V\textsuperscript{2}}{13.1\,\si{\ohm}} = 1.91\,W $\\
+ $P = \frac{\SI{5}{V}\textsuperscript{2}}{\SI{13.1}{\ohm}} = \SI{0.95}{W} $\\
 \end{center}
 
 The electronics box is 100\,mm x 100\,mm x 100\,mm, so the 5592 heater with dimensions 44.5\,mm x 44.5\,mm and a resistance of 26.3\,\si{\ohm} is selected.\\
 
 \begin{center}
- $P = \frac{5V\textsuperscript{2}}{26.3\,\si{\ohm}} = 0.95\,W $\\
+ $P = \frac{\SI{5}{V}\textsuperscript{2}}{\SI{26.3}{\ohm}} = \SI{0.95}{W} $\\
  \end{center}
  
 \label{sec:4.6.5}
