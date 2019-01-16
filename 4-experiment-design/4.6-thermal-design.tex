@@ -2,7 +2,7 @@
 \subsection{Thermal Design} \label{Thermal_section}
 \subsubsection{Optothermal considerations}
 
-In order to ensure minimise measurement error in acquiring photographs, the effect of temperature on the optics must be considered, and the temperature must be controlled if needed to ensure that the error is within an acceptable range.\
+In order to ensure minimal measurement error in acquiring images, the effect of temperature on the optics must be considered, and the temperature must be controlled if needed to ensure that the error is within an acceptable range.\
 
 \paragraph{SNR}
 
@@ -31,9 +31,9 @@ The ASI183 camera is specified as having a read noise of 1.6e @30db gain and a Q
 As an example, the SNR as affected by dark current at -10\,\textsuperscript{o}C versus 10\,\textsuperscript{o}C is\\
 
  SNR(-10\,\textsuperscript{o}C) =  $\frac{(\SI{6.16}{photons \per pixel \per sec})\times (0.84)\times (\SI{300}{s})}{\sqrt{(\SI{6.16}{photons \per pixel \per s})\times (0.84)\times (300s)+(\SI{0.00391}{e \per pixel \per s})\times (\SI{300}{s})+(\SI{1.6}{e})^2}}$ \\
- 
+
  SNR(-10\,\textsuperscript{o}C) = 39.35\\
- 
+
  SNR(10\,\textsuperscript{o}C) =  $\frac{(\SI{6.16}{photons \per pixel \per sec})\times (0.84)\times (300s)}{\sqrt{(\SI{6.16}{photons \per pixel \per s})\times (0.84)\times (\SI{300}{s})+(\SI{0.01563}{e \per pixel \per s})\times (\SI{300}{s})+(\SI{1.6}{e})^2}}$ \\
 
  SNR(10\,\textsuperscript{o}C) = 39.31\\
@@ -55,7 +55,7 @@ IRISC will ascend to and float in the stratosphere at an altitude of between 25 
 	\caption{Temperature profile of the atmosphere.}
 	\label{fig:atmosphere}
 	\end{figure}
-	
+
 \begin{center}
   \begin{tabular}{ | l | c | r | }
     \hline
@@ -63,7 +63,7 @@ IRISC will ascend to and float in the stratosphere at an altitude of between 25 
     Preparation  & 15 – 25\,\textsuperscript{o}C & 4 hours \\ \hline
     Launch pad wait & -15 – 0\,\textsuperscript{o}C & 3 hours \\ \hline
     Ascent phase  & -80 – 0\,\textsuperscript{o}C & 1.5 hours \\ \hline
-    Float phase (25-30km) & -70 – -50\,\textsuperscript{o}C & 1 – 5 hours \\ \hline 
+    Float phase (25-30km) & -70 – -50\,\textsuperscript{o}C & 1 – 5 hours \\ \hline
     Descent phase  & -80 – 0\,\textsuperscript{o}C & ~ 30 minutes \\ \hline
     Post-flight phase & -15 – 0\,\textsuperscript{o}C & 1 – 2 days \\ \hline
   \end{tabular}
@@ -93,7 +93,7 @@ The degree of attenuation of solar radiation through the atmosphere can be descr
     ASI183 camera  & -5 – 45\,\textsuperscript{o}C \\ \hline
     Camera module for Raspberry Pi 5MP 1080P & -20 – 80\,\textsuperscript{o}C \\ \hline
     Igarashi DC Gearmotor 33GN2738-132-GV-5 312:1  & 0* – 60\,\textsuperscript{o}C \\ \hline
-    GYRO / ACCELEROMETER 3-AXIS  MPU-3050 & -20 – 105\,\textsuperscript{o}C \\ \hline 
+    GYRO / ACCELEROMETER 3-AXIS  MPU-3050 & -20 – 105\,\textsuperscript{o}C \\ \hline
     Electronics  & -5 – 60\,\textsuperscript{o}C \\ \hline
   \end{tabular}
 \end{center}
@@ -122,6 +122,5 @@ The electronics box is 100\,mm x 100\,mm x 100\,mm, so the 5592 heater with dime
 \begin{center}
  $P = \frac{\SI{5}{V}\textsuperscript{2}}{\SI{26.3}{\ohm}} = \SI{0.95}{W} $\\
  \end{center}
- 
-\label{sec:4.6.5}
 
+\label{sec:4.6.5}
