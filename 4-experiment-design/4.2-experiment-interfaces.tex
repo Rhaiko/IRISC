@@ -37,7 +37,7 @@ The uplink will be used to send occasional commands to control the experiment. O
 
 $$ bits\, per\, uplink\, packet \leq [TBD] + 480 + 480 + 144 $$
 
-The downlink will be used to send science and housekeeping data to the ground station. The data in the downlink packet is estimated to be [\hl{TBD}]. For downlink, UPD protocol will be used, as the reliability of the data is not as crucial as during the uplink and to compensate for the size of the data packet. The total size of one packet will be the data plus the UDP header (32 bits), the IP header (maximum 480 bits) and the Ethernet frame (144 bits).
+The downlink will be used to send science and housekeeping data to the ground station. The data in the downlink packet is estimated to be [\hl{TBD}]. For downlink, UDP protocol will be used, as the reliability of the data is not as crucial as during the uplink and to compensate for the size of the data packet. The total size of one packet will be the data plus the UDP header (32 bits), the IP header (maximum 480 bits) and the Ethernet frame (144 bits).
 
 $$ bits\, per\, downlink\, packet \leq [TBD] + 32 + 480 + 144 $$
 
@@ -52,12 +52,14 @@ The power cable are attached as it can be seen on Figure \ref{fig:power_cables},
     \centering
 	\includegraphics[width=0.2\linewidth]{4-experiment-design/img/interfaces/power_cables.jpg}
 	\caption{[\hl{PLACEHOLDER}] Position of power cable socket}
+	\label{fig:power_cables}
 \end{figure}
 
 \begin{figure}[H]
     \centering
 	\includegraphics[width=0.2\linewidth]{4-experiment-design/img/interfaces/elink_cables.jpg}
 	\caption{[\hl{PLACEHOLDER}] Position of E-link cable socket}
+	\label{fig:elink_cables}
 \end{figure}
 
 Info about power cables, their length/resistivity and thus power loss, their connection to gondola power relay. 
