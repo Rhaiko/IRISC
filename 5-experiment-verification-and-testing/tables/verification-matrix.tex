@@ -8,14 +8,21 @@
 
 \hline
 \textbf{ID} & \textbf{Requirement text} & \textbf{Method} & \textbf{Reference} & \textbf{Status} & \textbf{Verifica-tion result} \\\hline
-F.1 & The telescope shall successfully track the celestial bodies of interest. 
-& A, T & Tests: 4, 5, 9, 10 & A: to be done \newline T: to be done & Not verified \\\hline
 
-F.2 & The camera shall take images in the near infrared (NIR) spectrum.
-& R & Test: 1 & R: to be done & Not verified \\\hline
+\rowcolor{yellow} F.3 & The system shall be able to find the celestial objects of interest at the location and orientation of the gondola.
+& ??? & Tests: ??? & A: to be done \newline T: to be done & Not verified \\\hline
 
-P.1 & The gimbal stabilization system shall point the telescope towards the celestial body with an accuracy of at least 1 arc seconds.
-& A, T & Tests: 3, 4, 5, 9, 10 & A: to be done \newline T: to be done & Not verified \\\hline
+\rowcolor{yellow} F.4 & The system shall be able to orient towards selected celestial objects of interest.
+& ??? & Test: ??? & R: to be done & Not verified \\\hline
+
+\rowcolor{yellow} F.5 & The system shall be able to counter balance perturbations of the gondola during exposure.
+& ??? & Test: ??? & R: to be done & Not verified \\\hline
+
+\rowcolor{yellow} F.6 & The camera and optics system shall be able to record the selected celestial object of interest.
+& ??? & Test: ??? & R: to be done & Not verified \\\hline
+
+
+
 
 P.2 & The optics shall be cable of making pictures of 0.5-1.5 x 0.3-1\,degrees.
 & R, T & Test: 1 & R: to be done \newline T: to be done & Not verified \\\hline
@@ -26,11 +33,41 @@ P.3 & The NIR camera shall make images in the range of 720-850 to 1200\,nm.
 P.4 & The NIR camera shall have a resolution of at least 16\,MP.
 & R, T & Test: 1 & R: to be done \newline T: to be done & Not verified \\\hline
 
-P.5 & The NIR camera shall be able to make images with exposure times between 0.5 and 150\,seconds.
+%TODO : MODIFIED!
+P.5 & The NIR camera shall be able to take pictures with an exposure time up to 30\,seconds.
 & R, T & Test: 1 & R: to be done \newline T: to be done & Not verified \\\hline
 
-P.6 & The experiment shall measure the location and orientation of the gondola.
-& A, T & Tests: 3, 4, 5, 9, 10 & T: to be done & Not verified \\\hline
+P.6 & The NIR camera shall be able to take pictures with an exposure time up to 30\,seconds.
+& R, T & Test: 1 & R: to be done \newline T: to be done & Not verified \\\hline
+
+P.7 & The NIR camera shall be able to take pictures with an exposure time up to 30\,seconds.
+& R, T & Test: 1 & R: to be done \newline T: to be done & Not verified \\\hline
+
+P.8 & The NIR camera shall be able to take pictures with an exposure time up to 30\,seconds.
+& R, T & Test: 1 & R: to be done \newline T: to be done & Not verified \\\hline
+
+\rowcolor{yellow} P.9 & The system shall be able measure the orientation of the gondola with an accuracy of 0.5 degree.
+& ??? & Test: ??? & R: to be done \newline T: to be done & Not verified \\\hline
+
+\rowcolor{yellow} P.10 & The system shall be able measure the position of the gondola with an accuracy of 5 meters.
+& ??? & Test: ??? & R: to be done \newline T: to be done & Not verified \\\hline
+
+\rowcolor{yellow} P.11 & The pointing error of the guiding camera in relation to the NIR camera shall be less than 0.35 degrees.
+& ??? & Test: ??? & R: to be done \newline T: to be done & Not verified \\\hline
+
+\rowcolor{yellow} P.12 & The temperature of the NIR camera shall be held between -5 and 0\,$^\circ$C during operation.
+& ??? & Test: ??? & R: to be done \newline T: to be done & Not verified \\\hline
+
+\rowcolor{yellow} P.13 & The temperature of the NIR camera should be held between -5 and -3\,$^\circ$C during operation.
+& ??? & Test: ??? & R: to be done \newline T: to be done & Not verified \\\hline
+
+\rowcolor{yellow} P.14 & The temperature of the rotating part shall be held between 0 and 85\,$^\circ$C.
+& ??? & Test: ??? & R: to be done \newline T: to be done & Not verified \\\hline
+
+\rowcolor{yellow} P.15 & The temperature of the electronics shall be held between -40 and 85\,$^\circ$C.
+& ??? & Test: ??? & R: to be done \newline T: to be done & Not verified \\\hline
+
+
 
 D.01 & The experiment shall be able to operate in the temperature profile of the BEXUS environment.
 & T & Test: 2 & T: to be done & Not verified \\\hline
@@ -41,23 +78,11 @@ D.02 & The experiment shall be able to operate in the pressure profile of the BE
 D.03 & The experiment shall be able to operate in the vibration profile of the BEXUS environment.
 & T & Tests: 8, 10 & T: to be done & Not verified \\\hline
 
-D.04 & The absolute position of the telescope relative to the gondola shall be known with a accuracy of 0.1\,degrees.
-& T & Tests: 3, 4, 9, 10 & T: to be done & Not verified \\\hline
-
 D.05 & The supporting structure shall not twist by more than 0.1\,degrees.
 & T & Tests: 9, 10 & T: to be done & Not verified \\\hline
 
-D.06 & The experiment shall never be pointed directly at the sun $\pm$ 27\,degrees.
-& T & Tests: 4, 9, 10 & A: to be done \newline T: to be done & Not verified \\\hline
-
 D.07 & The experiment shall be able to fly during the entire day.
 & T & Tests: 9, 10 & T: to be done & Not verified \\\hline
-
-D.08 & The temperature of the NIR camera shall be held at 0\,$\pm$5\,$^\circ$C.
-& T & Tests: 9, 10 & T: to be done & Not verified \\\hline
-
-D.09 & The images obtained shall be send to a ground station by the E-link system with a maximum data rate of 1000\,kilo bits per second.
-& T & Test: 6 & T: to be done & Not verified \\\hline
 
 D.10 & The experiment shall be mounted at the side of the gondola.
 & T & Tests: 9, 10 & T: to be done & Not verified \\\hline
@@ -65,26 +90,35 @@ D.10 & The experiment shall be mounted at the side of the gondola.
 D.11 & The experiment shall not consume more power than 250\,Wh.
 & T & Tests: 9, 10 & T: to be done & Not verified \\\hline
 
-% D.12 & The volume of the experiment shall not exceed 65 x 40 x 40\,cm.
-% & I & Test: 7 & I: to be done & Not verified \\\hline
-
-D.12 & The mass of the experiment shall not exceed 20\,kg.
+D.13 & The mass of the experiment shall not exceed 20\,kg.
 & I & Test: 7 & I: to be done & Not verified \\\hline
 
-D.13 & The experiment shall be able to run for at least 2.5\,hours.
+D.14 & The experiment shall be able to run for at least 2.5\,hours.
 & T & Tests: 9, 10 & T: to be done & Not verified \\\hline
 
-D.14 & The experiment shall be able to function autonomously.
+D.15 & The experiment shall be able to function autonomously.
 & T & Tests: 4, 9, 10 & T: to be done & Not verified \\\hline
 
-D.15 & The data stored in the experiment shall be able to survive the landing.
+D.16 & The data stored in the experiment shall be able to survive the landing.
 & T & Test: 8 & T: to be done & Not verified \\\hline
+
+\rowcolor{yellow} D.17 & The data stored in the experiment shall be able to survive the landing.
+& ??? & Test: ??? & T: to be done & Not verified \\\hline
+
+\rowcolor{yellow} D.18 & The images obtained shall be sent to a ground station by the E-link system with a various and adjustable datarate between 250 and 1000 kilo bits per second.
+& ??? & Test: ??? & T: to be done & Not verified \\\hline
+
+
+
 
 O.1 & The experiment shall be able to be controlled by the ground station when requested.
 & T & Tests: 4, 10 & T: to be done & Not verified \\\hline
 
 O.2 & The experiment shall rotate to a 'safe' position while descending.
 & T & Tests: 4, 9, 10 & T: to be done & Not verified \\\hline
+
+\rowcolor{yellow} O.3 & The telescope shall not be pointed within 27\,degrees of the sun.
+& ??? & Tests: ??? & T: to be done & Not verified \\\hline
 
 \caption{Verification Matrix.}
 \label{tab:var-mat}

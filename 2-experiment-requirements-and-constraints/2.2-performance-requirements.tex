@@ -1,12 +1,19 @@
 \subsection{Performance Requirements}
 
-\begin{enumerate}
-    \item[P.1] The gimbal stabilization system shall point the telescope towards the celestial object with an accuracy of at least 1 arcsecond.
+\begin{enumerate}[topsep=0pt,itemsep=-1ex,partopsep=1ex,parsep=1ex]
+    \item[P.1] \colorbox{yellow}{\parbox{\textwidth}{\st{The gimbal system shall be able to stabilize the telescope towards the celestial object with an accuracy of at least 1 arcsecond during exposure.} \textit{Moved to req. P.8}}}
     \item[P.2] The optics shall be capable of making pictures of 0.5-1.5 x 0.3-1\,degrees.
     \item[P.3] The NIR camera shall make images in the range of 720 to 1200\,nm.
     \item[P.4] The NIR camera shall have a resolution of at least 16\,MP.
-    \item[P.5] The NIR camera shall be able to make images with exposure times between 0.5 and 150\,seconds.
-    \item[P.6] The experiment shall establish the location and orientation of the gondola.
-    \item[P.7] The system shall be able to store all the obtained data on board
-
+    \item[P.5] \colorbox{yellow}{\parbox{\textwidth}{The NIR camera shall be able to take pictures with an exposure time up to 30\,seconds.}}
+    \item[P.6] \colorbox{yellow}{\parbox{\textwidth}{\st{The experiment shall establish the location and orientation of the gondola.} \textit{Moved to functional req F.3.}}}
+    \item[P.7] \colorbox{yellow}{\parbox{\textwidth}{\st{The system shall be able to store all the obtained data on board.}}}
+    \item[P.8] The gimbal system shall be able to stabilize the telescope towards the celestial object with an accuracy of at least 1 arcsecond during exposure.
+    \item[P.9] \colorbox{yellow}{\parbox{\textwidth}{The system shall be able measure the orientation of the gondola with an accuracy of 0.5 degree.}}
+	\item[P.10] \colorbox{yellow}{\parbox{\textwidth}{The system shall be able measure the position of the gondola with an accuracy of 5 meters.}}
+	\item[P.11] \colorbox{yellow}{\parbox{\textwidth}{The pointing error of the guiding camera in relation to the NIR camera shall be less than 0.35 degrees.}}
+	\item[P.12] \colorbox{yellow}{\parbox{\textwidth}{The temperature of the NIR camera shall be held between -5 and 0\,$^\circ$C during operation.}}
+	\item[P.12] \colorbox{yellow}{\parbox{\textwidth}{The temperature of the NIR camera should be held between -5 and -3\,$^\circ$C during operation.}}
+	\item[P.13] \colorbox{yellow}{\parbox{\textwidth}{The temperature of the rotating part shall be held between 0 and 85\,$^\circ$C.}}
+	\item[P.14] \colorbox{yellow}{\parbox{\textwidth}{The temperature of the electronics shall be held between -40 and 85\,$^\circ$C.}}
 \end{enumerate}
