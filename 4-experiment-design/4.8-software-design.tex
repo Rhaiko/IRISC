@@ -13,11 +13,11 @@ The purpose of the On-Board Software consists of:
 	\item When possible, send images and housekeeping data to ground station.
 \end{itemize}
 
-
+\hl{The software is designed such that it can control the experiment autonomously throughout the whole experiment process but also enable control from ground through telecommands.}
 
 \subsubsection{Design}
 
-\paragraph{a)} Process Overview\\
+\paragraph{a)} Process Overview
 
 \begin{figure}[H]
 	\centering
@@ -28,29 +28,33 @@ The purpose of the On-Board Software consists of:
 
 All external components connected to the On-Board Computer and their interface are displayed in figure \ref{fig:software-process-overview}.
 
-\paragraph{b)} General and safety related concepts\\
+\paragraph{b)} General and safety related concepts
 
 To ensure that the software is not erroneous rigorous testing will be done during development and after completion. A watchdog timer will be used to avoid software freezing. This timer will reset the On-Board Computer if it is not itself reset by the software within a certain period.
 
-\paragraph{c)} Interfaces\\
+\paragraph{c)} Interfaces
 
 If connection to ground is available, images compressed with a lossless compression will be sent down over the E-link over the course of the experiment. If the storage were to fail on touchdown for any reason, this would mean that not all data is lost.
 
-
 \input{4-experiment-design/tables/software-interfaces.tex}
 
+\paragraph{d)} Data acquisition and storage
 
-\paragraph{d)} Data acquisition and storage\\
+The main bulk of data handled is the images taken by the camera\hl{s}. Housekeeping data such as positioning, camera direction, time, etc will also be stored along with the images. \hl{The On-Board Computer has one SD card used for the OS and temporary storage. For the external data storage two SD cards are used for redundancy purposes. All data shall be saved on these external SD-cards.}
 
-The main bulk of data handled is the images taken by the camera. Housekeeping data such as positioning, camera direction, time, etc will also be stored along with the images.
+As the \hl{NIR} camera has a resolution of $5496 * 3672$ and a colour depth of 12\,bits, the raw image size will be 30.27\,MB. For a 4\,hour float phase and an exposure time of 30\,s a total of  14.53\,GB is required in on-board data storage for the images. \hl{An exposure time of 30\,s can't be guaranteed e.g. due to movements of the gondola. If the exposure time is dropped to 10\,s the total amount of data for continuous image capturing is  43.6\,GB.}
 
-As the camera has a resolution of $5496 * 3672$ and a colour depth of 12\,bits, the raw image size will be 30.27\,MB. For a 4\,hour float phase and an exposure time of 30\,s a total of  14.53\,GB is required in on-board data storage for the images.
+\hl{The guiding camera has a resolution of $1936 * 1096$ and a colour depth of 12\,bits leading to a raw image size of 3.18\,MB. If the guiding camera is sampled every 10\,seconds the total data required for the images is 4.58\,GB.}
+
+\hl{As the housekeeping data is negligible in size compared to the images and as the sanity images are only taken on demand, an SD-card size of 64\,GB will be sufficient for all data storage.}
 
 With a maximum of 1\,Mbit per second data transfer rate to ground it takes at least 145.5\,s to transfer one image compressed losslessly to 60\,\% of original size. This means that with little down time between observations and for most exposure times, not all images can be transmitted to ground.
 
-\paragraph{e)} Process Flow\\
+\paragraph{e)} Process Flow
 
-Pre-launch tests shall be conducted to ensure that all systems work as expected. Afterwards the system shall enter a sleep mode with the camera in a safe launch position. When the float phase is reached, the system will wake. After wake-up the system shall find its orientation and the position of the sun. Finally tracking and observation can start.
+Pre-launch tests shall be conducted to ensure that all systems work as expected. Afterwards the system shall enter a sleep mode\hl{, a low activity state,} with the camera in a safe launch position. \hl{During the ascent the thermal control system shall be running to ensure that all components of the experiment are within nominal temperature ranges.}
+
+When the float phase is reached, the system will wake. \hl{This is done by tracking the altitude of the gondola using GPS data.} After wake-up the system shall find its orientation and the position of the sun. Finally tracking and observation can start.
 
 Astronomical targets are prioritised. The software shall track and observe the highest priority target within the field of view with varying camera settings until one of the following events happen:
 
@@ -67,23 +71,23 @@ At the end of the floating phase the camera shall be oriented in a landing posit
 \begin{figure}[H]
     \centering
     \includegraphics[width=.5\textwidth]{4-experiment-design/img/software/activity-diagram.png}
-    \caption{Activity diagram describing the complete software flow.}
+    \caption{Activity diagram describing the complete software flow. \hl{Here SOE refers to when the software starts, i.e. on the launch pad, and EOE refers to when it shuts down.} \hl{[updated figure]}}
     \label{fig:software-activity-diagram}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=.55\textwidth]{4-experiment-design/img/software/state-diagram.png}
-	\caption{State diagram for On-Board Software}
+	\includegraphics[width=.5\textwidth]{4-experiment-design/img/software/state-diagram.png}
+	\caption{State diagram for On-Board Software. \hl{[updated figure]}}
 	\label{fig:software-state-diagram}
 \end{figure}
 
-\paragraph{f)} Modularisation and pseudo code\\
+\paragraph{f)} Modularisation and pseudo code
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=\textwidth]{4-experiment-design/img/software/composition-tree.png}
-	\caption{Composition tree of On-Board Software.}
+	\caption{Composition tree of On-Board Software. \hl{[updated figure]}}
 	\label{fig:software-composition-tree}
 \end{figure}
 
@@ -91,57 +95,65 @@ Figure \ref{fig:software-composition-tree} shows how the complete software is mo
 
 \begin{itemize}
 
-	\item Img Processing: Image processing, parent
+	\item Camera: Parent
 		\begin{itemize}
-			\item Image Handler: Module processing and storing images taken by camera.
-			\item Data Queue: Buffer to hold camera data until Handler is ready
+			\item Camera Control: Module responsible for selecting target, camera settings and capturing images.
+			\item Guiding Camera: Communication link to the guiding camera.
+			\item NIR Camera: Communication link to the NIR camera.
+			\item Sanity Camera: Communication link to the sanity camera.
 		\end{itemize}
 
-	\item Thermal: Module responsible for active thermal control
+	\item Command: Module responsible for handling incoming commands from ground.
 
-	\item Watchdog: Timer to reset external watchdog.
+	\item \hl{Data Storage: Module providing an interface to store data to the external SD-cards.}
 
-	\item Tracking: parent
+	\item E-link: Module responsible for communications over the E-link interface.
+
+	\item I2C: Module responsible for communications over the I2C bus.
+
+	\item Img Processing: Image processing, parent
 		\begin{itemize}
-			\item Current Target: Module holding the current target to be observed.
-			\item Controller: Module responsible for keeping camera on target.
-			\item Target Choosing: Module responsible for keeping track of target prioritisation.
+			\item Data Queue: Buffer to hold camera data until Handler is ready
+			\item Image Handler: Module processing and storing images taken by camera.
 		\end{itemize}
 
 	\item Init: Module initialising each component.
 
 	\item Mode: Module responsible for the current state of the software.
 
-	\item Telemetry: Module responsible for sending telemetry to ground.
-
-	\item Sensors: parent
+	\item Sensors: Parent
 		\begin{itemize}
-			\item Temperature: Thermal sensors.
 			\item Orientation: Module keeping track of orientation and location.
 			\item Sun: Module keeping track of position of the sun.
+			\item \hl{Sensor Poller: Module responsible for polling sensors.}
+			\item Temperature: Thermal sensors.
 		\end{itemize}
-
-	\item E-link: Module responsible for communications over the E-link interface.
-
-	\item I2C: Module responsible for communications over the I2C bus.
 
 	\item SPI: Module responsible for communications over the SPI bus.
 
-	\item Camera: Parent
+	\item Telemetry: \hl{Parent}
 		\begin{itemize}
-			\item Camera Control: Module responsible for selecting target, camera settings and capturing images.
-			\item NIR Camera: Communication link to the NIR camera.
-			\item Sanity Camera: Communication link to the sanity camera.
-			\item Guiding Camera: Communication link to the guiding camera.
+			\item \hl{Downlink: Module responsible for sending telemetry to ground.}
+			\item \hl{Downlink Queue: Buffer to hold telemetry messages.}
 		\end{itemize}
 
-	\item Command: Module responsible for handling incoming commands from ground.
+	\item Thermal: Module responsible for active thermal control
+
+	\item Tracking: Parent
+		\begin{itemize}
+			\item Current Target: Module holding the current target to be observed.
+			\item Controller: Module responsible for keeping camera on target.
+			\item \hl{Gimbal: Module providing an interface to the gimbal motors.}
+			\item Target Choosing: Module responsible for keeping track of target prioritisation.
+		\end{itemize}
+
+	\item Watchdog: Timer to reset external watchdog.
 
 \end{itemize}
 
 \subsubsection{Implementation}
 
-The code for the On-Board Software shall be implemented in C. An operating system will be used to enable the modularisation required. Additional libraries may be needed.
+The code for the On-Board Software shall be implemented in C. An operating system will be used to enable the modularisation required. \hl{The chosen operating system is Linux with the Preempt RT kernel patch.} Additional libraries\hl{, such as the ASI SDK library used for controlling the cameras, will} \st{may} be needed.
 
 \subsubsection{Control system}
 The main task of the control system is selecting and tracking the astronomical targets and stabilising the telescope during exposure. Other tasks include minor tasks like the thermal control of the CMOS sensor and the electronics box as well as control of the actuators.
