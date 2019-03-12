@@ -3,7 +3,7 @@
 
 \label{sec:4.7}
 
-A 28.8V (13 Ah) battery package can be provided by the gondola, according to the BEXUS user manual. One constraint is that the continuous maximum current is 1.8 A. Thus buck-converters will be needed to step down the voltage, while stepping up the current, so that the power needed will be delivered to the instrument. The voltage levels of the buck-converters are:
+A 28.8V (13 Ah) battery package can be provided by the gondola, according to the BEXUS user manual. \hl{Thus the gondola would provide 374.6 Wh. But due to the harsh environment in the gondola one should expect a capacity no larger than 6 Ah and a cell voltage around 3 V, which means that the gondola would provide 144 Wh. One constraint is that the batteries has a 5A fuse, and a continuous maximum current is 1.8 A is recommended.}Thus Buck-converters will be needed to step down the voltage, while stepping up the current, so that the power needed will be delivered to the instrument. The voltage levels of the buck-converters are:
 
 \begin{itemize}
 	\item 28.8 V --> 3.3 V, with the power 1.65 W.
@@ -11,7 +11,6 @@ A 28.8V (13 Ah) battery package can be provided by the gondola, according to the
 	\item 28.8 V --> 12 V, with power 15 W.
 \end{itemize}
 
-A schematic of the power system can be found in the appendix C.
 
 The estimated power consumption of the components are shown in table \ref{tab: power consumption}.
 % import table of estimated power for components.
@@ -19,15 +18,16 @@ The estimated power consumption of the components are shown in table \ref{tab: p
 \input{4-experiment-design/tables/component-power.tex}
 
 
-The BEXUS manual recommends the instrument be prepared to have power supplies for 2 hours of testing, 2 hours on ground and for a flight time of 6 hours as a minimum. The instrument therefore needs to be in active mode for at least 8 hours, because on ground the instrument will be in sleep mode. The instrument will also be in sleep mode for ascending and descending of the gondola. 
+The BEXUS manual recommends the instrument be prepared to have power supplies for 2 hours of testing, 2 hours on ground and for a flight time of 6 hours as a minimum. \hl{The experiment will be in active mode only during float, which should be no longer than 4 hours, but on ground and during ascend and descend the experiment will be in stand by mode, for about 6 hours. The power dissipation for the different modes are listed below:}
 
 
 \begin{itemize}
-    \item Active mode: 38.02 W  --> 304 Wh (8h)
-    \item Sleep mode: 15 W --> 45Wh (3h)
+    \item \hl{Active mode : 41.15 W --> 165 Wh (4h) }
+    \item \hl{Standby mode: 15 W --> 90Wh (6h)}
 \end{itemize}
 
-Thus the instrument will require at least 349 Wh. The maximum power provided by the gondola will be 375 Wh, which should satisfy the instruments needs.
+\hl{In total the experiment in total for 10 hours would need 255 Wh. Thus the experiment needs two battery packages. With two battery packages the gondola would be able to provide at least 288 Wh, which should satisfy the power needs of the experiment. }
+
 
 
 \raggedbottom
