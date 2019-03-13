@@ -12,7 +12,7 @@
 }
 
 \begin{tikzpicture}[grow=right, , anchor=west, growth parent anchor=east, parent anchor=east, scale=\textwidth/15cm,
-level 1/.style={sibling distance=35mm}, edge from parent/.style={->,draw},
+level 1/.style={sibling distance=30mm}, edge from parent/.style={->,draw},
 >=stealth]
 
 
@@ -21,7 +21,7 @@ level 1/.style={sibling distance=35mm}, edge from parent/.style={->,draw},
 % The first level, as children of the initial tree
 child {node[level 2] (c1) {Management}
 	child{node[level 3] (c11){Project \\ Manager}
-		child{node[level 4](c111){Diego Talavera}}
+		child{node[level 4](c111){Diego Talavera \\ Niklas Ulfvarson}}
 		}
 	child{node[level 3] (c12){Outreach}
 		child{node[level 4](c121){Veronika Haberle}}
@@ -40,7 +40,7 @@ child {node[level 2] (c3) {Mechanical}
 		child{node[level 4](c311){Jack Hooper}}
 		}
 	child {node [level 3](c32) {Structures and Materials}
-		child{node[level 4](c321){Ajith Kumar}}
+		child{node[level 4](c321){Diego Talavera}}
 		}
 	}
 child {node[level 2] (c4) {Electrical}
@@ -51,7 +51,7 @@ child {node[level 2] (c4) {Electrical}
 		child{node[level 4](c421){Sabina Bj{\"o}rk}}
 		}
 	}
-child {node[level 2] (c5) {Software}
+child {node[level 2] [above=45mm of c4] (c5) {Software}
 	child {node [level 3] (c51) {Control \\ System}
 		child{node[level 4](c511){Anja M{\"o}slinger \\ Adam Smialek}}
 		}
@@ -61,8 +61,10 @@ child {node[level 2] (c5) {Software}
 	child {node [level 3] (c53) {Ground station systems}
 		child{node[level 4](c531){Niklas Ulfvarson}}
 		}
+	child {node [level 3] (c54) {Star Tracker}
+		child{node[level 4](c541){Niklas Ulfvarson}}
+		}
 	};
-
 
 \end{tikzpicture}
 
