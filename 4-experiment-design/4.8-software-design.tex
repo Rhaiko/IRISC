@@ -156,8 +156,10 @@ Figure \ref{fig:software-composition-tree} shows how the complete software is mo
 
 The code for the On-Board Software shall be implemented in C. An operating system will be used to enable the modularisation required. \hl{The chosen operating system is Linux with the Preempt RT kernel patch.} Additional libraries\hl{, such as the ASI SDK library used for controlling the cameras, will} \st{may} be needed.
 
+
+
 \subsubsection{Control system}
-The main task of the control system is selecting and tracking the astronomical targets and stabilising the telescope during exposure. Other tasks include minor tasks like the thermal control of the CMOS sensor and the electronics box as well as control of the actuators.
+The main task of the control system is selecting and tracking the astronomical targets and stabilising the telescope during exposure. Other tasks include minor tasks like the thermal control of the CMOS sensor and the electronics box as well as control of the actuators. \hl{A general overview of the control loop for tracking \& stabilisation is given in figure  \mbox{\ref{fig::software::control_loop}} below. The thermal control loop is sketched in chapter \mbox{\ref{Thermal_section}}. }
 
 \paragraph{Selecting and tracking targets}
 
@@ -173,24 +175,44 @@ Due to the nature of the motion of astronomical targets, it is necessary to use 
 
 \textbf{\hl{Selection of targets}}
 
-\hl{The selection of targets is based on the operational field of view (the area of the sky where the telescope is able to look at) and prioritisation parameters of the possible targets within this field of view. The operational field of view is determined by using the sensor data from the orientation sensor (sun sensor/star tracker) in combination with the gyroscopes.
+\hl{The selection of targets is based on the operational field of view (the area of the sky where the telescope is able to look at) and prioritisation parameters of the possible targets within this field of view. The operational field of view is determined by using the sensor data from the orientation sensor (sun sensor/star tracker). Using a sun sensor or star tracker will provide an accurate absolute attitude determination system to ensure that the celestial object of interest is actually in the field of view of the telescope when it is pointed there. Compared to the gyroscopes that have a much higher angular resolution, the attitude determination system does not show any drift over time and does therefore not need to be calibrated during flight.
 
-Prioritisation parameters include the brightness of the object (brighter objects are expected to yield better results due to higher SNR), the location of the object within the operational field of view (objects near the centre of the field of view are favoured because they are less likely to rotate out of the field of view during exposure) and the number of exposures already taken (objects should be imaged more than once, but not more often than ten times during the flight). 
+Prioritisation parameters include the brightness of the object (brighter objects are expected to yield better results due to higher SNR), the location of the object within the operational field of view (objects near the centre of the field of view are favoured because they are less likely to rotate out of the field of view during exposure) and the number of exposures already taken (objects should be imaged more than once in order to be able to compare and verify the obtained data, but not more often than ten times during the flight). 
 
-As the location of the astronomical targets changes with time and position of the gondola, these two parameters also need to be taken into account (for determination see paragraph Astronomical targets).
+As the location of the astronomical targets changes with time and position of the gondola, these two parameters also need to be taken into account (for determination see paragraph Astronomical targets). Once a target is selected, this part of the control system will be deactivated until the picture was taken or the control loop is re-initialised.
 }
 
-\textbf{\hl{Astronomical targets}}
+\textbf{\hl{Tracking of astronomical targets}}
 
 \hl{The time-dependent and the position-dependent rotational motion of the astronomical targets are calculated by using an astronomical model and provides the control input for the subsequent stages of the control system. Because the state vectors for this model are time (internal clock) and position (GPS) and the input vector is the selected target (defined in the system, not a variable state for the exposure of one image), the state vectors cannot be affected by the control system (not controllable). Therefore, no dedicated feedback loop is used for this part of the control system. However, the input data from the GPS may be filtered before use. The output vector then provides the input for the compensation of rotation (of the gondola in the z-axis) and the stabilisation of the gimbal. }
 
 \textbf{\hl{Rotation of the gondola}}
 
-\hl{The uncontrolled rotational motion of the gondola around the z-axis can be directly compensated by actuating the corresponding gimbal axis (yaw). This will be achieved by a PID control. As the same axis will also be actuated during the stabilisation process, it might be merged with the control loop for the stabilisation. As the required accuracy for detecting the rotation of the gondola is very high, the gyroscopes are used to provide the input.}
+\hl{The uncontrolled rotational motion of the gondola around the z-axis can be directly compensated by actuating the corresponding gimbal axis (yaw). This will be achieved by a PID control. As the same axis will also be actuated during the stabilisation process, it will be merged with the control loop for the stabilisation. As the required accuracy for detecting the rotation of the gondola is very high, the gyroscopes are used to provide the input (see stabilisation for more detail).}
 
 
 \paragraph{Stabilisation of the gimbal}
 The stabilisation of the gimbal only needs to be active during exposure in order to avoid blurred pictures. It is responsible for compensating all kinds of small-scale, unpredicted movements of the gondola. In order to achieve this, an active feedback loop that requires information about the gondola movements is needed. This information is gathered by using accelerometers and gyroscopes for all 3 axes.
+
+\hl{After the target is selected, the gyroscopes are reset so there is no offset-error and the best accuracy can be achieved. With this setup, it is possible to measure the movements of the gondola with an accuracy higher than the corresponding angular resolution of one pixel. Once the gyroscopes are reset the value of the attitude determination system is held constant within the control system, because the accuracy of the gyroscopes is orders of magnitude higher than that of the attitude determination system. 
+
+In addition to the gyroscopes, the encoders are used to obtain the actual position of the telescope within the gondola and therefore provide a second set of data for the feedback loop. The sensor data is filtered by a Kalman filter to decrease the sensor noise and deduce the current orientation of the telescope as well as the motion of the gondola with a high precision.
+
+The control of the gimbal (tracking and stabilisation as well as compensation of the gondola rotation for the yaw axis) is done by a separate PID control for each axis. The output of the controller is the required speed for the actuating motor of the respective axis. This information is then processed by the motor controller that calculates the required input currents for the motors. 
+
+}
+
+
+
+
+\newpage
+\begin{landscape}
+	\begin{figure}
+		\includegraphics[width=\linewidth]{4-experiment-design/img/software/Control_loop.eps}
+		\caption{\hl{Control loop of the experiment [New figure]}}
+		\label{fig::software::control_loop}
+	\end{figure}
+\end{landscape}
 
 
 \raggedbottom
