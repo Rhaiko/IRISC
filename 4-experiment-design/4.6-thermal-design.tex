@@ -130,7 +130,7 @@ The degree of attenuation of solar radiation through the atmosphere can be descr
     \textbf{Main camera}  & \textbf{1.5}\\ 
     \hline
   \end{tabular}
-\end{center}\\
+\end{center}
 
 The DC gear motors are rated as having a maximum efficiency of 35\%. For the electronics, it will be assumed that they are 90\% efficient. By multiplying the supplied power by the efficiencies, the heat generation can be determined. \\
 
@@ -154,7 +154,7 @@ The DC gear motors are rated as having a maximum efficiency of 35\%. For the ele
     \textbf{Main camera}  & \textbf{0.15}\\ 
     \hline
   \end{tabular}
-\end{center}\\
+\end{center}
 
 \hl{It is of note that in historical BEXUS projects utilising the Raspberry Pi in an insulated environment, surface temperatures of 50\textsuperscript{o}C have been recorded.} \\
 
@@ -282,7 +282,7 @@ For the electronics box, the temperature will need to be between 0\textsuperscri
 
 	\begin{figure}[h!]
     \centering
-    \includegraphics[scale=0.6]{4-experiment-design/img/mechanical/thermaldiagram.PNG.JPG}
+    \includegraphics[scale=0.6]{4-experiment-design/img/mechanical/thermaldiagram.JPG}
 	\caption{Heat transfer model of the electronics box.}
 	\label{fig:thermaldiagram}
 	\end{figure}
@@ -302,7 +302,7 @@ For 1D steady state conduction through the composite wall comprised of insulatio
     \includegraphics[scale=0.6]{4-experiment-design/img/mechanical/thermalresistance1.JPG}
 	\caption{Thermal resistance for bottom of box.}
 	\label{fig:thermalresistance1}
-	\end{figure} \\
+	\end{figure}
 
 \begin{center}
  $q_{cond1} = \frac{T_{s2,e}-T_{ambient}}{R_{tot}} $\\
@@ -321,9 +321,9 @@ For 1D steady state conduction through the composite wall comprised of insulatio
  
  $q_{cond1} = \frac{100}{2940t_{1}+0.105} $\\
  
-\end{center} \\
+\end{center}
  
- 
+
 For 1D steady state conduction through the upper insulating layer: \\
 
 	\begin{figure}[h!]
@@ -331,7 +331,7 @@ For 1D steady state conduction through the upper insulating layer: \\
     \includegraphics[scale=0.6]{4-experiment-design/img/mechanical/thermalresistance2.JPG}
 	\caption{Thermal resistance for top of box.}
 	\label{fig:thermalresistance2}
-	\end{figure} \\
+	\end{figure} 
 
 \begin{center}
  $q_{cond2} = \frac{T_{s1,e}-T_{ambient}}{R_{tot}} $\\
@@ -350,7 +350,7 @@ For 1D steady state conduction through the upper insulating layer: \\
  
  $q_{cond2} = \frac{100}{2940t_{1}+0.206} $\\
  
-\end{center} \\
+\end{center}
 
 By summing the heat lost on both sides and equating that to the heat generated, we can find the thickness of insulating material to maintain the constant temperature. \\
 
@@ -362,7 +362,7 @@ By summing the heat lost on both sides and equating that to the heat generated, 
 
 \paragraph{Heating pads}
 
-\st{The motor is 37.8\,mm long with a diameter of 33\,mm, so the 5572 heater with dimensions 12.7\,mm x 12.7\,mm and a resistance of 26.5\,\si{\ohm} is selected.}\\
+\st{The motor is 37.8\,mm long with a diameter of 33\,mm, so the 5572 heater with dimensions 12.7\,mm x 12.7\,mm and a resistance of 26.5}\,\si{\ohm} \st{is selected.}\\
 
 \begin{center}
  $P = \frac{\SI{5}{V}\textsuperscript{2}}{\SI{26.5}{\ohm}} = \SI{0.95}{W} $\\
@@ -380,8 +380,7 @@ The electronics box is 100\,mm x 100\,mm x 100\,mm, so the 5592 heater with dime
  $P = \frac{\SI{5}{V}\textsuperscript{2}}{\SI{26.3}{\ohm}} = \SI{0.95}{W} $\\
  \end{center}
  
-\hl{For the three motors and three cameras insulation will not be possible. For these components therefore Minco Polyimide Thermofoil™
-heating pads will be used. These heating pads are able to increase the temperature of a target by up to 200\textsuperscript{o}C, more than enough to reach the required temperature range for the motors and cameras given the temperatures in the stratosphere.}\\
+\hl{For the three motors and three cameras insulation will not be possible. For these components therefore Minco Polyimide Thermofoil heating pads will be used. These heating pads are able to increase the temperature of a target by up to 200\textsuperscript{o}C, more than enough to reach the required temperature range for the motors and cameras given the temperatures in the stratosphere.}\\
 
 Assuming all the heat is transferred directly to the component, the power can be related to the time required to increase the target temperature by a certain amount.
 
@@ -389,7 +388,7 @@ Assuming all the heat is transferred directly to the component, the power can be
  $P = \frac{mC_{p}(T_{f}-T_{i}}{t} $ \\
 \end{center}
 
-For the motors with a mass of 142\SI{g} and made of steel with a specific heat of 0.50 \SI{J/g/\textsuperscript{o}C}, to raise the temperature by 10 degrees in 5 minutes we require 2.37 W of power. It is assumed that the camera is of similar properties. \\
+For the motors with a mass of 142\,g and made of steel with a specific heat of 0.50\,J/g/$^\circ$C, to raise the temperature by 10 degrees in 5 minutes we require 2.37 W of power. It is assumed that the camera is of similar properties. \\
 
 \begin{center}
  $P = \frac{(142)(0.5)(10\textsuperscript{o}C)}{5(60)} = \SI{2.37}{W} $ \\
@@ -402,22 +401,19 @@ This can be related to the resistance of the required heating pad.
 
 \end{center}
 
-\hl{ By selecting the pad with resistance \SI{52.3}{\ohm} and running it at 10V, it will generate 1.91W of power, and will raise the temperature by 10 degrees in 6 minutes and 11 seconds.\\ 
+\hl{ By selecting the pad with resistance 52.3\,$\Omega$ and running it at 10V, it will generate 1.91W of power, and will raise the temperature by 10 degrees in 6 minutes and 11 seconds.\\ 
  
- This pad is the HK5165R52.3L12, capable of supplying 15W at 28V and has dimensions \SI{25.4}{mm} x \SI{76.2}{mm}.\\
+ This pad is the HK5165R52.3L12, capable of supplying 15W at 28V and has dimensions 25.4\,mm x 76.2\,mm.\\
 
 Given that the components are to be maintained at 20\textsuperscript{o}C, the maximum allowable watt density can be found, after which overheating and burning of the heating pad will occur. This will help to determine the application method of the pad to the heat sink. \\
 
-The area of the heater is \SI{3}{inch^{2}}. Dividing the power by this area yields a power density of \SI{0.634}{\frac{W}{inch^{2}}}}. 
+The area of the heater is 3\,inch$^2$. Dividing the power by this area yields a power density of 0.634\,W/inch$^2$. }
 
 	\begin{figure}[h!]
     \centering
-    \includegraphics[scale=0.6]{4-experiment-design/img/mechanical/wattdensity.jpg}
+    \includegraphics[scale=0.6]{4-experiment-design/img/mechanical/wattdensity.JPG}
 	\caption{The maximum allowable watt density for different application methods for a given heat sink control temperature.}
 	\label{fig:thermalresistance1}
-	\end{figure} \\
+	\end{figure}
 
 \hl{As this is low that burning of the heater is unlikely to occur, unless the temperature is not properly regulated and the heating pad warms well beyond the desired control temperature. Also, any application method is suitable with respect to this concern. The BM3 shrink band Polyimide strip will be used as it allows heaters to be attached to cylindrical surfaces, and has a temperature minimum rating of -73\textsuperscript{o}C, lower than alternatives, making it more suitable for use in the stratosphere.}  \\
- 
-
-\label{sec:4.6.5}
