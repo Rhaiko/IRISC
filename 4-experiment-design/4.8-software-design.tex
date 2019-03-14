@@ -173,6 +173,8 @@ of the gondola. Once a suitable target in the operational field of view is selec
 
 Due to the nature of the motion of astronomical targets, it is necessary to use a 3-axis gimbal.
 
+\hl{The three axes and the names for the rotation axes are shown in figure \mbox{\ref{fig::software::Yaw_Pitch_Roll}}.}
+
 \textbf{\hl{Selection of targets}}
 
 \hl{The selection of targets is based on the operational field of view (the area of the sky where the telescope is able to look at) and prioritisation parameters of the possible targets within this field of view. The operational field of view is determined by using the sensor data from the orientation sensor (sun sensor/star tracker). Using a sun sensor or star tracker will provide an accurate absolute attitude determination system to ensure that the celestial object of interest is actually in the field of view of the telescope when it is pointed there. Compared to the gyroscopes that have a much higher angular resolution, the attitude determination system does not show any drift over time and does therefore not need to be calibrated during flight.
@@ -203,7 +205,12 @@ The control of the gimbal (tracking and stabilisation as well as compensation of
 }
 
 
-
+\begin{figure}%[h]
+	\centering
+	\includegraphics[width = 0.4\textwidth]{4-experiment-design/img/software/Yaw_Pitch_Roll.eps}
+	\caption{\hl{Yaw, Pitch and Roll angles of the gimbal [New figure]}}
+	\label{fig::software::Yaw_Pitch_Roll}
+\end{figure}
 
 \newpage
 \begin{landscape}
