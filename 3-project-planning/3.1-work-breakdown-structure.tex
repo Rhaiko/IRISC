@@ -21,52 +21,53 @@ level 1/.style={sibling distance=30mm}, edge from parent/.style={->,draw},
 % The first level, as children of the initial tree
 child {node[level 2] (c1) {Management}
 	child{node[level 3] (c11){Project \\ Manager}
-		child{node[level 4](c111){Diego Talavera \\ Niklas Ulfvarson}}
+		child{node[level 4](c111){\textbf{Diego Talavera} \\ Niklas Ulfvarson}}
 		}
 	child{node[level 3] (c12){Outreach}
-		child{node[level 4](c121){Veronika Haberle}}
+		child{node[level 4](c121){\textbf{Veronika Haberle}}}
 		}
 	}
 child {node[level 2] (c2) {Science}
 	child {node [level 3] (c21) {Astronomy}
-		child{node[level 4](c211){Kim Steele}}
+		child{node[level 4](c211){\textbf{Kim Steele}}}
 		}
 	child {node [level 3] (c22) {Data Analysis}
-		child{node[level 4](c221){Kim Steele \\ Veronika Haberle}}
+		child{node[level 4](c221){\textbf{Kim Steele} \\ Veronika Haberle}}
 		}
 	}
 child {node[level 2] (c3) {Mechanical}
 	child {node [level 3](c31) {Thermal \\ Engineering}
-		child{node[level 4](c311){Jack Hooper}}
+		child{node[level 4](c311){\textbf{Jack Hooper}}}
 		}
 	child {node [level 3](c32) {Structures and Materials}
-		child{node[level 4](c321){Diego Talavera}}
+		child{node[level 4](c321){\textbf{Jon Mihkkal Inga} \\ Diego Talavera}}
 		}
 	}
 child {node[level 2] (c4) {Electrical}
 	child {node [level 3] (c41) {Embedded systems}
-		child{node[level 4](c411){Elrick Weterings}}
+		child{node[level 4](c411){\textbf{Elrick Weterings}}}
 		}
 	child {node [level 3] (c42) {Energy \\ Technologies}
-		child{node[level 4](c421){Sabina Bj{\"o}rk}}
+		child{node[level 4](c421){\textbf{Sabina Bj{\"o}rk}}}
 		}
 	}
 child {node[level 2] [above=45mm of c4] (c5) {Software}
 	child {node [level 3] (c51) {Control \\ System}
-		child{node[level 4](c511){Anja M{\"o}slinger \\ Adam Smialek}}
+		child{node[level 4](c511){\textbf{Anja M{\"o}slinger} \\ Adam Smialek}}
 		}
 	child {node [level 3] (c52) {Onboard data}
-		child{node[level 4](c521){Harald Magnusson \\ William Eriksson}}
+		child{node[level 4](c521){\textbf{Harald Magnusson} \\ William Eriksson}}
 		}
 	child {node [level 3] (c53) {Ground station systems}
-		child{node[level 4](c531){Niklas Ulfvarson}}
+		child{node[level 4](c531){\textbf{Niklas Ulfvarson}}}
 		}
 	child {node [level 3] (c54) {Star Tracker}
-		child{node[level 4](c541){Niklas Ulfvarson}}
+		child{node[level 4](c541){\textbf{Niklas Ulfvarson}}}
 		}
 	};
 
 \end{tikzpicture}
 
 
-The IRISC team is divided into 5 major branches: Management, Science, Mechanical Engineering, Electrical Engineering an Software Engineering. Diego Talavera will also work in the Mechanical Engineering branch whenever needed. The Electrical and Software Engineering branches will work closely together to achieve smooth integration between hardware and software.
+The IRISC team is divided into 5 major branches: Management, Science, Mechanical Engineering, Electrical Engineering an Software Engineering. \hl{The people shown in bold text are responsible for the area they are in.} Diego Talavera will also work in the Mechanical Engineering branch whenever needed. The Electrical and Software Engineering branches will work closely together to achieve smooth integration between hardware and software.
+
