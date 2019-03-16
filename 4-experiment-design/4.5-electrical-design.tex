@@ -27,9 +27,9 @@ When putting a PWM signal on a DC-motor, the position of the DC-motor can be con
 
 The amount of steps per duty cycle of the pwm signal is 12 bits with the PCA9685 chip. This means $2^{12}$ steps between full on and full off. This will result that the motors can turn very very slowly.\\
 
-Then the signal will be amplified in current with a L298 motor driver (H-bridge). This signal will be delivered to a DC-motor which is geared with 1:312. There will be an encoder before and after the encoder. As most high encoders aren't able to measure below 5 arcseconds. Measuring before the gearbox helps to take smaller steps.\\
+Then the signal will be amplified in current with a L298 motor driver (H-bridge). This signal will be delivered to a DC-motor which is geared with 1:312. There will be an encoder before and after the gearbox. As most high encoders aren't able to measure below 5 arcseconds. Measuring before the gearbox helps to take smaller steps.\\
 
-The chosen encoder is an AMT23. This encoder has $2^{14}$ positions. When measuring before the gearbox, each step corresponds with 0.25 arcseconds. But because the motor can bounce between two bits the effective resolution is 0.5 arcseconds. The second encoder behind the gearbox has at least 312 steps per rotation, this way the position of the telescope can be measured exactly, even after a reboot from the watchdog.
+The chosen encoder is an AMT23. This encoder has $2^{14}$ positions. When measuring before the gearbox, each step corresponds with 0.25 arcseconds. But because the motor can bounce between two bits the effective resolution is 0.5 arcseconds. The second encoder behind the gearbox has at least 312 steps per rotation, this way the position of the telescope can be measured exactly. Since the encoders are absolute encoders and measure independently of the OBC, a watchdog reboot will not affect these measurements.
 }}
 
 \subsubsection{Gyroscopes}
