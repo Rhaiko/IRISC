@@ -417,3 +417,27 @@ This can be related to the resistance of the required heating pad.
 	\end{figure}
 
 \hl{As this is low that burning of the heater is unlikely to occur, unless the temperature is not properly regulated and the heating pad warms well beyond the desired control temperature. Also, any application method is suitable with respect to this concern. The BM3 shrink band Polyimide strip will be used as it allows heaters to be attached to cylindrical surfaces, and has a temperature minimum rating of -73\textsuperscript{o}C, lower than alternatives, making it more suitable for use in the stratosphere.}  \\
+
+\paragraph{Thermal control}
+
+\hl{To regulate the heater power output to ensure the required operating temperature is maintained, 6 Adafruit 165 temperature sensors will be used to provide feedback to a PID controller. These sensors can measure between -40\textsuperscript{o}C and 125\textsuperscript{o}C, with a resolution of 2\textsuperscript{o}C. Seven sensors will be used, one at the heating pad for each of the three cameras, one at the heating pad for each of the three motors, and one in the electronics box, so that recordings of the Raspberry Pi temperature can be made.} \\
+
+	\begin{figure}[h!]
+    \centering
+    \includegraphics[scale=0.6]{4-experiment-design/img/mechanical/Thermal_control.eps}
+	\caption{Schematic of the thermal control.}
+	\label{fig:Thermal_control}
+	\end{figure}
+\\
+
+\hl{The motivation behind PID control as opposed to switching the heaters on and then off when they get too hot, is that the temperature will be able to converge over time to a predictable and maintained design temperature, without regular oscillations. PID control mitigates the droop of temperature below the set point that one would experience with PD control. The controller will need to be designed to ensure that the initial overshoot does not raise the temperature above the maximum operating temperature of the components, and this can be verified in testing.}    
+
+\\
+	\begin{figure}[h!]
+    \centering
+    \includegraphics[scale=0.6]{4-experiment-design/img/mechanical/proportionalcontroltemp.JPG}
+	\caption{PID control response over time for temperature.}
+	\label{fig:PIDcontroltemp}
+	\end{figure}
+\\
+
