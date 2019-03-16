@@ -7,24 +7,55 @@
 The experiment itself has only two components that are placed inside the gondola. Firstly, the electronics box and then the gimbal on which the telescope is mounted. We require the gimbal to be placed at the edge of the gondola so that the telescope setup is stowed during launch and descent, but still capable of being deployed and performing its required range of motion for observing astronomical targets outside of the gondola.
 
 \begin{figure}[H]
-    \centering
-	\includegraphics[scale=1.2]{4-experiment-design/img/mechanical/Assembly_v3iso.png}
+   \begin{minipage}[t]{0.6\textwidth}   
+	\includegraphics[scale=1.4]{4-experiment-design/img/mechanical/Assembly_v3iso.png}
 	\caption{\hl{Overview of experiment structure. Image updated}}
+	\label{fig::mechanical::IsoView1}
+	\end{minipage}
+	\hfill
+	\begin{minipage}[t]{0.4\textwidth}
+	\vspace{-5cm}	
+	\begin{tabular}{c | c}
+	Color & Component \\ \hline
+	Yellow & Telescope\\
+	Purple & Gimbal\\
+	Red & NIR Camera\\
+	Green & Guiding camera\\
+	Blue & Electronics box\\	
+	\end{tabular}	
+\end{minipage}		 
 \end{figure}
+
+
 \subsubsection{Electronics box}
 \label{sec:4.4.2}
+
+
 The electronics box has a dimension 10x10x10 cm which is placed directly inside the gondola. It is estimated to weigh 1.5 kg. The box is made of aluminium side plates with a thick layer of styrofoam placed on the inside of the aluminium plates which protects the electronics. The box has rubber cushion feet that acts as a shock absorber and also thermal insulator from the gondola.
 
 \subsubsection{Gimbal}
 \label {sec:4.4.3}
 
-\begin{figure}[h!]
-\centering
-\includegraphics[scale=1]{4-experiment-design/img/mechanical/Aluminium_Gimbal1.png}
-\label{fig::mechanical::AlGim}
-\caption{\hl{Aluminium Gimbal proposed design (New Image)}}
+\begin{figure}[h]
+	\centering
+	\begin{minipage}[t]{0.4\linewidth}
+		\centering
+		\includegraphics[width=\linewidth]{4-experiment-design/img/mechanical/Aluminium_Gimbal1.png}
+		\caption{\hl{Aluminium Gimbal proposed design [New Figure]}}
+		\label{fig::mechanical::AlGim}
+	\end{minipage}
+	%\hfill
+	\hspace{0.1\linewidth}
+	\begin{minipage}[t]{0.4\linewidth}
+		\centering
+		\includegraphics[width=\linewidth]{4-experiment-design/img/software/Yaw_Pitch_Roll.eps}
+	\caption{\hl{Yaw, Pitch and Roll angles of the gimbal [New figure]}}
+	\label{fig::software::Yaw_Pitch_Roll}
+	\end{minipage}
+
 \end{figure}
-\st{We intend to use a three axis gimbal so that we have a maximum field of view. We use CFRP to manufacture the gimbal.} \hl{Aluminium extrusions will be used in order to have an easy manufacturing and adjusting of the structure. Simple ball bearings will be used for the X and Y axes rotations, for the Z axis, a set of two bearings; a ball bearing and a thrust bearing, will be used in order to provide more stability, they will be placed inside the cylindrical cover in the bottom of the gimbal along with the motor in order to provide proper support. The movement of each axis is shown in section 4.8.4 in figure $\ref{fig::software::Yaw_Pitch_Roll}$. The only gearbox expected to be used is the one included with the motors with a reduction gear ratio of 312:1. } The gimbal along with telescope is estimated to weigh around 10kg.
+
+\st{We intend to use a three axis gimbal so that we have a maximum field of view. We use CFRP to manufacture the gimbal.} \hl{Extruded aluminium profiles will be used in order to have an easy manufacturing and adjusting of the structure. Simple ball bearings will be used for the rotations around the X and Y axes. For the rotation around the Z axis, a set of two bearings; a ball bearing and a thrust bearing will be used in order to provide more stability, they will be placed inside the cylindrical cover in the bottom of the gimbal (see figure \mbox{\ref{fig::mechanical::IsoView1})} along with the motor in order to provide proper support. The movement around each axis is depicted above in figure \mbox{\ref{fig::software::Yaw_Pitch_Roll}}. The only gearbox expected to be used is the one included with the motors with a reduction gear ratio of 312:1. } The gimbal along with telescope is estimated to weigh around 10kg.
 
 
 
