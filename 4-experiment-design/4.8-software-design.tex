@@ -163,7 +163,7 @@ The main task of the control system is selecting and tracking the astronomical t
 
 \paragraph{Selecting and tracking targets}
 
-The selection and tracking of targets is done by using the current time, position (GPS) and orientation \st{(compass/magnetometer)} \hl{(sun sensor/star tracker and gyroscope)}
+The selection and tracking of targets is done by using the current time, position (GPS) and orientation \st{(compass/magnetometer)} \hl{star tracker and gyroscope)}
 of the gondola. Once a suitable target in the operational field of view is selected, it is tracked during exposure. This includes the compensation of the following motions:
 \begin{itemize}
 	\item Time-dependent rotational motion of the astronomical targets in the sky. This will be continuously compensated during exposure using models and/or interpolation of tables.
@@ -177,7 +177,7 @@ Due to the nature of the motion of astronomical targets, it is necessary to use 
 
 \textbf{\hl{Selection of targets}}
 
-\hl{The selection of targets is based on the operational field of view (the area of the sky where the telescope is able to look at) and prioritisation parameters of the possible targets within this field of view. The operational field of view is determined by using the sensor data from the orientation sensor (sun sensor/star tracker). Using a sun sensor or star tracker will provide an accurate absolute attitude determination system to ensure that the celestial object of interest is actually in the field of view of the telescope when it is pointed there. Compared to the gyroscopes that have a much higher angular resolution, the attitude determination system does not show any drift over time and does therefore not need to be calibrated during flight.
+\hl{The selection of targets is based on the operational field of view (the area of the sky where the telescope is able to look at) and prioritisation parameters of the possible targets within this field of view. The operational field of view is determined by using the sensor data from the orientation sensor (star tracker). Using a star tracker will provide an accurate absolute attitude determination system to ensure that the celestial object of interest is actually in the field of view of the telescope when it is pointed there. Compared to the gyroscopes that have a much higher angular resolution, the attitude determination system does not show any drift over time and does therefore not need to be calibrated during flight.
 
 Prioritisation parameters include the brightness of the object (brighter objects are expected to yield better results due to higher SNR), the location of the object within the operational field of view (objects near the centre of the field of view are favoured because they are less likely to rotate out of the field of view during exposure) and the number of exposures already taken (objects should be imaged more than once in order to be able to compare and verify the obtained data, but not more often than ten times during the flight). 
 
