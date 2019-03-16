@@ -28,7 +28,7 @@ The ASI183 camera is specified as having a read noise of 1.6e @30db gain and a Q
 	\begin{figure}[h!]
     \centering
     \includegraphics[scale=0.8]{4-experiment-design/img/mechanical/darkcurrent.png}
-    	\caption{Dark current through the camera at various temperatures.}
+    	\caption{Dark current through the camera at various temperatures. Source: ZWO}
 	\label{fig:darkcurrent}
 	\end{figure}
 
@@ -56,7 +56,7 @@ IRISC will ascend to and float in the stratosphere at an altitude of between 25 
 	\begin{figure}[h!]
     \centering
     \includegraphics[scale=0.6]{4-experiment-design/img/mechanical/atmosphere.PNG}
-	\caption{Temperature profile of the atmosphere.}
+	\caption{Temperature profile of the atmosphere. Source: REXUS/BEXUS}
 	\label{fig:atmosphere}
 	\end{figure}
 
@@ -81,7 +81,7 @@ The total solar irradiance, neglecting atmospheric effects, at the Esrange latit
 	\begin{figure}[h!]
     \centering
     \includegraphics[scale=0.6]{4-experiment-design/img/mechanical/directradiation.png}
-	\caption{Estimate of direct solar radiation at the top of the atmosphere.}
+	\caption{Estimate of direct solar radiation at the top of the atmosphere. Source: PVeducation.org}
 	\label{fig:directradiation}
 	\end{figure}
 
@@ -132,7 +132,7 @@ The degree of attenuation of solar radiation through the atmosphere can be descr
   \end{tabular}
 \end{center}
 
-The DC gear motors are rated as having a maximum efficiency of 35\%. For the electronics, it will be assumed that they are 90\% efficient. By multiplying the supplied power by the efficiencies, the heat generation can be determined. \\
+\hl{The DC gear motors are rated as having a maximum efficiency of 35\%. For the electronics, it will be assumed that they are 90\% efficient. By multiplying the supplied power by the efficiencies, the heat generation can be determined.} \\
 
 \begin{center}
   \begin{tabular}{ | l | c | }
@@ -287,15 +287,15 @@ For the electronics box, the temperature will need to be between 0\textsuperscri
 	\label{fig:thermaldiagram}
 	\end{figure}
 
-The material properties are as follows: \\
+\hl{The material properties are as follows:} \\
 
-Thermal conductivity of insulation: $ k_{i} = 0.034 \frac{W}{m K} $ \\
-Thermal conductivity of aluminium: $ k_{m} = 205 \frac{W}{m K} $ \\
-Thermal conductivity of air at 1 kPa, -80\textsuperscript{o}C: $ k_{a} = 15\times10^{-3} \frac{W}{m K} $ \\ 
-Convective heat transfer coefficient of air at 1 kPa, -80\textsuperscript{o}C: $ h_{a,c} = 3.12 \frac{W}{m^{2} K} $ \\ 
-Radiative heat transfer coefficient of air at 1 kPa, -80\textsuperscript{o}C: $ h_{a,r} = 6.59 \frac{W}{m^{2} K} $ \\ 
+\hl{Thermal conductivity of insulation:} $ k_{i} = 0.034 \frac{W}{m K} $ \\
+\hl{Thermal conductivity of aluminium:} $ k_{m} = 205 \frac{W}{m K} $ \\
+\hl{Thermal conductivity of air at 1 kPa, -80\textsuperscript{o}C:} $ k_{a} = 15\times10^{-3} \frac{W}{m K} $ \\ 
+\hl{Convective heat transfer coefficient of air:} $ h_{a,c} = 3.12 \frac{W}{m^{2} K} $ \\ 
+\hl{Radiative heat transfer coefficient of air:} $ h_{a,r} = 6.59 \frac{W}{m^{2} K} $ \\ 
 
-For 1D steady state conduction through the composite wall comprised of insulation and aluminium: \\
+\hl{For 1D steady state conduction through the composite wall comprised of insulation and aluminium:} \\
 
 	\begin{figure}[h!]
     \centering
@@ -324,7 +324,7 @@ For 1D steady state conduction through the composite wall comprised of insulatio
 \end{center}
  
 
-For 1D steady state conduction through the upper insulating layer: \\
+\hl{For 1D steady state conduction through the upper insulating layer:} \\
 
 	\begin{figure}[h!]
     \centering
@@ -352,7 +352,7 @@ For 1D steady state conduction through the upper insulating layer: \\
  
 \end{center}
 
-By summing the heat lost on both sides and equating that to the heat generated, we can find the thickness of insulating material to maintain the constant temperature. \\
+\hl{By summing the heat lost on both sides and equating that to the heat generated, we can find the thickness of insulating material to maintain the constant temperature.} \\
 
 \begin{center}
  $q_{loss} = \frac{100}{2940t_{1}+0.105} + \frac{100}{2940t_{1}+0.206} = 1.58 W = q_{gain} $\\
@@ -368,13 +368,13 @@ By summing the heat lost on both sides and equating that to the heat generated, 
  $P = \frac{\SI{5}{V}\textsuperscript{2}}{\SI{26.5}{\ohm}} = \SI{0.95}{W} $\\
 \end{center}
 
-The camera is 73.5\,mm long with a diameter of 78\,mm, so the 5587 heater with dimensions 31.8\,mm x 31.8\,mm and a resistance of 13.1\,\si{\ohm} is selected.\\
+\st{The camera is 73.5\,mm long with a diameter of 78\,mm, so the 5587 heater with dimensions 31.8\,mm x 31.8\,mm and a resistance of 13.1}\,\si{\ohm} \st{is selected.}\\
 
 \begin{center}
  $P = \frac{\SI{5}{V}\textsuperscript{2}}{\SI{13.1}{\ohm}} = \SI{0.95}{W} $\\
 \end{center}
 
-The electronics box is 100\,mm x 100\,mm x 100\,mm, so the 5592 heater with dimensions 44.5\,mm x 44.5\,mm and a resistance of 26.3\,\si{\ohm} is selected.\\
+\st{The electronics box is 100\,mm x 100\,mm x 100\,mm, so the 5592 heater with dimensions 44.5\,mm x 44.5\,mm and a resistance of 26.3}\,\si{\ohm} \st{is selected.}\\
 
 \begin{center}
  $P = \frac{\SI{5}{V}\textsuperscript{2}}{\SI{26.3}{\ohm}} = \SI{0.95}{W} $\\
@@ -382,19 +382,19 @@ The electronics box is 100\,mm x 100\,mm x 100\,mm, so the 5592 heater with dime
  
 \hl{For the three motors and three cameras insulation will not be possible. For these components therefore Minco Polyimide Thermofoil heating pads will be used. These heating pads are able to increase the temperature of a target by up to 200\textsuperscript{o}C, more than enough to reach the required temperature range for the motors and cameras given the temperatures in the stratosphere.}\\
 
-Assuming all the heat is transferred directly to the component, the power can be related to the time required to increase the target temperature by a certain amount.
+\hl{Assuming all the heat is transferred directly to the component, the power can be related to the time required to increase the target temperature by a certain amount.}
 
 \begin{center}
  $P = \frac{mC_{p}(T_{f}-T_{i}}{t} $ \\
 \end{center}
 
-For the motors with a mass of 142\,g and made of steel with a specific heat of 0.50\,J/g/$^\circ$C, to raise the temperature by 10 degrees in 5 minutes we require 2.37 W of power. It is assumed that the camera is of similar properties. \\
+\hl{For the motors with a mass of 142\,g and made of steel with a specific heat of 0.50\,J/g/$^\circ$C, to raise the temperature by 10 degrees in 5 minutes we require 2.37 W of power. It is assumed that the camera is of similar properties.} \\
 
 \begin{center}
  $P = \frac{(142)(0.5)(10\textsuperscript{o}C)}{5(60)} = \SI{2.37}{W} $ \\
 \end{center}
 
-This can be related to the resistance of the required heating pad.
+\hl{This can be related to the resistance of the required heating pad.}
 
 \begin{center}
  $P = \frac{V\textsuperscript{2}}{R} $\\
@@ -403,7 +403,7 @@ This can be related to the resistance of the required heating pad.
 
 \hl{ By selecting the pad with resistance 52.3\,$\Omega$ and running it at 10V, it will generate 1.91W of power, and will raise the temperature by 10 degrees in 6 minutes and 11 seconds.}\\ 
  
- This pad is the HK5165R52.3L12, capable of supplying 15W at 28V and has dimensions 25.4\,mm x 76.2\,mm.\\
+\hl{This pad is the HK5165R52.3L12, capable of supplying 15W at 28V and has dimensions 25.4\,mm x 76.2\,mm.}\\
 
 \hl{Given that the components are to be maintained at 20\textsuperscript{o}C, the maximum allowable watt density can be found, after which overheating and burning of the heating pad will occur. This will help to determine the application method of the pad to the heat sink.} \\
 
@@ -436,7 +436,7 @@ This can be related to the resistance of the required heating pad.
 	\begin{figure}[h!]
     \centering
     \includegraphics[scale=0.6]{4-experiment-design/img/mechanical/proportionalcontroltemp.JPG}
-	\caption{PID control response over time for temperature.}
+	\caption{PID control response over time for temperature. Source: Minco heaters}
 	\label{fig:PIDcontroltemp}
 	\end{figure}
 %\\
