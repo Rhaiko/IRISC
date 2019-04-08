@@ -13,7 +13,7 @@ The purpose of the On-Board Software consists of:
 	\item When possible, send images and housekeeping data to ground station.
 \end{itemize}
 
-\hl{The software is designed such that it can control the experiment autonomously throughout the whole experiment process but also enable control from ground through telecommands.}
+The software is designed such that it can control the experiment autonomously throughout the whole experiment process but also enable control from ground through telecommands.
 
 \subsubsection{Design}
 
@@ -26,7 +26,7 @@ The purpose of the On-Board Software consists of:
 	\label{fig:software-process-overview}
 \end{figure}
 
-All external components connected to the On-Board Computer and their interface are displayed in figure \ref{fig:software-process-overview}. \hl{The sanity camera provides an overview of the experiment and captures images on demand. The guiding camera provides an overall view in the direction the telescope is pointing and is also used as a star tracker to determine the gondola attitude. If necessary a secondary microcontroller will be added to support the high sampling frequency needed for the gyroscopes.}
+All external components connected to the On-Board Computer and their interface are displayed in figure \ref{fig:software-process-overview}. The sanity camera provides an overview of the experiment and captures images on demand. The guiding camera provides an overall view in the direction the telescope is pointing and is also used as a star tracker to determine the gondola attitude. If necessary a secondary microcontroller will be added to support the high sampling frequency needed for the gyroscopes.
 
 \paragraph{b)} General and safety related concepts
 
@@ -40,21 +40,21 @@ If connection to ground is available, images compressed with a lossless compress
 
 \paragraph{d)} Data acquisition and storage
 
-The main bulk of data handled is the images taken by the camera\hl{s}. Housekeeping data such as positioning, camera direction, time, etc will also be stored along with the images. \hl{The On-Board Computer has one SD card used for the OS and temporary storage. For the external data storage two SD cards are used for redundancy purposes. All data shall be saved on these external SD-cards.}
+The main bulk of data handled is the images taken by the cameras. Housekeeping data such as positioning, camera direction, time, etc will also be stored along with the images. The On-Board Computer has one SD card used for the OS and temporary storage. For the external data storage two SD cards are used for redundancy purposes. All data shall be saved on these external SD-cards.
 
-As the \hl{NIR} camera has a resolution of $5496 * 3672$ and a colour depth of 12\,bits, the raw image size will be 30.27\,MB. For a 4\,hour float phase and an exposure time of 30\,s a total of  14.53\,GB is required in on-board data storage for the images. \hl{An exposure time of 30\,s can't be guaranteed e.g. due to movements of the gondola. If the exposure time is dropped to 10\,s the total amount of data for continuous image capturing is  43.6\,GB.}
+As the NIR camera has a resolution of $5496 * 3672$ and a colour depth of 12\,bits, the raw image size will be 30.27\,MB. For a 4\,hour float phase and an exposure time of 30\,s a total of  14.53\,GB is required in on-board data storage for the images. An exposure time of 30\,s can't be guaranteed e.g. due to movements of the gondola. If the exposure time is dropped to 10\,s the total amount of data for continuous image capturing is  43.6\,GB.
 
-\hl{The guiding camera has a resolution of $1936 * 1096$ and a colour depth of 12\,bits leading to a raw image size of 3.18\,MB. If the guiding camera is sampled every 10\,seconds the total data required for the images is 4.58\,GB.}
+The guiding camera has a resolution of $1936 * 1096$ and a colour depth of 12\,bits leading to a raw image size of 3.18\,MB. If the guiding camera is sampled every 10\,seconds the total data required for the images is 4.58\,GB.
 
-\hl{As the housekeeping data is negligible in size compared to the images and as the sanity images are only taken on demand, an SD-card size of 64\,GB will be sufficient for all data storage.}
+As the housekeeping data is negligible in size compared to the images and as the sanity images are only taken on demand, an SD-card size of 64\,GB will be sufficient for all data storage.
 
 With a maximum of 1\,Mbit per second data transfer rate to ground it takes at least 145.5\,s to transfer one image compressed losslessly to 60\,\% of original size. This means that with little down time between observations and for most exposure times, not all images can be transmitted to ground.
 
 \paragraph{e)} Process Flow
 
-Pre-launch tests shall be conducted to ensure that all systems work as expected. Afterwards the system shall enter a sleep mode\hl{, a low activity state,} with the camera in a safe launch position. \hl{During the ascent the thermal control system shall be running to ensure that all components of the experiment are within nominal temperature ranges.}
+Pre-launch tests shall be conducted to ensure that all systems work as expected. Afterwards the system shall enter a sleep mode, a low activity state, with the camera in a safe launch position. During the ascent the thermal control system shall be running to ensure that all components of the experiment are within nominal temperature ranges.
 
-When the float phase is reached, the system will wake. \hl{This is done by tracking the altitude of the gondola using GPS data.} After wake-up the system shall find its orientation and the position of the sun. Finally tracking and observation can start.
+When the float phase is reached, the system will wake. This is done by tracking the altitude of the gondola using GPS data. After wake-up the system shall find its orientation and the position of the sun. Finally tracking and observation can start.
 
 Astronomical targets are prioritised. The software shall track and observe the highest priority target within the field of view with varying camera settings until one of the following events happen:
 
@@ -71,14 +71,14 @@ At the end of the floating phase the camera shall be oriented in a landing posit
 \begin{figure}[H]
     \centering
     \includegraphics[width=.5\textwidth]{4-experiment-design/img/software/activity-diagram.png}
-    \caption{Activity diagram describing the complete software flow. \hl{Here the internal actions SOE and EOE refer to when the software starts, i.e. on the launch pad, and shuts down respectively. This is done independently and therefore requires no activity from the gondola.} \hl{[updated figure]}}
+    \caption{Activity diagram describing the complete software flow. Here the internal actions SOE and EOE refer to when the software starts, i.e. on the launch pad, and shuts down respectively. This is done independently and therefore requires no activity from the gondola.}
     \label{fig:software-activity-diagram}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=.5\textwidth]{4-experiment-design/img/software/state-diagram.png}
-	\caption{State diagram for On-Board Software. \hl{[updated figure]}}
+	\caption{State diagram for On-Board Software.}
 	\label{fig:software-state-diagram}
 \end{figure}
 
@@ -88,7 +88,7 @@ At the end of the floating phase the camera shall be oriented in a landing posit
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=\textwidth]{4-experiment-design/img/software/composition-tree.png}
-	\caption{Composition tree of On-Board Software. \hl{[updated figure]}}
+	\caption{Composition tree of On-Board Software.}
 	\label{fig:software-composition-tree}
 \end{figure}
 
@@ -106,7 +106,7 @@ Figure \ref{fig:software-composition-tree} shows how the complete software is mo
 
 	\item Command: Module responsible for handling incoming commands from ground.
 
-	\item \hl{Data Storage: Module providing an interface to store data to the external SD-cards.}
+	\item Data Storage: Module providing an interface to store data to the external SD-cards.
 
 	\item E-link: Module responsible for communications over the E-link interface.
 
@@ -126,16 +126,16 @@ Figure \ref{fig:software-composition-tree} shows how the complete software is mo
 		\begin{itemize}
 			\item Orientation: Module keeping track of orientation and location.
 			\item Sun: Module keeping track of position of the sun.
-			\item \hl{Sensor Poller: Module responsible for polling sensors.}
+			\item Sensor Poller: Module responsible for polling sensors.
 			\item Temperature: Thermal sensors.
 		\end{itemize}
 
 	\item SPI: Module responsible for communications over the SPI bus.
 
-	\item Telemetry: \hl{Parent}
+	\item Telemetry: Parent
 		\begin{itemize}
-			\item \hl{Downlink: Module responsible for sending telemetry to ground.}
-			\item \hl{Downlink Queue: Buffer to hold telemetry messages.}
+			\item Downlink: Module responsible for sending telemetry to ground.
+			\item Downlink Queue: Buffer to hold telemetry messages.
 		\end{itemize}
 
 	\item Thermal: Module responsible for active thermal control
@@ -144,7 +144,7 @@ Figure \ref{fig:software-composition-tree} shows how the complete software is mo
 		\begin{itemize}
 			\item Current Target: Module holding the current target to be observed.
 			\item Controller: Module responsible for keeping camera on target.
-			\item \hl{Gimbal: Module providing an interface to the gimbal motors.}
+			\item Gimbal: Module providing an interface to the gimbal motors.
 			\item Target Choosing: Module responsible for keeping track of target prioritisation.
 		\end{itemize}
 
@@ -154,17 +154,16 @@ Figure \ref{fig:software-composition-tree} shows how the complete software is mo
 
 \subsubsection{Implementation}
 
-The code for the On-Board Software shall be implemented in C. An operating system will be used to enable the modularisation required. \hl{The chosen operating system is Linux with the Preempt RT kernel patch.} Additional libraries\hl{, such as the ASI SDK library used for controlling the cameras, will} \st{may} be needed.
+The code for the On-Board Software shall be implemented in C. An operating system will be used to enable the modularisation required. The chosen operating system is Linux with the Preempt RT kernel patch. Additional libraries, such as the ASI SDK library used for controlling the cameras, will be needed.
 
 
 
 \subsubsection{Control system}
-The main task of the control system is selecting and tracking the astronomical targets and stabilising the telescope during exposure. Other tasks include minor tasks like the thermal control of the CMOS sensor and the electronics box as well as control of the actuators. \hl{A general overview of the control loop for tracking \& stabilisation is given in figure  \mbox{\ref{fig::software::control_loop}} below. The thermal control loop is sketched in chapter \mbox{\ref{Thermal_section}}. }
+The main task of the control system is selecting and tracking the astronomical targets and stabilising the telescope during exposure. Other tasks include minor tasks like the thermal control of the CMOS sensor and the electronics box as well as control of the actuators. A general overview of the control loop for tracking \& stabilisation is given in figure  \mbox{\ref{fig::software::control_loop}} below. The thermal control loop is sketched in chapter \mbox{\ref{Thermal_section}}.
 
 \paragraph{Selecting and tracking targets}
 
-The selection and tracking of targets is done by using the current time, position (GPS) and orientation \st{(compass/magnetometer)} \hl{star tracker and gyroscope)}
-of the gondola. Once a suitable target in the operational field of view is selected, it is tracked during exposure. This includes the compensation of the following motions:
+The selection and tracking of targets is done by using the current time, position (GPS) and orientation star tracker and gyroscope) of the gondola. Once a suitable target in the operational field of view is selected, it is tracked during exposure. This includes the compensation of the following motions:
 \begin{itemize}
 	\item Time-dependent rotational motion of the astronomical targets in the sky. This will be continuously compensated during exposure using models and/or interpolation of tables.
 	\item Position-dependent rotational motion of the astronomical targets in the sky. This will be corrected once for every picture, using the GPS data.
@@ -173,36 +172,34 @@ of the gondola. Once a suitable target in the operational field of view is selec
 
 Due to the nature of the motion of astronomical targets, it is necessary to use a 3-axis gimbal.
 
-\hl{The three axes and the names for the rotation axes are shown in figure \mbox{\ref{fig::software::Yaw_Pitch_Roll}}.}
+The three axes and the names for the rotation axes are shown in figure \mbox{\ref{fig::software::Yaw_Pitch_Roll}}.
 
-\textbf{\hl{Selection of targets}}
+\textbf{Selection of targets}
 
-\hl{The selection of targets is based on the operational field of view (the area of the sky where the telescope is able to look at) and prioritisation parameters of the possible targets within this field of view. The operational field of view is determined by using the sensor data from the orientation sensor (star tracker). Using a star tracker will provide an accurate absolute attitude determination system to ensure that the celestial object of interest is actually in the field of view of the telescope when it is pointed there. Compared to the gyroscopes that have a much higher angular resolution, the attitude determination system does not show any drift over time and does therefore not need to be calibrated during flight.
+The selection of targets is based on the operational field of view (the area of the sky where the telescope is able to look at) and prioritisation parameters of the possible targets within this field of view. The operational field of view is determined by using the sensor data from the orientation sensor (star tracker). Using a star tracker will provide an accurate absolute attitude determination system to ensure that the celestial object of interest is actually in the field of view of the telescope when it is pointed there. Compared to the gyroscopes that have a much higher angular resolution, the attitude determination system does not show any drift over time and does therefore not need to be calibrated during flight.
 
 Prioritisation parameters include the brightness of the object (brighter objects are expected to yield better results due to higher SNR), the location of the object within the operational field of view (objects near the centre of the field of view are favoured because they are less likely to rotate out of the field of view during exposure) and the number of exposures already taken (objects should be imaged more than once in order to be able to compare and verify the obtained data, but not more often than ten times during the flight). 
 
 As the location of the astronomical targets changes with time and position of the gondola, these two parameters also need to be taken into account (for determination see paragraph Astronomical targets). Once a target is selected, this part of the control system will be deactivated until the picture was taken or the control loop is re-initialised.
-}
 
-\textbf{\hl{Tracking of astronomical targets}}
 
-\hl{The time-dependent and the position-dependent rotational motion of the astronomical targets are calculated by using an astronomical model and provides the control input for the subsequent stages of the control system. Because the state vectors for this model are time (internal clock) and position (GPS) and the input vector is the selected target (defined in the system, not a variable state for the exposure of one image), the state vectors cannot be affected by the control system (not controllable). Therefore, no dedicated feedback loop is used for this part of the control system. However, the input data from the GPS may be filtered before use. The output vector then provides the input for the compensation of rotation (of the gondola in the z-axis) and the stabilisation of the gimbal. }
+\textbf{Tracking of astronomical targets}
 
-\textbf{\hl{Rotation of the gondola}}
+The time-dependent and the position-dependent rotational motion of the astronomical targets are calculated by using an astronomical model and provides the control input for the subsequent stages of the control system. Because the state vectors for this model are time (internal clock) and position (GPS) and the input vector is the selected target (defined in the system, not a variable state for the exposure of one image), the state vectors cannot be affected by the control system (not controllable). Therefore, no dedicated feedback loop is used for this part of the control system. However, the input data from the GPS may be filtered before use. The output vector then provides the input for the compensation of rotation (of the gondola in the z-axis) and the stabilisation of the gimbal.
 
-\hl{The uncontrolled rotational motion of the gondola around the z-axis can be directly compensated by actuating the corresponding gimbal axis (yaw). This will be achieved by a PID control. As the same axis will also be actuated during the stabilisation process, it will be merged with the control loop for the stabilisation. As the required accuracy for detecting the rotation of the gondola is very high, the gyroscopes are used to provide the input (see stabilisation for more detail).}
+\textbf{Rotation of the gondola}
+
+The uncontrolled rotational motion of the gondola around the z-axis can be directly compensated by actuating the corresponding gimbal axis (yaw). This will be achieved by a PID control. As the same axis will also be actuated during the stabilisation process, it will be merged with the control loop for the stabilisation. As the required accuracy for detecting the rotation of the gondola is very high, the gyroscopes are used to provide the input (see stabilisation for more detail).
 
 
 \paragraph{Stabilisation of the gimbal}
 The stabilisation of the gimbal only needs to be active during exposure in order to avoid blurred pictures. It is responsible for compensating all kinds of small-scale, unpredicted movements of the gondola. In order to achieve this, an active feedback loop that requires information about the gondola movements is needed. This information is gathered by using accelerometers and gyroscopes for all 3 axes.
 
-\hl{After the target is selected, the gyroscopes are reset so there is no offset-error and the best accuracy can be achieved. With this setup, it is possible to measure the movements of the gondola with an accuracy higher than the corresponding angular resolution of one pixel. Once the gyroscopes are reset the value of the attitude determination system is held constant within the control system, because the accuracy of the gyroscopes is orders of magnitude higher than that of the attitude determination system. 
+After the target is selected, the gyroscopes are reset so there is no offset-error and the best accuracy can be achieved. With this setup, it is possible to measure the movements of the gondola with an accuracy higher than the corresponding angular resolution of one pixel. Once the gyroscopes are reset the value of the attitude determination system is held constant within the control system, because the accuracy of the gyroscopes is orders of magnitude higher than that of the attitude determination system. 
 
 In addition to the gyroscopes, the encoders are used to obtain the actual position of the telescope within the gondola and therefore provide a second set of data for the feedback loop. The sensor data is filtered by a Kalman filter to decrease the sensor noise and deduce the current orientation of the telescope as well as the motion of the gondola with a high precision.
 
 The control of the gimbal (tracking and stabilisation as well as compensation of the gondola rotation for the yaw axis) is done by a separate PID control for each axis. The output of the controller is the required speed for the actuating motor of the respective axis. This information is then processed by the motor controller that calculates the required input currents for the motors. 
-
-}
 
 
 %\begin{figure}%[h]
@@ -216,7 +213,7 @@ The control of the gimbal (tracking and stabilisation as well as compensation of
 \begin{landscape}
 	\begin{figure}
 		\includegraphics[width=\linewidth]{4-experiment-design/img/software/Control_loop.eps}
-		\caption{\hl{Control loop of the experiment [New figure]}}
+		\caption{Control loop of the experiment}
 		\label{fig::software::control_loop}
 	\end{figure}
 \end{landscape}
