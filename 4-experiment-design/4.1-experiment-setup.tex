@@ -21,23 +21,46 @@ The telescope chosen is a Sky-Watcher~BKP~130~DS (see figure \ref{fig::4.1-teles
 
 The imaging sensor used is ZWO ASI183MM (mono) (see figure \ref{fig::4.1-sensor}), a CMOS sensor with only one channel (mono, not color) with a resolution of 20.18\,MP (5496x3672), a sensor size of 13.2x8.8\,mm (diagonal: 15.86\,mm) and a pixel size of 2.4x2.4\,$\mu$m. To limit the wavelength bandwidth imaged, an IR filter that filters out any wavelengths below 720\,nm is used in order to use the sensor as a NIR camera.
 
+\hl{The imaging spectrum of the NIR imaging sensor is illustrated in figure {\ref{fig::4.1-NIR_spectrum}.} }
+
 \begin{figure}[h]
 	\centering
-	\begin{minipage}[t]{0.4\linewidth}
+	\begin{minipage}[t]{0.3\linewidth}
 		\centering
-		\includegraphics[width=0.8\linewidth]{4-experiment-design/img/setup/SkyWatcher_BKP130DS}
+		\includegraphics[width=1.0\linewidth]{4-experiment-design/img/setup/SkyWatcher_BKP130DS}
 		\caption{Sky-Watcher BKP~130~DS}
 		\label{fig::4.1-telescope}
 	\end{minipage}
 	%\hfill
-	\hspace{0.1\linewidth}
-	\begin{minipage}[t]{0.4\linewidth}
+	\hspace{0.03\linewidth}
+	\begin{minipage}[t]{0.3\linewidth}
 		\centering
-		\includegraphics[width=0.5\linewidth]{4-experiment-design/img/setup/ZWO_ASI183MM}
-		\caption{ZWO ASI183MM (mono)} 
+		\includegraphics[width=0.65\linewidth]{4-experiment-design/img/setup/ZWO_ASI183MM}
+		\caption{ZWO ASI183MM (mono) \hl{(NIR camera)}} 
 		\label{fig::4.1-sensor}
 	\end{minipage}
+	\hspace{0.03\linewidth}
+	\begin{minipage}[t]{0.3\linewidth}
+		\centering
+		\includegraphics[width=0.7\linewidth]{4-experiment-design/img/setup/ZWO_ASI290MM_Mini}
+		\caption{ZWO ASI290 Mini (mono) (guiding camera) \hl{[new figure]}} 
+		\label{fig::4.1-guiding_camera}
+	\end{minipage}
 
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\linewidth]{4-experiment-design/img/setup/IRISC_spectrum}
+	\caption{Imaging spectrum of the NIR camera \hl{[new figure]}}
+	\label{fig::4.1-NIR_spectrum}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\linewidth]{4-experiment-design/img/setup/CMOS_spectrum}
+	\caption{Imaging spectrum of the guiding camera \hl{[new figure]}}
+	\label{fig::4.1-CMOS_spectrum}
 \end{figure}
 
 This combination of telescope and sensor features the following specifications:
@@ -56,7 +79,7 @@ This combination of telescope and sensor features the following specifications:
 	\end{align}
 \end{itemize}
 
-In order to examine the field of view in case the images sent down via downlink do not show the expected astronomical targets, an additional imaging sensor is installed on a guiding telescope that has a shorter focal length than the main telescope, implying a larger field of view. With the help of these pictures it will be able to correct offset errors in the pointing mechanism of the control system due to e.\,g.~temperature drift of the sensors. In addition to this a small sanity camera with a wide angle lens (very large field of view) to keep track of the system status and detect possible errors if neither the NIR images nor the images from the guiding telescope show the expected results may be installed (not included in figures \ref{fig::4-1_CAD} and \ref{fig::4-1_block_diagram}).
+In order to examine the field of view in case the images sent down via downlink do not show the expected astronomical targets, an additional imaging sensor \hl{(ZWO ASI 290MM Mini)} is installed on a guiding telescope that has a shorter focal length than the main telescope, implying a larger field of view \hl{(see figure {\ref{fig::4.1-guiding_camera}}). This sensor has the same sensitivity spectrum as the NIR camera, but it is not intended to block out any of the visible or NIR wavelengths in order to maximise the incident light and therefore the input signal. The spectrum is illustrated in figure {\ref{fig::4.1-CMOS_spectrum}}.} With the help of these pictures it will be able to correct offset errors in the pointing mechanism of the control system due to e.\,g.~temperature drift of the sensors. In addition to this a small sanity camera with a wide angle lens (very large field of view) to keep track of the system status and detect possible errors if neither the NIR images nor the images from the guiding telescope show the expected results may be installed (not included in figures \ref{fig::4-1_CAD} and \ref{fig::4-1_block_diagram}).
 
 
 
