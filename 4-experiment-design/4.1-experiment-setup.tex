@@ -21,7 +21,7 @@ The telescope chosen is a Sky-Watcher~BKP~130~DS (see figure \ref{fig::4.1-teles
 
 The imaging sensor used is ZWO ASI183MM (mono) (see figure \ref{fig::4.1-sensor}), a CMOS sensor with only one channel (mono, not color) with a resolution of 20.18\,MP (5496x3672), a sensor size of 13.2x8.8\,mm (diagonal: 15.86\,mm) and a pixel size of 2.4x2.4\,$\mu$m. To limit the wavelength bandwidth imaged, an IR filter that filters out any wavelengths below 720\,nm is used in order to use the sensor as a NIR camera.
 
-\hl{The imaging spectrum of the NIR imaging sensor is illustrated in figure {\ref{fig::4.1-NIR_spectrum}.} }
+The imaging spectrum of the NIR imaging sensor is illustrated in figure \ref{fig::4.1-NIR_spectrum}.
 
 \begin{figure}[h]
 	\centering
@@ -36,14 +36,14 @@ The imaging sensor used is ZWO ASI183MM (mono) (see figure \ref{fig::4.1-sensor}
 	\begin{minipage}[t]{0.3\linewidth}
 		\centering
 		\includegraphics[width=0.65\linewidth]{4-experiment-design/img/setup/ZWO_ASI183MM}
-		\caption{ZWO ASI183MM (mono) \hl{(NIR camera)}} 
+		\caption{ZWO ASI183MM (mono) (NIR camera)}
 		\label{fig::4.1-sensor}
 	\end{minipage}
 	\hspace{0.03\linewidth}
 	\begin{minipage}[t]{0.3\linewidth}
 		\centering
 		\includegraphics[width=0.7\linewidth]{4-experiment-design/img/setup/ZWO_ASI290MM_Mini}
-		\caption{ZWO ASI290 Mini (mono) (guiding camera) \hl{[new figure]}} 
+		\caption{ZWO ASI290 Mini (mono) (guiding camera)}
 		\label{fig::4.1-guiding_camera}
 	\end{minipage}
 
@@ -52,14 +52,14 @@ The imaging sensor used is ZWO ASI183MM (mono) (see figure \ref{fig::4.1-sensor}
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8\linewidth]{4-experiment-design/img/setup/IRISC_spectrum}
-	\caption{Imaging spectrum of the NIR camera \hl{[new figure]}}
+	\caption{Imaging spectrum of the NIR camera}
 	\label{fig::4.1-NIR_spectrum}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8\linewidth]{4-experiment-design/img/setup/CMOS_spectrum}
-	\caption{Imaging spectrum of the guiding camera \hl{[new figure]}}
+	\caption{Imaging spectrum of the guiding camera}
 	\label{fig::4.1-CMOS_spectrum}
 \end{figure}
 
@@ -79,7 +79,7 @@ This combination of telescope and sensor features the following specifications:
 	\end{align}
 \end{itemize}
 
-In order to examine the field of view in case the images sent down via downlink do not show the expected astronomical targets, an additional imaging sensor \hl{(ZWO ASI 290MM Mini)} is installed on a guiding telescope that has a shorter focal length than the main telescope, implying a larger field of view \hl{(see figure {\ref{fig::4.1-guiding_camera}}). This sensor has the same sensitivity spectrum as the NIR camera, but it is not intended to block out any of the visible or NIR wavelengths in order to maximise the incident light and therefore the input signal. The spectrum is illustrated in figure {\ref{fig::4.1-CMOS_spectrum}}.} With the help of these pictures it will be able to correct offset errors in the pointing mechanism of the control system due to e.\,g.~temperature drift of the sensors. In addition to this a small sanity camera with a wide angle lens (very large field of view) to keep track of the system status and detect possible errors if neither the NIR images nor the images from the guiding telescope show the expected results may be installed (not included in figures \ref{fig::4-1_CAD} and \ref{fig::4-1_block_diagram}).
+In order to examine the field of view in case the images sent down via downlink do not show the expected astronomical targets, an additional imaging sensor (ZWO ASI 290MM Mini) is installed on a guiding telescope that has a shorter focal length than the main telescope, implying a larger field of view (see figure \ref{fig::4.1-guiding_camera}). This sensor has the same sensitivity spectrum as the NIR camera, but it is not intended to block out any of the visible or NIR wavelengths in order to maximise the incident light and therefore the input signal. The spectrum is illustrated in figure \ref{fig::4.1-CMOS_spectrum}. With the help of these pictures it will be able to correct offset errors in the pointing mechanism of the control system due to e.\,g.~temperature drift of the sensors. In addition to this a small sanity camera with a wide angle lens (very large field of view) to keep track of the system status and detect possible errors if neither the NIR images nor the images from the guiding telescope show the expected results may be installed (not included in figures \ref{fig::4-1_CAD} and \ref{fig::4-1_block_diagram}).
 
 
 
@@ -110,7 +110,7 @@ The control system is responsible for tracking the target in the sky and stabili
 \subsubsection{Attitude determination}
 In order to determine the attitude of the gondola as it is rotating, the guiding camera will also function as a star tracker. As the relative orientation of the telescope with respect to the gondola is known, the gondola attitude can be calculated and used for the control system. The star tracker will be based on the system used by team GranaSAT which flew on Bexus 19. Their experiment was able to correctly identify 445 star fields and incorrectly identified 10. Several images had to be discarded due to a lack of found stars, but as their camera also acted as a horizon detector the FOV of stars was limited. As their software worked well and was run on-board on a Raspberry Pi the conditions are generally similar. Contact is established with members from team GranaSAT, and with their support the star tracker software will be adapted for IRISC. It should be noted that GranaSAT flew during night time, while IRISC will most likely be flying during day time. However, as the tracker will be used above the atmosphere it should be able to producer similar results anyway.
 
-\hl{Another system that has been shown to work under similar conditions is the Daystar Star Tracker \mbox{\cite{daystar}}. It was flown during daytime on a NASA balloon, piggybacking on a test of the WASP system. It was shown that daytime star tracking is possible with good results. Some of the modifications that had to be applied was a high pass filter to remove any Rayleigh scattering, and efficient star identification algorithms. Also, some extra image processing was needed. As their project was well documented, and all their software is open source, this too will be used to aid the development of the star tracker for IRISC.}
+Another system that has been shown to work under similar conditions is the Daystar Star Tracker \mbox{\cite{daystar}}. It was flown during daytime on a NASA balloon, piggybacking on a test of the WASP system. It was shown that daytime star tracking is possible with good results. Some of the modifications that had to be applied was a high pass filter to remove any Rayleigh scattering, and efficient star identification algorithms. Also, some extra image processing was needed. As their project was well documented, and all their software is open source, this too will be used to aid the development of the star tracker for IRISC.
 
 
 
