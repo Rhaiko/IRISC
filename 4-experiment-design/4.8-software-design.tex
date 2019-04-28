@@ -10,7 +10,7 @@ The purpose of the On-Board Software consists of:
 	\item Reading data from sensors and controlling actuators when needed.
 	\item Processing and storing images taken by camera.
 	\item Logging housekeeping data.
-	\item When possible, sending images and housekeeping data to ground station.
+	\item When possible, send\hl{ing} images and housekeeping data to ground station.
 \end{itemize}
 
 The software is designed such that it can control the experiment autonomously throughout the whole experiment process but also enable control from ground through telecommands.
@@ -21,12 +21,12 @@ The software is designed such that it can control the experiment autonomously th
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=\textwidth]{4-experiment-design/img/software/process-overview.png}
-	\caption{Relations between On-Board Computer and connected components.}
+	\includegraphics[width=.9\textwidth]{4-experiment-design/img/software/process-overview.png}
+	\caption{Relations between On-Board Computer and connected components. \hl{[Updated figure: Watchdog removed due to an internal watchdog being used instead of external hardware.]}}
 	\label{fig:software-process-overview}
 \end{figure}
 
-All external components connected to the On-Board Computer and their interface are displayed in figure \ref{fig:software-process-overview}. The sanity camera provides an overview of the experiment and captures images on demand. The guiding camera provides an overall view in the direction the telescope is pointing and is also used as a star tracker to determine the gondola attitude. A secondary microcontroller will be used to support the high sampling frequency needed for the gyroscopes. This microcontroller will be polled by the OBC.
+All external components connected to the On-Board Computer and their interface are displayed in figure \ref{fig:software-process-overview}. The sanity camera provides an overview of the experiment and captures images on demand. The guiding camera provides an overall view in the direction the telescope is pointing and is also used as a star tracker to determine the gondola attitude. \hl{A secondary microcontroller will be used to support the high sampling frequency needed for the gyroscopes. This microcontroller will be polled by the OBC.}
 
 \paragraph{b)} General and safety related concepts
 
@@ -34,60 +34,48 @@ To ensure that the software is not erroneous rigorous testing will be done durin
 
 \paragraph{c)} Interfaces
 
-If connection to ground is available, images compressed with a lossless compression will be sent down over the E-link over the course of the experiment. If the storage were to fail on touchdown for any reason, this would mean that not all data is lost. All communications over the E-link will be done using TCP to ensure that packet loss won't corrupt data.
+If connection to ground is available, images compressed with a lossless compression will be sent down over the E-link over the course of the experiment. If the storage were to fail on touchdown for any reason, this would mean that not all data is lost. \hl{All communications over the E-link will be done using TCP to ensure that packet loss won't corrupt data.}
 
 \input{4-experiment-design/tables/software-interfaces.tex}
 
-All housekeeping data will be stored in the form of text documents. This data will be transmitted to ground periodically. In the beginning of observations, images from the guiding camera will also be transmitted to verify that the system is working as intended. In the case that the images from the guiding camera are not as expected, an image from the sanity camera can be transmitted on demand. This is the only case a sanity image would be transmitted.
+\hl{All housekeeping data will be stored in the form of text documents. This data will be transmitted to ground periodically. In the beginning of observations, images from the guiding camera will also be transmitted to verify that the system is working as intended. In the case that the images from the guiding camera are not as expected, an image from the sanity camera can be transmitted on demand. This is the only case a sanity image would be transmitted.
 
-So long as there is additional headroom in the link budget, images from the NIR camera will be transmitted to ground. How many and when images are transmitted as well as an upper limit on the data rate if needed shall be controlled from ground. A minimum bandwidth of 300\,kbit/s is required for sensor data and guiding images. Once the initial guiding images has been received and verified, the nominal bandwidth required to transmit 10 images per hour is 500\,kbit/s. Any available bandwidth above that can be used to transmit additional images.
+So long as there is additional headroom in the link budget, images from the NIR camera will be transmitted to ground. How many and when images are transmitted as well as an upper limit on the data rate if needed shall be controlled from ground. A minimum bandwidth of 300\,kbit/s is required for sensor data and guiding images. Once the initial guiding images has been received and verified, the nominal bandwidth required to transmit 10 images per hour is 500\,kbit/s. Any available bandwidth above that can be used to transmit additional images.}
 
 \newpage
-The telecommands are very small compared to the telemetry. In the worst case scenario the command size is in the kbit range after all communication overhead is added. The following points shall be controllable from the ground station:
+\hl{The telecommands are very small compared to the telemetry. In the worst case scenario the command size is in the kbit range after all communication overhead is added. The following points shall be controllable from the ground station:}
 
 \begin{itemize}
-	\item Rebooting the entire system.
-	\item Updating the list of targets and their priorities.
-	\item Calibrating the tracking to remove any offsets that may have appeared.
-	\item Choosing how fast and how many NIR images will be transmitted.
-	\item Setting camera settings such as exposure time and sensor gain.
-	\item On-command image capturing with the guiding or sanity cameras.
+	\item \hl{Rebooting the entire system.}
+	\item \hl{Updating the list of targets and their priorities.}
+	\item \hl{Calibrating the tracking to remove any offsets that may have appeared.}
+	\item \hl{Choosing how fast and how many NIR images will be transmitted.}
+	\item \hl{Setting camera settings such as exposure time and sensor gain.}
+	\item \hl{On-command image capturing with the guiding or sanity cameras.}
 \end{itemize}
-
-
-
-
-
-
-
-
-
-
-
-
 
 \paragraph{d)} Data acquisition and storage
 
-All data will be compressed using zstd, a lossless compression. The resulting compression ratio is heavily dependent on the contents of the data. A ratio of 2:1 (original data size to compressed) is used as a rough estimate from testing.
+\hl{All data will be compressed using zstd, a lossless compression. The resulting compression ratio is heavily dependent on the contents of the data. A ratio of 2:1 (original data size to compressed) is used as a rough estimate from testing.}
 
 The main bulk of data handled is the images taken by the cameras. Housekeeping data such as positioning, camera direction, time, etc will also be stored along with the images. The On-Board Computer has one SD card used for the OS and temporary storage. For the external data storage two SD cards are used for redundancy purposes. All data shall be saved on these external SD-cards.
 
-Both the NIR camera and the guiding camera have a colour depth of 12\,bits, but the image file format demands 16\,bits\,per\,pixel. This results in extra zero-padding on the data. However as this appears regularly, the compression algorithm can easily reduce the size overhead greatly.
+\hl{Both the NIR camera and the guiding camera have a colour depth of 12\,bits, but the image file format demands 16\,bits\,per\,pixel. This results in extra zero-padding on the data. However as this appears regularly, the compression algorithm can easily reduce the size overhead greatly.}
 
-As the NIR camera has a resolution of $5496 * 3672$ and 16\,bits\,per\,pixel, the raw image compressed size will be 20.18\,MB. For a 4\,hour float phase and an exposure time of 30\,s a total of  9.69\,GB is required in on-board data storage for the images. An exposure time of 30\,s can't be guaranteed e.g. due to movements of the gondola. If the exposure time is dropped to 10\,s the total amount of data for continuous image capturing is  29.06\,GB.
+As the NIR camera has a resolution of $5496 * 3672$ and \hl{16\,bits\,per\,pixel} \st{a colour depth of 12\,bits}, the raw image \hl{compressed size will be roughly 20\,MB} \st{size will be 30.27\,MB}. For a 4\,hour float phase and an exposure time of 30\,s a total of  9.69\,GB is required in on-board data storage for the images. An exposure time of 30\,s can't be guaranteed e.g. due to movements of the gondola. If the exposure time is dropped to 10\,s the total amount of data for continuous image capturing is \hl{29\,GB} \st{43.6\,GB}.
 
-The guiding camera has a resolution of $1936 * 1096$ and 16\,bits\,per\,pixel, leading to a raw image compressed size of 2.12\,MB. If the guiding camera is sampled every 10\,seconds the total data required for the images is 3.05\,GB.
+The guiding camera has a resolution of $1936 * 1096$ and \hl{16\,bits\,per\,pixel} \st{a colour depth of 12\,bits}, leading to a raw image \hl{compressed size of roughly 2.1\,MB} \st{size of 3.18\,MB}. If the guiding camera is sampled every 10\,s the total data required for the images is \hl{3\,GB} \st{4.58\,GB}.
 
 As the housekeeping data is negligible in size compared to the images and as the sanity images are only taken on demand, an SD-card size of 64\,GB will be sufficient for all data storage.
 
-With a maximum of 1\,Mbit per second data transfer rate to ground it takes at least 161.5\,s to transfer one image compressed losslessly to 50\,\% of original size. This means that with little down time between observations and for most exposure times, not all images can be transmitted to ground.
+With a maximum of 1\,Mbit per second data transfer rate to ground it takes at least \hl{161.5\,s} \st{145.5\,s} to transfer one image compressed losslessly to \hl{50\,\%} \st{60\%} of original size. This means that with little down time between observations and for most exposure times, not all images can be transmitted to ground.
 
-The minimum data rate to the external storage required to save NIR images every 30\,s, guiding camera images every 10\,s, and sensor data polled each second is 900\,kbit/s.
+\hl{The minimum data rate to the external storage required to save NIR images every 30\,s, guiding camera images every 10\,s, and sensor data polled each second is 900\,kbit/s.}
 
 
 \paragraph{e)} Process Flow
 
-The system can either start in a testing mode, or normal operation. The testing mode is used for pre-flight tests to ensure that all systems are working as intended. Afterwards the system shall enter a sleep mode, a low activity state, with the camera in a safe launch position. During the ascent the thermal control system shall be running to ensure that all components of the experiment are within nominal temperature ranges.
+\st{Pre-launch tests shall be conducted} \hl{The system can either start in a testing mode, or in normal operation. The testing mode is used for pre-flight tests} to ensure that all systems work as expected. Afterwards the system shall enter a sleep mode, a low activity state, with the camera in a safe launch position. During the ascent the thermal control system shall be running to ensure that all components of the experiment are within nominal temperature ranges.
 
 When the float phase is reached, the system will wake. This is done by tracking the altitude of the gondola using GPS data. After wake-up the system shall find its orientation and the position of the sun. Finally tracking and observation can start.
 
@@ -113,7 +101,7 @@ At the end of the floating phase the camera shall be oriented in a landing posit
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=.7\textwidth]{4-experiment-design/img/software/state-diagram.png}
-	\caption{State diagram for On-Board Software.}
+	\caption{State diagram for On-Board Software. \hl{[Updated figure: Test mode added]}}
 	\label{fig:software-state-diagram}
 \end{figure}
 
@@ -189,7 +177,7 @@ Figure \ref{fig:software-composition-tree} shows how the complete software is mo
 
 \subsubsection{Implementation}
 
-The code for the On-Board Software shall be implemented in C. An operating system will be used to enable the modularisation required. The chosen operating system is Linux with the Preempt RT kernel patch. Additional libraries, such as the ASI SDK library used for controlling the cameras, will be needed. The compression used for the telemetry is supplied by the zstd library.
+The code for the On-Board Software shall be implemented in C. An operating system will be used to enable the modularisation required. The chosen operating system is Linux with the Preempt RT kernel patch. Additional libraries, such as the ASI SDK library used for controlling the cameras, will be needed. \hl{The compression used for the telemetry is supplied by the zstd library.}
 
 
 
