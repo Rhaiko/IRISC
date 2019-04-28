@@ -6,11 +6,11 @@
 		Ground Station
 		& E-link             \\
 		External Data Storage
-		& USB            \\
+		& USB            	 \\
 		NIR Camera
 		& USB                \\
 		Guiding Camera
-		& USB                \\		
+		& USB                \\
 		Sanity Camera
 		& CSI                \\
 		Watchdog
@@ -21,13 +21,15 @@
 		& SPI                \\
 		Gondola Gyroscope
 		& I2C                \\
-		Camera Gyroscope   
+		Camera \hl{Encoders} \st{Gyroscope}
 		& I2C                \\
 		Controller Actuators
 		& I2C                \\
-		Thermal Sensors \& Actuators
-		& I2C
+		Thermal Sensors \st{\& Actuators}
+		& I2C				 \\
+		\hl{Heaters \& Coolers}
+		& \hl{I2C}
 	\end{tabular}
-	\caption{Table showing the interface that each external component is connected with. This is also visually represented in figure \ref{fig:software-process-overview}.}
+	\caption{Table showing the interface that each external component is connected with. This is also visually represented in figure \ref{fig:software-process-overview}. \hl{[Updated figure]}}
 	\label{tab:software-interfaces}
 \end{table}
