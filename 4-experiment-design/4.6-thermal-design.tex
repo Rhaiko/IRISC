@@ -65,7 +65,7 @@ IRISC will ascend to and float in the stratosphere at an altitude of between 25 
 \paragraph{Solar flux}
 
 The extent of solar irradiance is characterised by several factors, including the sun’s height above the horizon, typically low for the polar latitudes that the balloon will be flying at, and the height in the atmosphere and atmospheric conditions, which will cause absorption and scattering of light. \\
-The total solar irradiance, neglecting atmospheric effects, at the Esrange latitude of 68\textsuperscript{o} and assuming a launch date of the 15th of October is demonstrated in the following graph of direct solar radiation, with a peak of ~500\,kW/m\textsuperscript{2} at noon.\\
+The total solar irradiance, neglecting atmospheric effects, at the Esrange latitude of 68\textsuperscript{o} and assuming a launch date of the 15th of October is demonstrated in the following graph of direct solar radiation, with a peak of ~500\,W/m\textsuperscript{2} at noon.\\
 
 	\begin{figure}[h!]
     \centering
@@ -101,9 +101,9 @@ As the ambient conditions are likely to be very cold, many of the components wil
 
 The Igarashi DC gearmotors will need to be maintained at between 0\textsuperscript{o}C and 60\textsuperscript{o}C. If the ambient conditions are assumed to be -70\,\textsuperscript{o}C, then the temperature of these motors will need to be raised by more than 80\,\textsuperscript{o}C, assuming a tolerance of 10\,\textsuperscript{o}C.\\
 
-The main camera (ZWO ASI183MM) will need to be maintained at between -5\textsuperscript{o}C and 45\textsuperscript{o}C. The temperature of this component will need to increase by more than 75\,\textsuperscript{o}C. Likewise for the sanity camera. For the main camera to reduce noise there is value in keeping the optics cool while the electronics are warmed to the operating temperature. This should be taken into account in the thermal design.\\
+The main camera (ZWO ASI183MM) will need to be maintained at between -5\textsuperscript{o}C and 45\textsuperscript{o}C. The temperature of this component will need to increase by more than 75\,\textsuperscript{o}C. Likewise for the guiding camera. For the main camera to reduce noise there is value in keeping the optics cool while the electronics are warmed to the operating temperature. This should be taken into account in the thermal design.\\
 
-The guiding camera (Raspberry Pi Camera v2.1) will need to be maintained at between -20\textsuperscript{o}C and 60\textsuperscript{o}C. The temperature of this component will need to increase by more than 60\,\textsuperscript{o}C.\\
+The sanity camera (Raspberry Pi Camera v2.1) will need to be maintained at between -20\textsuperscript{o}C and 60\textsuperscript{o}C. The temperature of this component will need to increase by more than 60\,\textsuperscript{o}C.\\
 
 For the electronics box, the temperature will need to be between 0\textsuperscript{o}C and 50\textsuperscript{o}C, for the Raspberry Pi, the most temperature sensitive component. A temperature increase of more than 80\textsuperscript{o}C is required\textsuperscript{o}C.\\
 
@@ -258,4 +258,25 @@ The motivation behind PID control as opposed to switching the heaters on and the
 	\label{fig:PIDcontroltemp}
 	\end{figure}
 %\\
+
+\subsubsection{ANSYS Simulation}
+\hl{A simulation of the thermal evolution for the gondola geometry including the insulated electronics box and the gimbal and baffle. The simulation was using the transient thermal package and conducted over a span of 2 hours and 45 minutes. The initial temperature of the components was set at -80} \textsuperscript{o}C, \hl{the expected temperature of the ambient air, and the heat previously found to be generated in the electronics box, the most significant component of internal heat generation was modelled as the 10.58 W, and the incident radiation from the sun of 500} W/m\textsuperscript{2} \hl{was also modelled. The simulation was the computed, calculating the conduction of heat through the structure and radiation from the surface of the structure to the surrounding environment.}\\
+
+\hl{The materials used in the simulation were as follows.}\\
+
+\input{4-experiment-design/tables/thermal-analysismaterials.tex}
+
+\hl{The heat flux through the experiment rig was displayed as an output at the end of the simulation time, once a state closer to equilibrium had been reached, and temperature probes were placed on the electronics box surface and the top of the gimble to measure what the temperature of these regions would be. The probes measured that with the heating from the electronic box and solar flux, the top of the gimble would reach -75}\textsuperscript{o}C \hl{after the runtime, and the surface of the insulation around the electronics box would reach -53}\textsuperscript{o}C.
+
+	\begin{figure}[h!]
+    \centering
+    \includegraphics[scale=0.6]{4-experiment-design/img/mechanical/totalheatflux.PNG}
+	\caption{\hl{Heat flux for the experiment at near equilibrium conditions.}}
+	\label{fig:thermalsimulation1}
+	\end{figure} 
+
+
+
+
+
 
