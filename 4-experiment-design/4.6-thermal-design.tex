@@ -4,11 +4,39 @@
 
 
 
-\subsubsection{Optothermal considerations}
 
-In order to ensure minimal measurement error in acquiring images, the effect of temperature on the optics must be considered, and the temperature must be controlled if needed to ensure that the error is within an acceptable range.\
+
+
+
+
+
+
+
+
+
+
+
+\subsubsection{Thermal requirements}
+
+\paragraph{Operating temperatures}
+
+The most obvious temperature requirement is in meeting the operating temperature for the various components, tabulated below.\\ 
+
+\input{4-experiment-design/tables/thermal-tempranges.tex}
+
+As the ambient conditions are likely to be very cold, many of the components will need to be heated so that the electronics are able to operate.\\
+
+The Igarashi DC gearmotors will need to be maintained at between 0\textsuperscript{o}C and 60\textsuperscript{o}C. If the ambient conditions are assumed to be -70\,\textsuperscript{o}C, then the temperature of these motors will need to be raised by more than 80\,\textsuperscript{o}C, assuming a tolerance of 10\,\textsuperscript{o}C.\\
+
+The main camera (ZWO ASI183MM) will need to be maintained at between -5\textsuperscript{o}C and 45\textsuperscript{o}C. The temperature of this component will need to increase by more than 75\,\textsuperscript{o}C. Likewise for the guiding camera. For the main camera to reduce noise there is value in keeping the optics cool while the electronics are warmed to the operating temperature. This should be taken into account in the thermal design.\\
+
+The sanity camera (Raspberry Pi Camera v2.1) will need to be maintained at between -20\textsuperscript{o}C and 60\textsuperscript{o}C. The temperature of this component will need to increase by more than 60\,\textsuperscript{o}C.\\
+
+For the electronics box, the temperature will need to be between 0\textsuperscript{o}C and 50\textsuperscript{o}C, for the Raspberry Pi, the most temperature sensitive component. A temperature increase of more than 80\textsuperscript{o}C is required\textsuperscript{o}C.\\
 
 \paragraph{SNR}
+
+In order to ensure minimal measurement error in acquiring images, the effect of temperature on the optics must be considered, and the temperature must be controlled if needed to ensure that the error is within an acceptable range.\\
 
 Dark current is small residual currents that are present in the camera, generated irrespective of whether there is incident illumination. This dark current becomes present in the data in the form of random noise that is not trivial to subtract. By decreasing the operating temperature of the camera optics, the magnitude of dark current can be minimised and the signal to noise ratio increased. This relationship between signal to noise ratio and dark current is as follows\\
 
@@ -48,6 +76,35 @@ Another important effect will be the how thermal stresses and subsequent deflect
 
 \paragraph{Condensation}
 Condensation may occur if air heated by the camera heating elements is able to condensate on the cold surfaces of the optics. This will deteriorate the quality of the detections and must also be mitigated.  \
+
+\paragraph{Thermal deformation of mechanical parts}
+
+\hl{TODOTODOTODO}
+
+
+	\begin{figure}[h!]
+    \centering
+    \includegraphics[scale=0.8]{4-experiment-design/img/mechanical/thermalrequirements.PNG}
+    	\caption{Summary of the thermal requirements for the system.}
+	\label{fig:thermalrequirements}
+	\end{figure}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 \subsubsection{Thermal environment}
 \paragraph{Atmosphere ambient conditions}
@@ -89,23 +146,25 @@ For other electronic components, it will be assumed that they are 90\% efficient
 
 It is of note that in historical BEXUS projects utilising the Raspberry Pi in an insulated environment, surface temperatures of 50\textsuperscript{o}C have been recorded. 
 
-\subsubsection{Temperature requirements}
 
-\input{4-experiment-design/tables/thermal-tempranges.tex}
 
-\textsuperscript{*}0\textsuperscript{o}C required to prevent condensation and subsequent freezing on the motors.\\
 
-\newpage
 
-As the ambient conditions are likely to be very cold, many of the components will need to be heated so that the electronics are able to operate.\\
 
-The Igarashi DC gearmotors will need to be maintained at between 0\textsuperscript{o}C and 60\textsuperscript{o}C. If the ambient conditions are assumed to be -70\,\textsuperscript{o}C, then the temperature of these motors will need to be raised by more than 80\,\textsuperscript{o}C, assuming a tolerance of 10\,\textsuperscript{o}C.\\
 
-The main camera (ZWO ASI183MM) will need to be maintained at between -5\textsuperscript{o}C and 45\textsuperscript{o}C. The temperature of this component will need to increase by more than 75\,\textsuperscript{o}C. Likewise for the guiding camera. For the main camera to reduce noise there is value in keeping the optics cool while the electronics are warmed to the operating temperature. This should be taken into account in the thermal design.\\
 
-The sanity camera (Raspberry Pi Camera v2.1) will need to be maintained at between -20\textsuperscript{o}C and 60\textsuperscript{o}C. The temperature of this component will need to increase by more than 60\,\textsuperscript{o}C.\\
 
-For the electronics box, the temperature will need to be between 0\textsuperscript{o}C and 50\textsuperscript{o}C, for the Raspberry Pi, the most temperature sensitive component. A temperature increase of more than 80\textsuperscript{o}C is required\textsuperscript{o}C.\\
+
+
+
+
+
+
+
+
+
+
+
 
 \subsubsection{Thermal control}
 
@@ -197,6 +256,79 @@ $= q_{gain} $\\
 
 Solving this equation yields a thickness of 0.64\,cm. It is important to note that this analysis relies on several assumptions, such as one dimensional steady state heat transfer, and that the convection mechanism on the top and bottom of the electronics box is the same. It also does not take into account heat flux from solar radiation. In reality, there will be a conductive path through the insulating material from the bottom to the top of the box, and heat will not have to pass through the very low density air in the box. This will be taken into account in a FEA analysis of the thermal properties, using the ANSYS package. \\
 
+To verify the results on the analytical study of the electronics box thermal scenario, a model was created and analysed using the FEA tool built into Autodesk Fusion 360. A simple model was considered, of the same dimensioned box attached to a $350 \,mm \times 450\,mm \times 6\,mm$ sheet of aluminium metal, that the box can gradually conduct heat into through the insulating material. \\
+
+A $100\,mm \times 100\,mm \times 20\,mm$ box of epoxy resin is placed in the inside of the box, so that it is in contact with the inside walls. This box is a crude representation of the PCB, and is modelled to have the 10.58 W of heat generated uniformly through the material, representing the heat generated by the Raspberry Pi. \\
+
+In addition to the 10.58 W of heat from the electronics box, 500 $\frac{W}{m^{2}}$ of heat was modelled as being incident on the top surface of the aluminium base and the electronics box. The system loses heat through radiation and convection of the largest surfaces to a -80\textsuperscript{o}C environment. 
+
+The materials and corresponding properties are as follows:
+
+\input{4-experiment-design/tables/thermal-analysismaterials.tex}
+
+The convection constant for air, was as previously used, selected to be 3.12 $\frac{W}{m^2 K} $
+
+A static thermal analysis was therefore conducted under these conditions, for an insulation thickness of 1 mm, 3 mm, and 6 mm. 
+
+	\begin{figure}[h!]
+    \centering	
+	\includegraphics[scale=0.58]{4-experiment-design/img/mechanical/6mmthickheat.PNG}
+	\caption{Thermal simulation of electronics box with 6mm insulation, exposed to solar heating.}
+	\label{fig:6mmthickheat}
+    	\end{figure}
+
+The 6mm insulation previously recommended yields a case where temperatures are too large, 134\textsuperscript{o}C compared to the required 50\textsuperscript{o}C maximum. This makes sense, as the simplified 2D analysis did not account for the insulation material surrounding all edges of the PCB and did not account for solar heating. 
+
+	\begin{figure}[h!]
+    \centering    	
+    \includegraphics[scale=0.6]{4-experiment-design/img/mechanical/3mmthickheat.PNG}
+	\caption{Thermal simulation of electronics box with 3mm insulation, exposed to solar heating.}
+	\label{fig:3mmthickheat}
+	\end{figure}
+
+	\begin{figure}[h!]
+    \centering  
+    \includegraphics[scale=0.65]{4-experiment-design/img/mechanical/1mmthickheat.PNG}
+	\caption{Thermal simulation of electronics box with 1mm insulation, exposed to solar heating.}
+	\label{fig:1mmthickheat}    
+    	\end{figure}
+    	
+The thermal environment was also simulated assuming no solar heating for each insulation thickness, resulting in lower temperatures. \\
+
+	\begin{figure}[h!]
+    \centering	
+	\includegraphics[scale=0.58]{4-experiment-design/img/mechanical/6mmthicknoheat.PNG}
+	\caption{Thermal simulation of electronics box with 6mm insulation, no solar heating.}
+	\label{fig:6mmthicknoheat}
+    	\end{figure}
+
+	\begin{figure}[h!]
+    \centering    	
+    \includegraphics[scale=0.6]{4-experiment-design/img/mechanical/3mmthicknoheat.PNG}
+	\caption{Thermal simulation of electronics box with 3mm insulation, no solar heating.}
+	\label{fig:3mmthicknoheat}
+	\end{figure}
+
+	\begin{figure}[h!]
+    \centering  
+    \includegraphics[scale=0.65]{4-experiment-design/img/mechanical/1mmthicknoheat.PNG}
+	\caption{Thermal simulation of electronics box with 1mm insulation, no solar heating.}
+	\label{fig:1mmthicknoheat}    
+    	\end{figure}
+	
+In this case, 1mm insulation yields the best result, with the temperature at 38.2\textsuperscript{o}C with solar heating and -5\textsuperscript{o}C without, well within the required temperatures for the electronics. In any case, this analysis also makes assumptions about perfect conductive interfaces and perfect distributions of material properties, as well as a generic treatment of the thermal loads and geometry. Experimental testing will be required to ascertain more accurately the thermal conditions and to ensure that the thermal control that has been selected will work optimally and reliably. 
+
+
+\paragraph{Raspberry Pi heat sink}
+
+It is also worth noting that in this analysis, the heat generated is distributed across the entire box, instead of centralised in a smaller volume, which in reality would be the case as the Raspberry Pi generates most of the heat. This would result in much higher temperatures for the Raspberry Pi, possibly exceeded ideal temperatures. Indeed, measurements taken from previous experiments have indicated temepratures at the Raspberry Pi exceeding 80\textsuperscript{o}C. \\
+
+A small heat sink should therefore be used to distribute the heat from the Raspberry Pi more evenly, to better resemble this case. 
+
+\paragraph{Insulation tape for telescope}
+\hl{TODOTODOTODO}
+
+
 \paragraph{Heating pads}
 For the three motors and three cameras insulation will not be possible. For these components therefore Minco Polyimide Thermofoil heating pads will be used. These heating pads are able to increase the temperature of a target by up to 200\textsuperscript{o}C, more than enough to reach the required temperature range for the motors and cameras given the temperatures in the stratosphere.\\
 
@@ -236,47 +368,43 @@ The area of the heater is 3\,inch$^2$. Dividing the power by this area yields a 
 
 As this is low that burning of the heater is unlikely to occur, unless the temperature is not properly regulated and the heating pad warms well beyond the desired control temperature. Also, any application method is suitable with respect to this concern. The BM3 shrink band Polyaimide strip will be used as it allows heaters to be attached to cylindrical surfaces, and has a temperature minimum rating of -73\textsuperscript{o}C, lower than alternatives, making it more suitable for use in the stratosphere. \\
 
+\hl{THERMAL TAPE AROUND MOTORS AND CAMERAS TODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODO}
+
+\paragraph{Thermal expansion and contraction of mechanical parts}
+
+\hl{TODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODO}
+
+
 \paragraph{Thermal control}
 
-To regulate the heater power output to ensure the required operating temperature is maintained, 6 Adafruit 165 temperature sensors will be used to provide feedback to a PID controller. These sensors can measure between -40\textsuperscript{o}C and 125\textsuperscript{o}C, with a resolution of 2\textsuperscript{o}C. Seven sensors will be used, one at the heating pad for each of the three cameras, one at the heating pad for each of the three motors, and one in the electronics box, so that recordings of the Raspberry Pi temperature can be made. %\\
+To regulate the heater power output to ensure the required operating temperature is maintained, 6 Adafruit 165 temperature sensors will be used to provide feedback to a thermostat. These sensors can measure between -40\textsuperscript{o}C and 125\textsuperscript{o}C, with a resolution of 2\textsuperscript{o}C. Seven sensors will be used, one at the heating pad for each of the three cameras, one at the heating pad for each of the three motors, and one in the electronics box, so that recordings of the Raspberry Pi temperature can be made. 
 
-	\begin{figure}[h!]
-    \centering
-    \includegraphics[scale=0.6]{4-experiment-design/img/mechanical/Thermal_control.eps}
-	\caption{Schematic of the thermal control.}
-	\label{fig:Thermal_control}
-	\end{figure}
-%\\
-
-The motivation behind PID control as opposed to switching the heaters on and then off when they get too hot, is that the temperature will be able to converge over time to a predictable and maintained design temperature, without regular oscillations. PID control mitigates the droop of temperature below the set point that one would experience with PD control. The controller will need to be designed to ensure that the initial overshoot does not raise the temperature above the maximum operating temperature of the components, and this can be verified in testing.
-
-%\\
-	\begin{figure}[h!]
-    \centering
-    \includegraphics[scale=1]{4-experiment-design/img/mechanical/proportionalcontroltemp.JPG}
-	\caption{PID control response over time for temperature. Source: Minco heaters}
-	\label{fig:PIDcontroltemp}
-	\end{figure}
-%\\
-
-\subsubsection{ANSYS Simulation}
-\hl{A simulation of the thermal evolution for the gondola geometry including the insulated electronics box and the gimbal and baffle. The simulation was using the transient thermal package and conducted over a span of 2 hours and 45 minutes. The initial temperature of the components was set at -80} \textsuperscript{o}C, \hl{the expected temperature of the ambient air, and the heat previously found to be generated in the electronics box, the most significant component of internal heat generation was modelled as the 10.58 W, and the incident radiation from the sun of 500} W/m\textsuperscript{2} \hl{was also modelled. The simulation was the computed, calculating the conduction of heat through the structure and radiation from the surface of the structure to the surrounding environment.}\\
-
-\hl{The materials used in the simulation were as follows.}\\
-
-\input{4-experiment-design/tables/thermal-analysismaterials.tex}
-
-\hl{The heat flux through the experiment rig was displayed as an output at the end of the simulation time, once a state closer to equilibrium had been reached, and temperature probes were placed on the electronics box surface and the top of the gimble to measure what the temperature of these regions would be. The probes measured that with the heating from the electronic box and solar flux, the top of the gimble would reach -75}\textsuperscript{o}C \hl{after the runtime, and the surface of the insulation around the electronics box would reach -53}\textsuperscript{o}C.
-
-	\begin{figure}[h!]
-    \centering
-    \includegraphics[scale=0.6]{4-experiment-design/img/mechanical/totalheatflux.PNG}
-	\caption{\hl{Heat flux for the experiment at near equilibrium conditions.}}
-	\label{fig:thermalsimulation1}
-	\end{figure} 
+\hl{TODOTODOTODO}
 
 
 
 
 
 
+
+
+
+
+
+
+
+\subsubsection{Summary of thermal control}
+(insulation \\
+heat sink,\\ 
+insulation tape,\\
+minco heaters,\\
+thermal tape)\\
+
+
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.8]{4-experiment-design/img/mechanical/thermalsolutions.png}
+\caption{Summary of the thermal control mechanisms for the system.}
+\label{fig:thermalsolutions}
+\end{figure}
