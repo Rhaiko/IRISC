@@ -112,7 +112,7 @@ At the end of the floating phase the camera shall be oriented in a landing posit
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=\textwidth]{4-experiment-design/img/software/composition-tree.png}
-	\caption{Composition tree of On-Board Software.}
+	\caption{Composition tree of On-Board Software. \hl{[Updated figure]}}
 	\label{fig:software-composition-tree}
 \end{figure}
 
@@ -122,7 +122,7 @@ Figure \ref{fig:software-composition-tree} shows how the complete software is mo
 
 	\item Camera: Parent
 		\begin{itemize}
-			\item Camera Control: Module responsible for selecting target, camera settings and capturing images.
+			\item \st{Camera Control: Module responsible for selecting target, camera settings and capturing images.}
 			\item Guiding Camera: Communication link to the guiding camera.
 			\item NIR Camera: Communication link to the NIR camera.
 			\item Sanity Camera: Communication link to the sanity camera.
@@ -130,11 +130,13 @@ Figure \ref{fig:software-composition-tree} shows how the complete software is mo
 
 	\item Command: Module responsible for handling incoming commands from ground.
 
-	\item Data Storage: Module providing an interface to store data to the external SD-cards.
+	\item \st{Data Storage: Module providing an interface to store data to the external SD-cards.}
 
 	\item E-link: Module responsible for communications over the E-link interface.
 
-	\item I2C: Module responsible for communications over the I2C bus.
+    \item \hl{GPIO: Module responsible for communications through the Raspberry Pi GPIO.}
+
+	\item \st{I2C: Module responsible for communications over the I2C bus.}
 
 	\item Img Processing: Image processing, parent
 		\begin{itemize}
@@ -148,13 +150,17 @@ Figure \ref{fig:software-composition-tree} shows how the complete software is mo
 
 	\item Sensors: Parent
 		\begin{itemize}
-			\item Orientation: Module keeping track of orientation and location.
-			\item Sun: Module keeping track of position of the sun.
+            \item \hl{Encoder: Module holding encoder data.}
+            \item \hl{GPS: Module holding GPS data.}
+            \item \hl{Gyroscope: Module holding gyroscope data.}
+			\item \st{Orientation: Module keeping track of orientation and location.}
+			\item \st{Sun: Module keeping track of position of the sun.}
 			\item Sensor Poller: Module responsible for polling sensors.
+            \item \hl{Star Tracker: Module holding absolute attitude obtained from the star tracker.}
 			\item Temperature: Thermal sensors.
 		\end{itemize}
 
-	\item SPI: Module responsible for communications over the SPI bus.
+	\item \st{SPI: Module responsible for communications over the SPI bus.}
 
 	\item Telemetry: Parent
 		\begin{itemize}
@@ -164,15 +170,15 @@ Figure \ref{fig:software-composition-tree} shows how the complete software is mo
 
 	\item Thermal: Module responsible for active thermal control
 
-	\item Tracking: Parent
+	\item \hl{Control System} \st{Tracking}: Parent
 		\begin{itemize}
 			\item Current Target: Module holding the current target to be observed.
-			\item Controller: Module responsible for keeping camera on target.
+			\item \hl{Stabilisation} \st{Controller}: Module responsible for keeping camera on target.
 			\item Gimbal: Module providing an interface to the gimbal motors.
-			\item Target Choosing: Module responsible for keeping track of target prioritisation.
+			\item Target \hl{Selection} \st{Choosing}: Module responsible for keeping track of target prioritisation \hl{and positioning as well as controlling the main camera}.
 		\end{itemize}
 
-	\item Watchdog: Timer to reset external watchdog.
+	\item Watchdog: Timer to reset \st{external} watchdog.
 
 \end{itemize}
 
