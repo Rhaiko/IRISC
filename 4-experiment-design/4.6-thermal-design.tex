@@ -77,11 +77,6 @@ Another important effect will be the how thermal stresses and subsequent deflect
 \paragraph{Condensation}
 Condensation may occur if air heated by the camera heating elements is able to condensate on the cold surfaces of the optics. This will deteriorate the quality of the detections and must also be mitigated.  \
 
-\paragraph{Thermal deformation of mechanical parts}
-
-\hl{TODOTODOTODO}
-
-
 	\begin{figure}[h!]
     \centering
     \includegraphics[scale=0.8]{4-experiment-design/img/mechanical/thermalrequirements.PNG}
@@ -166,7 +161,7 @@ It is of note that in historical BEXUS projects utilising the Raspberry Pi in an
 
 
 
-\subsubsection{Thermal control}
+\subsubsection{Thermal analysis}
 
 \paragraph{Insulation}
 
@@ -316,21 +311,40 @@ The thermal environment was also simulated assuming no solar heating for each in
 	\label{fig:1mmthicknoheat}    
     	\end{figure}
 	
-In this case, 1mm insulation yields the best result, with the temperature at 38.2\textsuperscript{o}C with solar heating and -5\textsuperscript{o}C without, well within the required temperatures for the electronics. In any case, this analysis also makes assumptions about perfect conductive interfaces and perfect distributions of material properties, as well as a generic treatment of the thermal loads and geometry. Experimental testing will be required to ascertain more accurately the thermal conditions and to ensure that the thermal control that has been selected will work optimally and reliably. 
+In this case, 1mm insulation yields the best result, with the temperature at 38.2\textsuperscript{o}C with solar heating and -5\textsuperscript{o}C without, well within the required temperatures for the electronics. In any case, this analysis also makes assumptions about perfect conductive interfaces and perfect distributions of material properties, as well as a generic treatment of the thermal loads and geometry. Experimental testing will be required to ascertain more accurately the thermal conditions and to ensure that the thermal control that has been selected will work optimally and reliably. \\
+
+Avoid electrostatic discharging 
+
+\hl{TODOTODO}
+
+
 
 
 \paragraph{Raspberry Pi heat sink}
 
-It is also worth noting that in this analysis, the heat generated is distributed across the entire box, instead of centralised in a smaller volume, which in reality would be the case as the Raspberry Pi generates most of the heat. This would result in much higher temperatures for the Raspberry Pi, possibly exceeded ideal temperatures. Indeed, measurements taken from previous experiments have indicated temepratures at the Raspberry Pi exceeding 80\textsuperscript{o}C. \\
+It is also worth noting that in this analysis, the heat generated is distributed across the entire box, instead of centralised in a smaller volume, which in reality would be the case as the Raspberry Pi generates most of the heat. This would result in much higher temperatures for the Raspberry Pi, possibly exceeded ideal temperatures. Indeed, measurements taken from previous experiments have indicated temperatures at the Raspberry Pi exceeding 80\textsuperscript{o}C. \\
 
 A small heat sink should therefore be used to distribute the heat from the Raspberry Pi more evenly, to better resemble this case. 
 
 \paragraph{Insulation tape for telescope}
-\hl{TODOTODOTODO}
+\hl{TODOTODO}
 
 
-\paragraph{Heating pads}
-For the three motors and three cameras insulation will not be possible. For these components therefore Minco Polyimide Thermofoil heating pads will be used. These heating pads are able to increase the temperature of a target by up to 200\textsuperscript{o}C, more than enough to reach the required temperature range for the motors and cameras given the temperatures in the stratosphere.\\
+\paragraph{Motors and cameras}
+The motors and cameras are distinct from the electronics box in that the predicted power output is much lower, and so therefore the amount of heat able to be insulated is commensurately lower. A simple, first order estimate of the amount of insualtion needed for the motors has been conducted using a rudimentary FEA model.\\
+
+In this model, the motors are modelled as steel cylinders generating 0.91 W of heat, surrounded by extruded polystyrene, with outer surfaces losing heat by way of radiation and convection. The same thermal environment and material properties were used as in the analysis of the electronics box.\\
+
+	\begin{figure}[h!]
+    \centering
+    \includegraphics[scale=0.6]{4-experiment-design/img/mechanical/thermalmotors.PNG}
+	\caption{Results of thermal analysis of motor with insulation and no sun shining.}
+	\label{fig:thermalmotors}
+	\end{figure}
+
+It was found that in order to heat the motors to the required level, based on their heat output, a 40 mm thick layer of insulation would be needed. This seems like a large requirement, and will need to be verified with physical testing. If it is found that the amount of insulating material needs to be reduced, for spatial, mechanical, or other reasons then the heating demands can still be met by adding in heating elements to the insulated environment, which would in effect increase the total "internal heat generation" and minimise the insulation requirement.\\
+
+For these components Minco Polyimide Thermofoil heating pads can be used. These heating pads are able to increase the temperature of a target by up to 200\textsuperscript{o}C, more than enough to reach the required temperature range for the motors and cameras given the temperatures in the stratosphere.\\
 
 Assuming all the heat is transferred directly to the component, the power can be related to the time required to increase the target temperature by a certain amount.
 
@@ -366,41 +380,20 @@ The area of the heater is 3\,inch$^2$. Dividing the power by this area yields a 
 	\label{fig:thermalresistance1}
 	\end{figure}
 
-As this is low that burning of the heater is unlikely to occur, unless the temperature is not properly regulated and the heating pad warms well beyond the desired control temperature. Also, any application method is suitable with respect to this concern. The BM3 shrink band Polyaimide strip will be used as it allows heaters to be attached to cylindrical surfaces, and has a temperature minimum rating of -73\textsuperscript{o}C, lower than alternatives, making it more suitable for use in the stratosphere. \\
-
-\hl{THERMAL TAPE AROUND MOTORS AND CAMERAS TODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODO}
-
-\paragraph{Thermal expansion and contraction of mechanical parts}
-
-\hl{TODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODO}
+As this is low that burning of the heater is unlikely to occur, unless the temperature is not properly regulated and the heating pad warms well beyond the desired control temperature. Also, any application method is suitable with respect to this concern. To ensure proper conduction onto the surfaces of the motors and cameras, a thermal interface pad (ILA-TIM-CLUSTER-30X30-2A) will be used ensuring no air gaps that can cause spot heating or electric sparking. \\
 
 
-\paragraph{Thermal control}
+\subsubsection{Thermal control}
+The following methods for regulating the thermal environment have been suggested:\\
 
-To regulate the heater power output to ensure the required operating temperature is maintained, 6 Adafruit 165 temperature sensors will be used to provide feedback to a thermostat. These sensors can measure between -40\textsuperscript{o}C and 125\textsuperscript{o}C, with a resolution of 2\textsuperscript{o}C. Seven sensors will be used, one at the heating pad for each of the three cameras, one at the heating pad for each of the three motors, and one in the electronics box, so that recordings of the Raspberry Pi temperature can be made. 
+\begin{itemize}
+  \item Extruded polystyrene to insulate electronics box self-heat. 
+  \item Heat sink for the Raspberry Pi in the electronics box.
+  \item White reflecting tape, few conductive pathways for the telescope optics.
+  \item Insulation tape, small conductive pathways to isolate telescope optics.
+  \item Extruded polystyrene and Minco heaters to heat motors and cameras.
 
-\hl{TODOTODOTODO}
-
-
-
-
-
-
-
-
-
-
-
-
-
-\subsubsection{Summary of thermal control}
-(insulation \\
-heat sink,\\ 
-insulation tape,\\
-minco heaters,\\
-thermal tape)\\
-
-
+\end{itemize}
 
 \begin{figure}[h!]
 \centering
@@ -408,3 +401,17 @@ thermal tape)\\
 \caption{Summary of the thermal control mechanisms for the system.}
 \label{fig:thermalsolutions}
 \end{figure}
+
+Risks have been identified and addressed including:
+
+\begin{itemize}
+  \item Electrostatic charging from movement of the polystyrene or PCBs.
+  \item Overheating of the Raspberry Pi. 
+  \item Deformation of the mirrors. 
+  \item Air gaps between heaters and motors leading to spot heating. 
+  \item Air gaps between heaters and motors leading to electrical sparking.
+
+\end{itemize}
+
+To measure the temperature of the motors and especially cameras, which should be kept on the cooler end of the operating range, four Adafruit 165 temperature sensors will be used. This output will be fed into a simple proportional control loop to keep the components within the desired temperature range. Precision is not a major requirement for the thermal system. 
+
