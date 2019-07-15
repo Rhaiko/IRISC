@@ -3,14 +3,16 @@
 \begin{center}
 \begin{table}[H]
 \centering
-  \begin{tabular}{ | l | c | c | c | c | }
+\begin{adjustbox}{max width=\textwidth}
+  \begin{tabular}{ | l | c | c | c | c | c | }
     \hline
-    \textbf{Material} & \textbf{Components} & \textbf{Density $ \frac{kg}{m^3} $ } & \textbf{Conductivity $ \frac{W}{m ^oC} $} & \textbf{Specific Heat $ \frac{J}{kg ^oC} $} \\ \hline
-    Structural Steel  & Gimbal, Baffle & 7850 & 60.5 & 434\\ \hline
-    Aluminium Alloy  & Gondola & 2770 & 148.62 & 875\\ \hline
-    Polystyrene (PS)  & Insulation & 1040 & 0.13 & 1250\\ \hline
+    \textbf{Material} & \textbf{Components} & \textbf{Density $ \frac{kg}{m^3} $ } & \textbf{Conductivity $ \frac{W}{m ^oC} $} &\textbf{Specific heat $ \frac{J}{^oC kg} $} & \textbf{Emissivity / absorptivity  ratio (-)} \\ \hline
+    Epoxy resin  & PCB & 1140 & 0.468 & 1000 & -\\ \hline
+    Aluminium & Base & 2700 & 230 & 897 & 0.46\\ \hline
+    Polystyrene (extruded)  & Box, Lid & 35 & 0.027 & 1470 & 0.9\\ \hline
   \end{tabular}
-\caption{\hl{Thermal properties of the materials used in the FEA simulation.}}
+\end{adjustbox}
+\caption{\hl{Thermal properties of the materials used in the FEA simulation, with polystyrene radiating more readily and aluminium conducting more readily.}}
 \end{table}
 \label{tab: thermal materials}
 \end{center}
