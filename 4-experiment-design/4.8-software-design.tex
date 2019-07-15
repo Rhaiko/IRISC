@@ -223,8 +223,9 @@ After the target is selected, the gyroscopes are reset so there is no offset-err
 
 In addition to the gyroscopes, the encoders are used to obtain the actual position of the telescope within the gondola and therefore provide a second set of data for the feedback loop. The sensor data is filtered by a Kalman filter to decrease the sensor noise and deduce the current orientation of the telescope as well as the motion of the gondola with a high precision.
 
-The control of the gimbal (tracking and stabilisation as well as compensation of the gondola rotation for the yaw axis) is done by a separate PID control for each axis. The output of the controller is the required speed for the actuating motor of the respective axis. This information is then processed by the motor controller that calculates the required input currents for the motors. 
+The control of the gimbal (tracking and stabilisation as well as compensation of the gondola rotation for the yaw axis) is done by a separate PID control for each axis. The output of the controller is the required speed for the actuating motor of the respective axis. This information is then processed by the motor controller that calculates the required input currents for the motors.
 
+The stabilisation algorithm is written in C as the most of the OBSW. The team refrained from using third party libraries, so the whole stabilisation code is built using standard C libraries. The analisys will be conducted on a Simulink model and acquired PID values are tested on an instrument during integration tests.
 
 %\begin{figure}%[h]
 %	\centering
