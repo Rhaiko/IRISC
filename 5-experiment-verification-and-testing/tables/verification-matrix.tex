@@ -10,16 +10,16 @@
 \textbf{ID} & \textbf{Requirement text} & \textbf{Method} & \textbf{Reference} & \textbf{Status} & \textbf{Verifica-tion result} \\\hline
 
  F.3 & The system shall be able to find the celestial objects of interest at the location and orientation of the gondola.
-& A, T & Tests: 5, 10 & A: to be done \newline T: to be done & Not verified \\\hline
+& A, T & Tests: 5 & A: to be done \newline T: to be done & Not verified \\\hline
 
   F.4 & The system shall be able to orient towards selected celestial objects of interest.
-& A, T & Test: 5, 10 & A: to be done \newline T: to be done & Not verified \\\hline
+& A, T & Test: 5 & A: to be done \newline T: to be done & Not verified \\\hline
 
   F.5 & The system shall be able to counter balance perturbations of the gondola during exposure.
-& A, T & Test: 3, 4, 5, 10 & A: to be done \newline T: to be done & Not verified \\\hline
+& A, T & Test: 3, 4, 5 & A: to be done \newline T: to be done & Not verified \\\hline
 
-  F.6 & The camera and optics system shall be able to record the selected celestial object of interest.
-& A, T & Test: 3, 4, 5, 10 & A: to be done \newline T: to be done & Not verified \\\hline
+  F.6 & The camera and optics system shall be able to record the selected celestial object of interest \hl{With enough precision to obtain valuable scientific data}
+& A, T & Test: 3, 4, 5 & A: to be done \newline T: to be done & Not verified \\\hline
 
 
 
@@ -46,7 +46,7 @@ P.5 & The NIR camera shall be able to take pictures with an exposure time up to 
 & R & Test: 12 & R: to be done & Not verified \\\hline
 
   P.11 & The pointing error of the guiding camera in relation to the NIR camera shall be less than 0.35 degrees.
-& R & Test: 12 & R: to be done & Not verified \\\hline
+& R, T & Test: 12 & R: to be done \newline T: To be done& Not verified \\\hline
 
   P.12.1 & The temperature of the NIR camera shall be held between -5 and 0\,$^\circ$C during operation.
 & T & Test: 2a & T: to be done & Not verified \\\hline
@@ -71,32 +71,32 @@ D.01 & The experiment shall be able to operate in the temperature profile of the
 D.02 & The experiment shall be able to operate in the pressure profile of the BEXUS environment.
 & T & Test: 2b  & T: to be done & Not verified \\\hline
 
-D.03 & The experiment shall be able to operate in the vibration profile of the BEXUS environment.
-& T & Tests: 10 & T: to be done & Not verified \\\hline
+\st{D.03} & \st{The experiment shall be able to operate in the vibration profile of the BEXUS environment.}
+& \st{T} & \st{Tests: 10} & \st{T: to be done} & \st{Not verified} \\\hline
 
 \st{D.05 }& \st{The supporting structure shall not twist by more than 0.1\,degrees.}
 & \st{T} & \st{ests: 9, 10} & \st{T: to be done} & \st{Not verified} \\\hline
 
 D.07 & The experiment shall be able to fly during the entire day.
-& T & Tests: 9, 10, 11 & T: to be done & Not verified \\\hline
+& T & Tests: 9, 11 & T: to be done & Not verified \\\hline
 
 D.10 & The experiment shall be mounted at the side of the gondola.
-& T & Tests: 9, 10 & T: to be done & Not verified \\\hline
+& T & Tests: 9 & T: to be done & Not verified \\\hline
 
 D.11 & The experiment shall not consume more power than 250\,Wh.
-& T & Tests: 9, 10 & T: to be done & Not verified \\\hline
+& T & Tests: 9 & T: to be done & Not verified \\\hline
 
 D.13 & The mass of the experiment shall not exceed 20\,kg.
 & T & Test: 7 & T: to be done & Not verified \\\hline
 
 D.14 & The experiment shall be able to run for at least 2.5\,hours.
-& T & Tests: 9, 10 & T: to be done & Not verified \\\hline
+& T & Tests: 9 & T: to be done & Not verified \\\hline
 
 D.15 & The experiment should be able to run for at least 4\,hours.
-& T & Tests: 9, 10 & T: to be done & Not verified \\\hline
+& T & Tests: 9 & T: to be done & Not verified \\\hline
 
 D.16 & The experiment shall be able to function autonomously.
-& T & Tests: 4, 9, 10 & T: to be done & Not verified \\\hline
+& T & Tests: 4, 9 & T: to be done & Not verified \\\hline
 
 D.17 & The data stored in the experiment shall be able to survive the landing.
 & T & Test: 8, 11 & T: to be done & Not verified \\\hline
@@ -108,13 +108,13 @@ D.17 & The data stored in the experiment shall be able to survive the landing.
 
 
 O.1 & The experiment shall be able to be controlled by the ground station when requested.
-& T & Tests: 4, 10 & T: to be done & Not verified \\\hline
+& T & Tests: 4, & T: to be done & Not verified \\\hline
 
 O.2 & The experiment shall rotate to a 'safe' position while descending.
-& T & Tests: 4, 9, 10 & T: to be done & Not verified \\\hline
+& T & Tests: 4, 9,  & T: to be done & Not verified \\\hline
 
  O.3 & The telescope shall not be pointed within 27\,degrees of the sun.
-& R & Tests: 11 & T: to be done & Not verified \\\hline
+& R, T & Tests: 11 & T: to be done & Not verified \\\hline
 
 \caption{Verification Matrix.}
 \label{tab:var-mat}
