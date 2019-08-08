@@ -84,7 +84,6 @@ Astronomical targets are prioritised. The software shall track and observe the h
 
 \begin{itemize}
 	\item Current target leaves operational field of view.
-	\item \st{Target moves too close to the sun for observation.}
 	\item A higher priority target enters the field of view.
 \end{itemize}
 
@@ -112,7 +111,7 @@ At the end of the floating phase the camera shall be oriented in a landing posit
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=\textwidth]{4-experiment-design/img/software/composition-tree.png}
-	\caption{Composition tree of On-Board Software. \hl{[Updated figure]}}
+	\caption{Composition tree of On-Board Software.}
 	\label{fig:software-composition-tree}
 \end{figure}
 
@@ -122,7 +121,6 @@ Figure \ref{fig:software-composition-tree} shows how the complete software is mo
 
 	\item Camera: Parent
 		\begin{itemize}
-			\item \st{Camera Control: Module responsible for selecting target, camera settings and capturing images.}
 			\item Guiding Camera: Communication link to the guiding camera.
 			\item NIR Camera: Communication link to the NIR camera.
 			\item Sanity Camera: Communication link to the sanity camera.
@@ -130,13 +128,9 @@ Figure \ref{fig:software-composition-tree} shows how the complete software is mo
 
 	\item Command: Module responsible for handling incoming commands from ground.
 
-	\item \st{Data Storage: Module providing an interface to store data to the external SD-cards.}
-
 	\item E-link: Module responsible for communications over the E-link interface.
 
-    \item \hl{GPIO: Module responsible for communications through the Raspberry Pi GPIO.}
-
-	\item \st{I2C: Module responsible for communications over the I2C bus.}
+    \item GPIO: Module responsible for communications through the Raspberry Pi GPIO.
 
 	\item Img Processing: Image processing, parent
 		\begin{itemize}
@@ -150,17 +144,13 @@ Figure \ref{fig:software-composition-tree} shows how the complete software is mo
 
 	\item Sensors: Parent
 		\begin{itemize}
-            \item \hl{Encoder: Module holding encoder data.}
-            \item \hl{GPS: Module holding GPS data.}
-            \item \hl{Gyroscope: Module holding gyroscope data.}
-			\item \st{Orientation: Module keeping track of orientation and location.}
-			\item \st{Sun: Module keeping track of position of the sun.}
-			\item Sensor Poller: Module responsible for polling sensors.
-            \item \hl{Star Tracker: Module holding absolute attitude obtained from the star tracker.}
+            \item Encoder: Module holding encoder data.
+            \item GPS: Module holding GPS data.
+            \item Gyroscope: Module holding gyroscope data.
+			 \item Sensor Poller: Module responsible for polling sensors.
+            \item Star Tracker: Module holding absolute attitude obtained from the star tracker.
 			\item Temperature: Thermal sensors.
 		\end{itemize}
-
-	\item \st{SPI: Module responsible for communications over the SPI bus.}
 
 	\item Telemetry: Parent
 		\begin{itemize}
@@ -170,15 +160,15 @@ Figure \ref{fig:software-composition-tree} shows how the complete software is mo
 
 	\item Thermal: Module responsible for active thermal control
 
-	\item \hl{Control System} \st{Tracking}: Parent
+	\item Control System: Parent
 		\begin{itemize}
 			\item Current Target: Module holding the current target to be observed.
-			\item \hl{Stabilisation} \st{Controller}: Module responsible for keeping camera on target.
+			\item Controller: Module responsible for keeping camera on target.
 			\item Gimbal: Module providing an interface to the gimbal motors.
-			\item Target \hl{Selection} \st{Choosing}: Module responsible for keeping track of target prioritisation \hl{and positioning as well as controlling the main camera}.
+			\item Target Selection: Module responsible for keeping track of target prioritisation and positioning as well as controlling the main camera.
 		\end{itemize}
 
-	\item Watchdog: Timer to reset \st{external} watchdog.
+	\item Watchdog: Timer to reset watchdog.
 
 \end{itemize}
 
@@ -212,33 +202,28 @@ Prioritisation parameters include the brightness of the object (brighter objects
 
 As the location of the astronomical targets changes with time and position of the gondola, these two parameters also need to be taken into account (for determination see paragraph Astronomical targets). Once a target is selected, this part of the control system will be deactivated until the picture was taken or the control loop is re-initialised.
 
-\hl{The 4 chosen prioritisation parameters are: }
+The 4 chosen prioritisation parameters are:
 \begin{itemize}
-	\item \hl{No. of exposures already taken (exposure parameter)}
-	\item \hl{Magnitude of the target (constant)}
-	\item \hl{Position parameter}
-	\item \hl{Type of target  (defined scientific parameter, constant)}
+	\item No. of exposures already taken (exposure parameter)
+	\item Magnitude of the target (constant)
+	\item Position parameter
+	\item Type of target  (defined scientific parameter, constant)
 \end{itemize}
 
-\hl{The exposure parameter depends on the number of images of the target that have already been taken, and is defined as follows: \texttt{exp\_ param\_ list = [1,2,3,4,4,4,3,2,1,1,1]} for 0 to 9 exposures respectively, and 0 for all other. This ensures that not more than 10 images are taken (maximum defined in the scientific requirements) and that targets with more than 2 exposures are prioritised in order to get sufficient scientific data of one target.
-}
+The exposure parameter depends on the number of images of the target that have already been taken, and is defined as follows: \texttt{exp\_ param\_ list = [1,2,3,4,4,4,3,2,1,1,1]} for 0 to 9 exposures respectively, and 0 for all other. This ensures that not more than 10 images are taken (maximum defined in the scientific requirements) and that targets with more than 2 exposures are prioritised in order to get sufficient scientific data of one target.
 
-\hl{The magnitude of the target is defined by the target itself and is therefore constant. Typical values range from 3 to 10 for the chosen targets. The higher the value the brighter the target, and therefore more suitable to observe.
-}
+The magnitude of the target is defined by the target itself and is therefore constant. Typical values range from 3 to 10 for the chosen targets. The higher the value the brighter the target, and therefore more suitable to observe.
 
-\hl{The position parameter depends on the gondola attitude and is recalculated based on the current time, position and attitude each time. It is then calculated as follows: if the absolute difference between the gondola attitude and the target position is smaller than a set value (e.\,g.~maximum telescope range - $\ang{30}$) it is defined as 
-}
+The position parameter depends on the gondola attitude and is recalculated based on the current time, position and attitude each time. It is then calculated as follows: if the absolute difference between the gondola attitude and the target position is smaller than a set value (e.\,g.~maximum telescope range - $\ang{30}$) it is defined as 
+
 \begin{align*}
 	\left|\text{gondola attitude} - \text{target position} \right|
 \end{align*}
-\hl{otherwise as zero. This means that no targets that are outside the field of view are chosen, and the most central targets are preferred in order to minimise the risk of the target rotating out of the field of view during exposure.
-}
+otherwise as zero. This means that no targets that are outside the field of view are chosen, and the most central targets are preferred in order to minimise the risk of the target rotating out of the field of view during exposure.
 
-\hl{The type of target (nebula/galaxy/open cluster/globular cluster) prioritises nebulae and galaxies to cluster. The prioritisation order is \texttt{type\_ param\_ list = [4,3,2,1]} for the order mentioned above.
-}
+The type of target (nebula/galaxy/open cluster/globular cluster) prioritises nebulae and galaxies to cluster. The prioritisation order is \texttt{type\_ param\_ list = [4,3,2,1]} for the order mentioned above.
 
-\hl{To get a final prioritisation value for each target, all prioritisation parameters are multiplied. This ensures that targets outside the field of view as well as targets with 10 exposures are not taken into consideration any more, as the result is 0. The target with the highest calculated prioritisation value is selected for the next exposure.
-}
+To get a final prioritisation value for each target, all prioritisation parameters are multiplied. This ensures that targets outside the field of view as well as targets with 10 exposures are not taken into consideration any more, as the result is 0. The target with the highest calculated prioritisation value is selected for the next exposure.
 
 
 
@@ -246,8 +231,7 @@ As the location of the astronomical targets changes with time and position of th
 
 The time-dependent and the position-dependent rotational motion of the astronomical targets are calculated by using an astronomical model and provides the control input for the subsequent stages of the control system. Because the state vectors for this model are time (internal clock) and position (GPS) and the input vector is the selected target (defined in the system, not a variable state for the exposure of one image), the state vectors cannot be affected by the control system (not controllable). Therefore, no dedicated feedback loop is used for this part of the control system. However, the input data from the GPS may be filtered before use. The output vector then provides the input for the compensation of rotation (of the gondola in the z-axis) and the stabilisation of the gimbal.
 
-\hl{The astronomical model used to determine the current position of the targets is the Alt Az (Altitude Azimuth) reference frame. It defines the position of the astronomical target with respect to geographic north and zenith and depends on current the time, date and position of the observer. It is calculated based on the RA DEC (Right Ascension, Declination) of the astronomical target. The formulas required for this conversion are given in \mbox{\cite{RaDec2AltAz}}.
-}
+The astronomical model used to determine the current position of the targets is the Alt Az (Altitude Azimuth) reference frame. It defines the position of the astronomical target with respect to geographic north and zenith and depends on current the time, date and position of the observer. It is calculated based on the RA DEC (Right Ascension, Declination) of the astronomical target. The formulas required for this conversion are given in \mbox{\cite{RaDec2AltAz}}.
 
 \textbf{Rotation of the gondola}
 
@@ -263,7 +247,7 @@ In addition to the gyroscopes, the encoders are used to obtain the actual positi
 
 The control of the gimbal (tracking and stabilisation as well as compensation of the gondola rotation for the yaw axis) is done by a separate PID control for each axis. The output of the controller is the required speed for the actuating motor of the respective axis. This information is then processed by the motor controller that calculates the required input currents for the motors.
 
-\hl{The stabilisation algorithm is written in C as the most of the OBSW. The team refrained from using third party libraries, so the whole stabilisation code is built using standard C libraries. The analisys will be conducted on a Simulink model and acquired PID values are tested on an instrument during integration tests.}
+The stabilisation algorithm is written in C as the most of the OBSW. The team refrained from using third party libraries, so the whole stabilisation code is built using standard C libraries. The analisys will be conducted on a Simulink model and acquired PID values are tested on an instrument during integration tests.
 
 %\begin{figure}%[h]
 %	\centering
