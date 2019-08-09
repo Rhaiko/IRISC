@@ -176,6 +176,15 @@ Figure \ref{fig:software-composition-tree} shows how the complete software is mo
 
 The code for the On-Board Software shall be implemented in C. An operating system will be used to enable the modularisation required. The chosen operating system is Linux with the Preempt RT kernel patch. Additional libraries, such as the ASI SDK library used for controlling the cameras, will be needed. The compression used for the telemetry is supplied by the zstd library.
 
+\subsubsection{\hl{Unit Tests Performed}}
+
+\paragraph{Cameras}
+
+\hl{The same software is used for the two ZWO cameras and therefore only the NIR camera is used in the test since it has the highest resolution and therefore higher requirements in terms of computer resources. The OBSW is compared against software provided by ZWO to see that it works as expected. A test is also performed to compare noise levels from the camera while using the USB 2.0 and 3.0 interfaces. The methodology and results are presented in Appendix} \ref{app:camera_software_test}.
+
+\paragraph{GPS receiver}
+
+\hl{The GPS receiver and the OBSW controlling it is tested on a road trip across Sweden. The horizontal positioning is evaluated using Google satellite imaging and the altitude is evaluated using SRTM1 data to verify adequate accuracy. The methodology and results are presented in Appendix} \ref{app:gps_test}. \hl{The GPS data from the receiver is deemed to be accurate.}
 
 
 \subsubsection{Control system}
@@ -247,7 +256,7 @@ In addition to the gyroscopes, the encoders are used to obtain the actual positi
 
 The control of the gimbal (tracking and stabilisation as well as compensation of the gondola rotation for the yaw axis) is done by a separate PID control for each axis. The output of the controller is the required speed for the actuating motor of the respective axis. This information is then processed by the motor controller that calculates the required input currents for the motors.
 
-The stabilisation algorithm is written in C as the most of the OBSW. The team refrained from using third party libraries, so the whole stabilisation code is built using standard C libraries. The analisys will be conducted on a Simulink model and acquired PID values are tested on an instrument during integration tests.
+The stabilisation algorithm is written in C as the most of the OBSW. The team refrained from using third party libraries, so the whole stabilisation code is built using standard C libraries. The analysis will be conducted on a Simulink model and acquired PID values are tested on an instrument during integration tests.
 
 %\begin{figure}%[h]
 %	\centering
