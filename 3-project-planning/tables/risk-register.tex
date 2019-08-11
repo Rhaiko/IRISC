@@ -9,27 +9,30 @@
 
 TC10 & Optics and/ or camera destroyed due to testing						& C & 2 & \cellcolor[HTML]{FCFF2F}Low 		& There is budget for a spare part, it is quite easy to get and test where it will likely fail (e.g. drop test) will not be done with this part.\\\hline
 
-TC20 & Optics and/ or camera destroyed due to looking directly into the sun & B & 3 & \cellcolor[HTML]{FCFF2F}Low 		& A model will be made and sufficient testing will make sure that the probability gets very low.\\\hline
+TC20 & Optics and/ or camera destroyed due to looking directly into the sun & B & 3 & \cellcolor[HTML]{FCFF2F}Low 		& A model will be made and thorough testing will be made to mitigate this risk. The control system will also ensure to avoid looking into the sun .\\\hline
 
 TC30 & Software failure														& B & 3 & \cellcolor[HTML]{FCFF2F}Low 		& A watchdog with power-on-reset will be added to the design.\\\hline
 
 TC40 & Motors of the gimbal are uncontrollable								& B & 4 & \cellcolor[HTML]{FCFF2F}Low 		& It will be made sure that a single component failure will not result in this consequence.\\\hline
 
-TC50 & Motors overloaded													& A & 3 & \cellcolor[HTML]{34FF34}Very Low 	& Sufficient testing and modeling will be done to decrease the probability.\\\hline
+TC50 & Motors overloaded													& A & 3 & \cellcolor[HTML]{34FF34}Very Low 	& Sufficient testing and modeling will be done to decrease the probability. Safety measures will be added to the power system to prevent overloading\\\hline
 
-TC60 & PCB failure															& B & 3 & \cellcolor[HTML]{FCFF2F}Low 		& Sufficient testing will be done on each PCB to decrease the probability.\\\hline
+TC60 & PCB failure due to defective traces or component												& B & 3 & \cellcolor[HTML]{FCFF2F}Low 		&  Testing will be performed on each PCB to decrease the probability.\\\hline
 
 TC70 & Single component failure gives unprecedented failure					& B & 4 & \cellcolor[HTML]{FCFF2F}Low			& A Failure mode and effects analysis (FMEA) study will be done so that single failure components with a high impact will be documented and migrated.\\\hline
 
-TC80& Moving parts jamming & B & 3 & \cellcolor[HTML]{FCFF2F} Low & Moving parts will be properly cleaned and lubricated where needed. \\\hline
+TC80& Moving parts jamming due to moisture freezing & B & 3 & \cellcolor[HTML]{FCFF2F} Low & Moving parts will be cleaned and lubricated where needed. \\\hline
+TC90 & The structure is not stiff enough & A & 2 & \cellcolor[HTML]{34FF34}Very Low & FEM analysis and testing will performed to ensure the necessary stiffness is achieved. \\ \hline
 
-MS10 & Target not found														& D & 2 & \cellcolor[HTML]{FCFF2F}Low			& The ground station will be able to correct this, or send the system to another target.\\\hline
+TC90 & Values for R and Q matrices of PID controller not chosen correctly for Kalman filter & B & 2 & \cellcolor[HTML]{FCFF2F}Low	& Thorough analysis, simulations and testing will be conducted to tune the tuned correctly. \\ \hline
+
+MS10 & Target not found	& D & 2 & \cellcolor[HTML]{FCFF2F}Low			& The ground station will be able to correct this, or send the system to another target.\\\hline
 
 MS20 & Damage to the system on landing										& D & 1 & \cellcolor[HTML]{FCFF2F}Low			& Optics will rotate into a position where damage can be avoided/minimized.\\\hline
 
 MS30 & Damage to the storage unit on landing									& C & 2 & \cellcolor[HTML]{FCFF2F}Low			& Data will be send over telemetry\\\hline
 
-MS40 & Storage unit full during flight											& A & 3 & \cellcolor[HTML]{34FF34}Very Low	& Sufficient modeling will be done to decrease the probability.\\\hline
+MS40 & Storage unit full during flight											& A & 3 & \cellcolor[HTML]{34FF34}Very Low	& The data handling system will be thoroughly tested, and the storage unit(s) will be of more capacity than it is expected to use.\\\hline
 
 MS50 & BEXUS balloon power failure											& A & 4 & \cellcolor[HTML]{34FF34}Very Low	& -\\\hline
 
@@ -37,20 +40,23 @@ MS60 & BEXUS balloon telemetry failure										& B & 2 & \cellcolor[HTML]{34FF3
 
 MS70 & Critical electronic components overheating & B & 3 & \cellcolor[HTML]{34FF34}Very Low & Peltier elements and heat sinks will be added where necessary. \\\hline
 
-MS80 & Scientific objective not achieved & B & 3 & \cellcolor[HTML]{FCFF2F} Low & Critical components for the pointing system will be selected, designed and manufactured with a high enough safety factor.\\\hline
+MS80 & Scientific objective not achieved & B & 3 & \cellcolor[HTML]{FCFF2F} Low & Systems will be designed so that scientifically relevant data will be obtained, for example, sensor fusion will be implemented to the gyroscope and star tracker to improve tracking accuracy.\\\hline
 
-SF10 & Components falling off the gondola									& A & 4 & \cellcolor[HTML]{34FF34}Very Low	& All parts sufficiently fastened. Testing conducted to ensure fastening is able to hold all parts in place in case of turbulence. Where possible, add assurance by adding additional fixations.\\\hline
+SF10 & Components falling off the gondola									& A & 4 & \cellcolor[HTML]{34FF34}Very Low	& All parts securely fastened. Testing will be conducted to ensure the fastening is able to hold all parts in place. Where deemed necessary, a safety wire will be added.\\\hline
 
-VE10 & Short circuiting														& B & 3 & \cellcolor[HTML]{FCFF2F}Low			& A fuse is in the power system added.\\\hline
+VE10 & Short circuiting														& B & 3 & \cellcolor[HTML]{FCFF2F}Low			& A fuse is added in the power system.\\\hline
 
-PE10 & Miscommunication in the team											& B & 2 & \cellcolor[HTML]{34FF34}Very Low	& The management team should be responsible for ensuring proper information is conveyed to all team members.\\\hline
+PE10 & Miscommunication in the team											& B & 2 & \cellcolor[HTML]{34FF34}Very Low	& The management team should be responsible for ensuring \hl{important} \st{proper} information is conveyed to all team members.\\\hline
 
 PE20 & People are not available												& C & 1 & \cellcolor[HTML]{34FF34}Very Low	& An availability sheet is made so a planning can be made. This will be kept up to date during the entire project.\\\hline
 
 PE30 & Management team unavailable to oversee project						& C & 1 & \cellcolor[HTML]{34FF34}Very Low	& There is always someone as a backup.\\\hline
 
-PE40 & Sudden resignation of project members								& B & 2 & \cellcolor[HTML]{34FF34}Very Low	& Management team ensure morale remains high through a variety of techniques (group building activities).\\\hline
+PE40 & Sudden resignation of project members								& B & 2 & \cellcolor[HTML]{34FF34}Very Low	& Management team ensure morale remains high through a variety of techniques (team building activities).\\\hline
 
+BG10 & Budget is not sufficient & B & 4 & \cellcolor[HTML]{FCFF2F}Low & Management team will ensure that the budget is enough as well as keep in contact with companies and institutions for any possible support and/or sponsorship. \\ \hline
+
+BG20 & Schedule delays & C & 2 & \cellcolor[HTML]{F39C12} Medium & Planning of critical dates will be done and made easily accessible for all the team members \\ \hline
 
 
 
