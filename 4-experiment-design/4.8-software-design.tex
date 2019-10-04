@@ -247,29 +247,35 @@ The astronomical model used to determine the current position of the targets is 
 The uncontrolled rotational motion of the gondola around the z-axis can be directly compensated by actuating the corresponding gimbal axis (yaw). This will be achieved by a PID control. As the same axis will also be actuated during the stabilisation process, it will be merged with the control loop for the stabilisation. As the required accuracy for detecting the rotation of the gondola is very high, the gyroscopes are used to provide the input (see stabilisation for more detail).
 
 
+
 \paragraph{Stabilisation of the gimbal}
 The stabilisation of the gimbal only needs to be active during exposure in order to avoid blurred pictures. It is responsible for compensating all kinds of small-scale, unpredicted movements of the gondola. In order to achieve this, an active feedback loop that requires information about the gondola movements is needed. This information is gathered by using accelerometers and gyroscopes for all 3 axes.
 
 After the target is selected, the gyroscopes are reset so there is no offset-error and the best accuracy can be achieved. With this setup, it is possible to measure the movements of the gondola with an accuracy higher than the corresponding angular resolution of one pixel. Once the gyroscopes are reset the value of the attitude determination system is held constant within the control system, because the accuracy of the gyroscopes is orders of magnitude higher than that of the attitude determination system. 
 
-In addition to the gyroscopes, the encoders are used to obtain the actual position of the telescope within the gondola and therefore provide a second set of data for the feedback loop. The sensor data is filtered by a Kalman filter to decrease the sensor noise and deduce the current orientation of the telescope as well as the motion of the gondola with a high precision.
+In addition to the gyroscopes, the encoders are used to obtain the actual position of the telescope within the gondola\st{ and therefore provide a second set of data for the feedback loop}. The sensor data is filtered by a Kalman filter to decrease the sensor noise and deduce the current orientation of the telescope as well as the motion of the gondola with a high precision.
 
 The control of the gimbal (tracking and stabilisation as well as compensation of the gondola rotation for the yaw axis) is done by a separate PID control for each axis. The output of the controller is the required speed for the actuating motor of the respective axis. This information is then processed by the motor controller that calculates the required input currents for the motors.
 
 The stabilisation algorithm is written in C as the most of the OBSW. The team refrained from using third party libraries, so the whole stabilisation code is built using standard C libraries. The analysis will be conducted on a Simulink model and acquired PID values are tested on an instrument during integration tests.
 
-%\begin{figure}%[h]
-%	\centering
-%	\includegraphics[width = 0.4\textwidth]{4-experiment-design/img/software/Yaw_Pitch_Roll.eps}
-%	\caption{\hl{Yaw, Pitch and Roll angles of the gimbal [New figure]}}
-%	\label{fig::software::Yaw_Pitch_Roll}
-%\end{figure}
+\textbf{Attitude determination - Kalman filter}
+
+\hl{The Kalman filter utilises the measured data from the gyroscope to predict the current angle of the telescope and fuses this predicted value with the absolute orientation of the telescope obtained by the star tracker in the update step of the Kalman filter. As the gyroscope only measures angular rates the absolute orientation cannot be determined without a reference value. Also, sensor noise and imperfections, e.\,g.~gyro bias result in a drift of the predicted values. As the gyroscope is sampled with a much higher frequency than the star tracker due to the necessary exposure time of the star tracker camera as well as the calculation time of the star tracker on the onboard software, the update step (sensor fusion of gyroscope data and star tracker data) is only done when a new set of data from the star tracker is available, while the prediction step using only the gyroscope data is done with the same sampling time as the gyroscope readout. The development including testing of this algorithm is done in MATLAB, while for the OBSW it is written in c. A simulation of the performance of the Kalman filter can be seen in figure \mbox{\ref{fig::software::Kalman_filter}}. 
+The sampling frequency of the gyroscope is $\SI{40}{\Hz}$ while the star tracker is sampled at $\SI{30}{\second}$. The blue lines show the actual error of the values estimated by the Kalman filter, while the black lines demonstrate a standard deviation of 1 ($\SI{68}{\percent}$) of an optimal Kalman filter. }
+
+\begin{figure}%[h]
+	\centering
+	\includegraphics[width = 0.95\textwidth]{4-experiment-design/img/software/kalman_filter.eps}
+	\caption{\hl{MATLAB simulation of the Kalman filter with noise distribution of the gyroscope according to the data sheet [New figure]}}
+	\label{fig::software::Kalman_filter}
+\end{figure}
 
 \newpage
 \begin{landscape}
 	\begin{figure}
 		\includegraphics[width=\linewidth]{4-experiment-design/img/software/Control_loop.eps}
-		\caption{Control loop of the experiment}
+		\caption{Control loop of the experiment\hl{[Updated figure]}}
 		\label{fig::software::control_loop}
 	\end{figure}
 \end{landscape}
