@@ -32,14 +32,11 @@ The chosen absolute encoder is an AMT23 with $2^{14}$ positions. One is located 
 The chosen encoders has been tested and work as expected.
 
 
-\subsubsection{Gyroscopes}
-
-%TODO : ADD NEW ONES
-
 \hl{}
 
 \subsubsection{IMU}
-The accelerator, compass (magnetometer) and additional gyroscope is added in the form of an IMU. All these sensors are for redundancy and/ or housekeeping data. It is not planned to use it, but if needed this data is available.
+\st{The accelerator, compass (magnetometer) and additional gyroscope is added in the form of an IMU. All these sensors are for redundancy and/ or housekeeping data. It is not planned to use it, but if needed this data is available.}
+\hl{The chosen IMU was the STIM300 from sensonor. Consists of 3 axis gyroscope, 3 axis inclinometer and 3 axis accelerometer.}
 
 \subsubsection{GPS}
 With the GPS the location and altitude can be determined. This is done with the uBlox NEO M8N. The accuracy is within 1.5 meters, which is within the requirements. A small error will not give a completely different night sky, thus this is enough for this application. The chosen GPS has been tested and work as expected.
