@@ -20,4 +20,33 @@
 \caption{Countdown and Flight Estimated Timeline.}
 \label{tab:countflight}
 \end{table}
+
+\hl{The timeline of events documented during flight can be seen in table} \ref{tab:flight_timeline}.
+
+\begin{table}[H]
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Local Time} & \textbf{Event}                                                                                                                                                                          \\ \hline
+6:59                & \begin{tabular}[c]{@{}l@{}}Positioning from GPS lost upon reaching 12km altitude\\ due to missconfiguration.\end{tabular}                                                               \\ \hline
+7:12                & \begin{tabular}[c]{@{}l@{}}Reset pin of GPS module (gpio 26) toggled as an attempt\\ to regain positioning. (No effect)\end{tabular}                                                    \\ \hline
+7:18                & Command to enter reset mode sent. Command was missinterpreted.                                                                                                                          \\ \hline
+7:20                & \begin{tabular}[c]{@{}l@{}}Encoder offset values have been reset, meaning elevation angle\\ is interpreted as 45 degrees off. Likely due to the\\ missinterpreted command.\end{tabular} \\ \hline
+7:24                & \begin{tabular}[c]{@{}l@{}}Small movement commands sent to see response from encoders.\\ Slow movement at first, then speeds up.\end{tabular}                                           \\ \hline
+7:30                & Attempts made to reset encoder offsets to correct values.                                                                                                                               \\ \hline
+7:48                & GPS coordinates hard coded to replace live data.                                                                                                                                        \\ \hline
+7:53                & GPS altitude hard coded to 10 km.                                                                                                                                                       \\ \hline
+7:56                & Encoder offset files reset from git history.                                                                                                                                            \\ \hline
+8:10                & Problems with onboard clock being wrong. Connectivity issues.                                                                                                                           \\ \hline
+8:25                & \begin{tabular}[c]{@{}l@{}}Clock and connectivity issues are due to RPi rebooting repeatedly.\\ Automatic clock syncing not working as expected.\end{tabular}                           \\ \hline
+8:30                & Guiding camera stopped responding.                                                                                                                                                      \\ \hline
+8:44                & Attempts made to correct clock issues. Failed.                                                                                                                                          \\ \hline
+8:54                & Exposures of NIR camera with 10 s exposure time initiated manually.                                                                                                                     \\ \hline
+9:09                & Exposure time of NIR camera set to 30 s.                                                                                                                                                \\ \hline
+9:24                & Telescope moved to parking position.                                                                                                                                                    \\ \hline
+9:26                & \begin{tabular}[c]{@{}l@{}}Exposure time of NIR Camera set to 1 s to continue imaging of\\ what was guessed to be the ground.\end{tabular}                                              \\ \hline
+\end{tabular}
+\label{tab:flight_timeline}
+\caption{\hl{Documented flight timeline.}}
+\end{table}
+
 \raggedbottom
