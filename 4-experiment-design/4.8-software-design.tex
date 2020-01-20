@@ -27,7 +27,7 @@ The software is designed such that it can control the experiment autonomously th
 	\label{fig:software-process-overview}
 \end{figure}
 
-All external components connected to the On-Board Computer and their interface are displayed in figure \ref{fig:software-process-overview}. The sanity camera provides an overview of the experiment and captures images on demand. The guiding camera provides an overall view in the direction the telescope is pointing and is also used as a star tracker to determine the gondola attitude. \st{A secondary microcontroller will be used to support the high sampling frequency needed for the gyroscopes. This microcontroller will be polled by the OBC.}
+All external components connected to the On-Board Computer and their interface are displayed in figure \ref{fig:software-process-overview}. The sanity camera provides an overview of the experiment and captures images on demand. The guiding camera provides an overall view in the direction the telescope is pointing and is also used as a star tracker to determine the gondola attitude.
 
 \paragraph{b)} General and safety related concepts
 
@@ -176,15 +176,15 @@ Figure \ref{fig:software-composition-tree} shows how the complete software is mo
 
 The code for the On-Board Software shall be implemented in C. An operating system will be used to enable the modularisation required. The chosen operating system is Linux with the Preempt RT kernel patch. Additional libraries, such as the ASI SDK library used for controlling the cameras, will be needed. The compression used for the telemetry is supplied by the zstd library.
 
-\subsubsection{\hl{Unit Tests Performed}}
+\subsubsection{Unit Tests Performed}
 
 \paragraph{Cameras}
 
-\hl{The same software is used for the two ZWO cameras and therefore only the NIR camera is used in the test since it has the highest resolution and therefore higher requirements in terms of computer resources. The OBSW is compared against software provided by ZWO to see that it works as expected. A test is also performed to compare noise levels from the camera while using the USB 2.0 and 3.0 interfaces. The methodology and results are presented in Appendix} \ref{app:camera_software_test}.
+hax The same software is used for the two ZWO cameras and therefore only the NIR camera is used in the test since it has the highest resolution and therefore higher requirements in terms of computer resources. The OBSW is compared against software provided by ZWO to see that it works as expected. A test is also performed to compare noise levels from the camera while using the USB 2.0 and 3.0 interfasces. The methodology and results are presented in Appendix \ref{app:camera_software_test}.
 
 \paragraph{GPS receiver}
 
-\hl{The GPS receiver and the OBSW controlling it is tested on a road trip across Sweden. The horizontal positioning is evaluated using Google satellite imaging and the altitude is evaluated using SRTM1 data to verify adequate accuracy. The methodology and results are presented in Appendix} \ref{app:gps_test}. \hl{The GPS data from the receiver is deemed to be accurate.}
+The GPS receiver and the OBSW controlling it is tested on a road trip across Sweden. The horizontal positioning is evaluated using Google satellite imaging and the altitude is evaluated using SRTM1 data to verify adequate accuracy. The methodology and results are presented in Appendix \ref{app:gps_test}. The GPS data from the receiver is deemed to be accurate.
 
 
 \subsubsection{Control system}
