@@ -5,7 +5,7 @@
 
 
 %very general experiment setup
-The experiments mounts a telescope with an attached CMOS sensor inside the gondola, looking out as shown in figure \ref{fig::4-1_CAD}. The telescope is mounted on a gimbal system that provides stabilisation along two axes (three if required, depending on simulation results, hardware is available) and tracking in three dimensions. The sensor/telescope/gimbal system will be shielded from the Sun's radiation and climatised in order to provide the required operation temperatures. This is achieved by using Peltier elements where heating or cooling may be necessary (e.\,g.~the sensor) and heating pads where there is only a chance of freezing (e.\,g.~the moving parts of the gimbal). The general setup with data flows can be seen in figure \ref{fig::4-1_block_diagram}. The individual sections of the experiment are described below.
+The experiments mounts a telescope with an attached CMOS sensor inside the gondola, looking out as shown in figure \ref{fig::4-1_CAD}. The telescope is mounted on a gimbal system that provides stabilisation along two axes \st{(three if required, depending on simulation results, hardware is available)} and tracking in three dimensions. The sensor/telescope/gimbal system will be shielded from the Sun's radiation and climatised in order to provide the required operation temperatures. This is achieved by using Peltier elements where heating or cooling may be necessary (e.\,g.~the sensor) and heating pads where there is only a chance of freezing (e.\,g.~the moving parts of the gimbal). The general setup with data flows can be seen in figure \ref{fig::4-1_block_diagram}. The individual sections of the experiment are described below.
 
 \begin{figure}[h]
 	\centering
@@ -79,7 +79,8 @@ This combination of telescope and sensor features the following specifications:
 	\end{align}
 \end{itemize}
 
-In order to examine the field of view in case the images sent down via downlink do not show the expected astronomical targets, an additional imaging sensor (ZWO ASI 290MM Mini) is installed on a guiding telescope that has a shorter focal length than the main telescope, implying a larger field of view (see figure \ref{fig::4.1-guiding_camera}). This sensor has the same sensitivity spectrum as the NIR camera, but it is not intended to block out any of the visible or NIR wavelengths in order to maximise the incident light and therefore the input signal. The spectrum is illustrated in figure \ref{fig::4.1-CMOS_spectrum}. With the help of these pictures it will be able to correct offset errors in the pointing mechanism of the control system due to e.\,g.~temperature drift of the sensors. In addition to this a small sanity camera with a wide angle lens (very large field of view) to keep track of the system status and detect possible errors if neither the NIR images nor the images from the guiding telescope show the expected results may be installed (not included in figures \ref{fig::4-1_CAD} and \ref{fig::4-1_block_diagram}).
+In order to examine the field of view in case the images sent down via downlink do not show the expected astronomical targets, an additional imaging sensor (ZWO ASI 290MM Mini) is installed on a guiding telescope that has a shorter focal length than the main telescope, implying a larger field of view (see figure \ref{fig::4.1-guiding_camera}). This sensor has the same sensitivity spectrum as the NIR camera, but it is not intended to block out any of the visible or NIR wavelengths in order to maximise the incident light and therefore the input signal. The spectrum is illustrated in figure \ref{fig::4.1-CMOS_spectrum}. With the help of these pictures it will be able to correct offset errors in the pointing mechanism of the control system due to e.\,g.~temperature drift of the sensors. \hl{The images of the guiding camera are the ones used for the star tracker mechanism (described in section \mbox{\ref{sec::4-1_attitude_determination}}).} 
+\st{In addition to this a small sanity camera with a wide angle lens (very large field of view) to keep track of the system status and detect possible errors if neither the NIR images nor the images from the guiding telescope show the expected results may be installed (not included in figures \mbox{\ref{fig::4-1_CAD} and \ref{fig::4-1_block_diagram}}).}
 
 
 
@@ -88,26 +89,33 @@ In order to examine the field of view in case the images sent down via downlink 
 \begin{figure}[htb]
 	\centering
 	\includegraphics[width = \linewidth]{4-experiment-design/img/setup/Block_diagram_4-1}
-	\caption{Block diagram of the experiment setup}
+	\caption{Block diagram of the experiment setup \hl{(updated figure)}
 	\label{fig::4-1_block_diagram}
 \end{figure}
 
 % content of electronics box
-The On-Board Computer is hosted by the electronics box that also features the onboard storage as well as the power supply unit, one set of gyroscopes and accelerometers to measure the movement of the gondola in order to provide input data to the control system, a GPS (for the control system), temperature sensors for housekeeping data and the heat management system inside the electronics box and heating elements. The sensors are located on a PCB designed by the electronics team, along with the power supply unit. In order to minimise disturbances by the power electronics and actuators, the gyroscopes are housed by a separate gyro-box that is shielded by a metal housing.
-
+The On-Board Computer is hosted by the electronics box that also features the onboard storage as well as the power supply unit, \st{one set of gyroscopes and accelerometers to measure the movement of the gondola in order to provide input data to the control system,} a GPS (for the control system), temperature sensors for housekeeping data and the heat management system inside the electronics box and heating elements. The sensors are located on a PCB designed by the electronics team, along with the power supply unit. \st{In order to minimise disturbances by the power electronics and actuators, the gyroscopes are housed by a separate gyro-box that is shielded by a metal housing.}
+\hl{The gyroscope, a Sensonor STIM300 (shown in figure \mbox{\ref{fig::4-1_stim300}}) frequently used in aerospace applications such as rockets, is mounted directly on the telescope to measure the movements of the imaging unit with maximum precision without additional mechanical or electrical interfaces.}
+\begin{figure}[htb]
+	\centering
+	\includegraphics[width = 0.25\linewidth]{4-experiment-design/img/setup/sensonor-stim-300}
+	\caption{Sensonor STIM300 gyroscope \hl{(added figure)}}
+	\label{fig::4-1_stim300}
+\end{figure}
 
 
 % data storage, electronics box
-The CMOS sensor data is transmitted to the On-Board Computer where it is compressed with lossless compression and sent down via E-link and is also stored onboard the BEXUS balloon. The onboard storage is located in the electronics box that is designed considering compatibility with the harsh environmental conditions as well as redundancy. The mechanical structure that features the onboard storage ensures survival in case of shock due to hard impact when landing or if the BEXUS balloon lands in a lake or wetlands.
+The CMOS sensor data is transmitted to the On-Board Computer where it is compressed with lossless compression and \st{sent down via E-link and is also} stored onboard the BEXUS balloon. The onboard storage is located in the electronics box that is designed considering compatibility with the harsh environmental conditions \st{as well as redundancy}. The mechanical structure that features the onboard storage ensures survival in case of shock due to hard impact when landing or if the BEXUS balloon lands in a lake or wetlands.
 
 % thermal shielding - required?
 
 \subsubsection{Control system}
 % control system and actuation
-The control system is responsible for tracking the target in the sky and stabilising the telescope during exposure. The tracking uses the current orientation of the gondola along the z-axis measured by a magnetometer as well as the orientation of the telescope within the gondola using encoders. Based on the current time and position (measured by the GPS system) as well as the operational field of view, the control system will select and track the target in order to point the telescope towards the astronomical targets and avoid star trails due to the sky's rotation as seen from an observer on Earth. The stabilisation system is responsible for keeping the telescope steady during exposure by counteracting the gondola movements measured by the gyrometers and accelerometers located on the sensor PCB in the electronics box.
+The control system is responsible for tracking the target in the sky and stabilising the telescope during exposure. The tracking uses the current orientation of the \st{gondola} \hl{telescope} along the \st{z-axis measured by a magnetometer} \hl{azimuth and elevation axes that is calculated by the star tracker} as well as the orientation of the telescope within the gondola using encoders. Based on the current time and position (measured by the GPS system) as well as the operational field of view, the control system will select and track the target in order to point the telescope towards the astronomical targets and avoid star trails due to the sky's rotation as seen from an observer on Earth. The stabilisation system is responsible for keeping the telescope steady during exposure by counteracting the gondola movements measured by the gyrometer\st{s and accelerometers} located \st{on the sensor PCB in the electronics box} \hl{directly on the telescope mounting structure}.
 
 
 \subsubsection{Attitude determination}
+\label{sec::4-1_attitude_determination}
 In order to determine the attitude of the gondola as it is rotating, the guiding camera will also function as a star tracker. As the relative orientation of the telescope with respect to the gondola is known, the gondola attitude can be calculated and used for the control system. The star tracker will be based on the system used by team GranaSAT which flew on Bexus 19. Their experiment was able to correctly identify 445 star fields and incorrectly identified 10. Several images had to be discarded due to a lack of found stars, but as their camera also acted as a horizon detector the FOV of stars was limited. As their software worked well and was run on-board on a Raspberry Pi the conditions are generally similar. Contact is established with members from team GranaSAT, and \hl{they have offered to aid and answer questions about the star tracker.} \st{with their support the star tracker software will be adapted for IRISC.} It should be noted that GranaSAT flew during night time, while IRISC will most likely be flying during day time. However, as the tracker will be used above the atmosphere it should be able to producer similar results anyway.
 
 Another system that has been shown to work under similar conditions is the Daystar Star Tracker \cite{daystar}. It was flown during daytime on a NASA balloon, piggybacking on a test of the WASP system. It was shown that daytime star tracking is possible with good results. Some of the modifications that had to be applied was a high pass filter to remove any Rayleigh scattering, and efficient star identification algorithms. Also, some extra image processing was needed. As their project was well documented, and all their software is open source, this too will be used to aid the development of the star tracker for IRISC.
