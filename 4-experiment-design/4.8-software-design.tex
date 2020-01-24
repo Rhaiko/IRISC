@@ -188,11 +188,11 @@ The GPS receiver and the OBSW controlling it is tested on a road trip across Swe
 
 
 \subsubsection{Control system}
-The main task of the control system is selecting and tracking the astronomical targets and stabilising the telescope during exposure. Other tasks include minor tasks like the thermal control of the CMOS sensor and the electronics box as well as control of the actuators. A general overview of the control loop for tracking \& stabilisation is given in figure  \mbox{\ref{fig::software::control_loop}} below. The thermal control loop is sketched in chapter \mbox{\ref{Thermal_section}}.
+The main task of the control system was selecting and tracking the astronomical targets and stabilising the telescope during exposure. Other tasks included minor tasks like the thermal control of the CMOS sensor and the electronics box as well as control of the actuators. A general overview of the control loop for tracking \& stabilisation is given in figure  \mbox{\ref{fig::software::control_loop}} below. The thermal control loop is sketched in chapter \mbox{\ref{Thermal_section}}.
 
 \paragraph{Selecting and tracking targets}
 
-The selection and tracking of targets is done by using the current time, position (GPS) and orientation star tracker and gyroscope) of the gondola. Once a suitable target in the operational field of view is selected, it is tracked during exposure. This includes the compensation of the following motions:
+The selection and tracking of targets was done by using the current time, position (GPS) and orientation star tracker and gyroscope) of the gondola. Once a suitable target in the operational field of view was selected, it was tracked during exposure. This included the compensation of the following motions:
 \begin{itemize}
 	\item Time-dependent rotational motion of the astronomical targets in the sky. This will be continuously compensated during exposure using models and/or interpolation of tables.
 	\item Position-dependent rotational motion of the astronomical targets in the sky. This will be corrected once for every picture, using the GPS data.
@@ -201,17 +201,17 @@ The selection and tracking of targets is done by using the current time, positio
 
 Due to the nature of the motion of astronomical targets, it is necessary to use a 3-axis gimbal.
 
-The three axes and the names for the rotation axes are shown in figure \mbox{\ref{fig::software::Yaw_Pitch_Roll}}.
+\st{The three axes and the names for the rotation axes are shown in figure \mbox{\ref{fig::software::Yaw_Pitch_Roll}}.}
 
-\textbf{Selection of targets}
+\paragraph{Selection of targets}
 
-The selection of targets is based on the operational field of view (the area of the sky where the telescope is able to look at) and prioritisation parameters of the possible targets within this field of view. The operational field of view is determined by using the sensor data from the orientation sensor (star tracker). Using a star tracker will provide an accurate absolute attitude determination system to ensure that the celestial object of interest is actually in the field of view of the telescope when it is pointed there. Compared to the gyroscopes that have a much higher angular resolution, the attitude determination system does not show any drift over time and does therefore not need to be calibrated during flight.
+The selection of targets was based on the operational field of view (the area of the sky where the telescope is able to look at) and prioritisation parameters of the possible targets within this field of view. The operational field of view was determined by using the sensor data from the orientation sensor (star tracker). Using a star tracker provided an accurate absolute attitude determination system to ensure that the celestial object of interest was actually in the field of view of the telescope when it was pointed there. Compared to the gyroscopes that have a much higher angular resolution, the attitude determination system does not show any drift over time and does therefore not need to be calibrated during flight.
 
-Prioritisation parameters include the brightness of the object (brighter objects are expected to yield better results due to higher SNR), the location of the object within the operational field of view (objects near the centre of the field of view are favoured because they are less likely to rotate out of the field of view during exposure) and the number of exposures already taken (objects should be imaged more than once in order to be able to compare and verify the obtained data, but not more often than ten times during the flight). 
+Prioritisation parameters included the brightness of the object (brighter objects are expected to yield better results due to higher SNR), the location of the object within the operational field of view (objects near the centre of the field of view are favoured because they are less likely to rotate out of the field of view during exposure) and the number of exposures already taken (objects should be imaged more than once in order to be able to compare and verify the obtained data, but not more often than ten times during the flight). 
 
-As the location of the astronomical targets changes with time and position of the gondola, these two parameters also need to be taken into account (for determination see paragraph Astronomical targets). Once a target is selected, this part of the control system will be deactivated until the picture was taken or the control loop is re-initialised.
+As the location of the astronomical targets changes with time and position of the gondola, these two parameters also need to be taken into account (for determination see paragraph Astronomical targets). Once a target was selected, this part of the control system was deactivated until the picture was taken or the control loop was re-initialised.
 
-The 4 chosen prioritisation parameters are:
+The 4 chosen prioritisation parameters were:
 \begin{itemize}
 	\item No. of exposures already taken (exposure parameter)
 	\item Magnitude of the target (constant)
@@ -219,63 +219,95 @@ The 4 chosen prioritisation parameters are:
 	\item Type of target  (defined scientific parameter, constant)
 \end{itemize}
 
-The exposure parameter depends on the number of images of the target that have already been taken, and is defined as follows: \texttt{exp\_ param\_ list = [1,2,3,4,4,4,3,2,1,1,1]} for 0 to 9 exposures respectively, and 0 for all other. This ensures that not more than 10 images are taken (maximum defined in the scientific requirements) and that targets with more than 2 exposures are prioritised in order to get sufficient scientific data of one target.
+The exposure parameter depends on the number of images of the target that have already been taken, and was defined as follows: \texttt{exp\_param\_list = [1,2,3,4,4,4,3,2,1,1,1]} for 0 to 9 exposures respectively, and 0 for all other. This ensured that not more than 10 images are taken (maximum defined in the scientific requirements) and that targets with more than 2 exposures were prioritised in order to get sufficient scientific data of one target.
 
 The magnitude of the target is defined by the target itself and is therefore constant. Typical values range from 3 to 10 for the chosen targets. The higher the value the brighter the target, and therefore more suitable to observe.
 
-The position parameter depends on the gondola attitude and is recalculated based on the current time, position and attitude each time. It is then calculated as follows: if the absolute difference between the gondola attitude and the target position is smaller than a set value (e.\,g.~maximum telescope range - $\ang{30}$) it is defined as 
-
+The position parameter depends on the gondola attitude and was recalculated based on the current time, position and attitude each time. It was then calculated as follows: if the absolute difference between the gondola attitude and the target position is smaller than a set value (e.\,g.~maximum telescope range - $\ang{30}$) it was defined as 
 \begin{align*}
 	\left|\text{gondola attitude} - \text{target position} \right|
 \end{align*}
-otherwise as zero. This means that no targets that are outside the field of view are chosen, and the most central targets are preferred in order to minimise the risk of the target rotating out of the field of view during exposure.
+otherwise as zero. This means that no targets that are outside the field of view were chosen, and the most central targets were preferred in order to minimise the risk of the target rotating out of the field of view during exposure.
 
-The type of target (nebula/galaxy/open cluster/globular cluster) prioritises nebulae and galaxies to cluster. The prioritisation order is \texttt{type\_ param\_ list = [4,3,2,1]} for the order mentioned above.
+The type of target (nebula/galaxy/open cluster/globular cluster) prioritises nebulae and galaxies to cluster. The prioritisation order was \texttt{type\_param\_list = [4,3,2,1]} for the order mentioned above.
 
-To get a final prioritisation value for each target, all prioritisation parameters are multiplied. This ensures that targets outside the field of view as well as targets with 10 exposures are not taken into consideration any more, as the result is 0. The target with the highest calculated prioritisation value is selected for the next exposure.
+To get a final prioritisation value for each target, all prioritisation parameters were multiplied. This ensured that targets outside the field of view as well as targets with 10 exposures were not taken into consideration any more, as the result is 0. The target with the highest calculated prioritisation value was selected for the next exposure.
 
 
 
-\textbf{Tracking of astronomical targets}
+\paragraph{Tracking of astronomical targets}
 
-The time-dependent and the position-dependent rotational motion of the astronomical targets are calculated by using an astronomical model and provides the control input for the subsequent stages of the control system. Because the state vectors for this model are time (internal clock) and position (GPS) and the input vector is the selected target (defined in the system, not a variable state for the exposure of one image), the state vectors cannot be affected by the control system (not controllable). Therefore, no dedicated feedback loop is used for this part of the control system. However, the input data from the GPS may be filtered before use. The output vector then provides the input for the compensation of rotation (of the gondola in the z-axis) and the stabilisation of the gimbal.
+The time-dependent and the position-dependent rotational motion of the astronomical targets was calculated by using an astronomical model and provided the control input for the subsequent stages of the control system. Because the state vectors for this model are time (internal clock) and position (GPS) and the input vector is the selected target (defined in the system, not a variable state for the exposure of one image), the state vectors cannot be affected by the control system (not controllable). Therefore, no dedicated feedback loop was used for this part of the control system. \st{However, the input data from the GPS may be filtered before use.} The output vector then provided the input for the compensation of rotation (of the gondola in the z-axis) and the stabilisation of the gimbal.
 
-The astronomical model used to determine the current position of the targets is the Alt Az (Altitude Azimuth) reference frame. It defines the position of the astronomical target with respect to geographic north and zenith and depends on current the time, date and position of the observer. It is calculated based on the RA DEC (Right Ascension, Declination) of the astronomical target. The formulas required for this conversion are given in \mbox{\cite{RaDec2AltAz}}.
+The astronomical model used to determine the current position of the targets was the Alt Az (Altitude Azimuth) reference frame. It defines the position of the astronomical target with respect to geographic north and zenith and depends on current the time, date and position of the observer. It is calculated based on the RA DEC (Right Ascension, Declination) of the astronomical target. The formulas required for this conversion are given in \mbox{\cite{RaDec2AltAz}}.
 
-\textbf{Rotation of the gondola}
+\hl{Figure \mbox{\ref{fig::software::position_map}} shows the positions of the IRISC targets on October 31st, 12:00, 2019 in Esrange as simulated by the tracking algorithm in MATLAB. The positions are accurate within arcminutes if compared with commercial astronomy software for the absolute position. The difference that occurs within one $\SI{30}{\s}$ exposure is negligible. The same would be true for exposures of several hours.
 
-The uncontrolled rotational motion of the gondola around the z-axis can be directly compensated by actuating the corresponding gimbal axis (yaw). This will be achieved by a PID control. As the same axis will also be actuated during the stabilisation process, it will be merged with the control loop for the stabilisation. As the required accuracy for detecting the rotation of the gondola is very high, the gyroscopes are used to provide the input (see stabilisation for more detail).
+To illustrate the necessity of tracking figure \mbox{\ref{fig::software::star_trails}} shows a simulated exposure of 5h of all IRISC targets starting on October 31, 12:00, 2019 in Esrange (with the position held constant). }
+
+\begin{figure}[htb]
+	\centering
+	\includegraphics[width = \textwidth]{4-experiment-design/img/software/position_map_31-10-19_12-00.eps}
+	\caption{MATLAB simulation of the tracking algorithm showing all visible IRISC targets and the Sun on October 31, 12:00, 2019 in Esrange \hl{[New figure]}}
+	\label{fig::software::position_map}
+\end{figure}
+\begin{figure}[htb]
+	\centering
+	\includegraphics[width = \textwidth]{4-experiment-design/img/software/star_trails_31-10-19_12-00.eps}
+	\caption{MATLAB simulation of the tracking algorithm showing all visible IRISC targets and the Sun on October 31, 12:00, 2019 in Esrange \hl{[New figure]}}
+	\label{fig::software::star_trails}
+\end{figure}
+
+\paragraph{Rotation of the gondola}
+
+The uncontrolled rotational motion of the gondola around the z-axis could be directly compensated by actuating the corresponding gimbal axis (yaw). This was achieved by a PID control. As the same axis was also actuated during the stabilisation process, it was merged with the control loop for the stabilisation. As the required accuracy for detecting the rotation of the gondola was very high, the gyroscopes were used to provide the input (see stabilisation for more detail).
 
 
 
 \paragraph{Stabilisation of the gimbal}
-The stabilisation of the gimbal only needs to be active during exposure in order to avoid blurred pictures. It is responsible for compensating all kinds of small-scale, unpredicted movements of the gondola. In order to achieve this, an active feedback loop that requires information about the gondola movements is needed. This information is gathered by using accelerometers and gyroscopes for all 3 axes.
 
-After the target is selected, the gyroscopes are reset so there is no offset-error and the best accuracy can be achieved. With this setup, it is possible to measure the movements of the gondola with an accuracy higher than the corresponding angular resolution of one pixel. Once the gyroscopes are reset the value of the attitude determination system is held constant within the control system, because the accuracy of the gyroscopes is orders of magnitude higher than that of the attitude determination system. 
+The stabilisation of the gimbal only needed to be active during exposure in order to avoid blurred pictures. \hl{However, to simplify implementation and improve the performance of the star tracker it was enabled the entire time once the system went into the mode responsible for taking images.} It was responsible for compensating all kinds of small-scale, unpredicted movements of the gondola. In order to achieve this, an active feedback loop that requires information about the gondola movements was needed. \st{This information is gathered by using accelerometers and gyroscopes for all 3 axes.} \hl{The sensor data for the feedback loop was provided by the Kalman filter using the gyroscope and the star tracker. This setup has the accuracy (angular resolution) of the gyroscope while also being bias-compensated and providing not only the relative motion of the telescope but also the absolute pointing within the accuracy of the star tracker.}
 
-In addition to the gyroscopes, the encoders are used to obtain the actual position of the telescope within the gondola\st{ and therefore provide a second set of data for the feedback loop}. The sensor data is filtered by a Kalman filter to decrease the sensor noise and deduce the current orientation of the telescope as well as the motion of the gondola with a high precision.
+\st{After the target is selected, the gyroscopes are reset so there is no offset-error and the best accuracy can be achieved. With this setup, it is possible to measure the movements of the gondola with an accuracy higher than the corresponding angular resolution of one pixel. Once the gyroscopes are reset the value of the attitude determination system is held constant within the control system, because the accuracy of the gyroscopes is orders of magnitude higher than that of the attitude determination system. }
 
-The control of the gimbal (tracking and stabilisation as well as compensation of the gondola rotation for the yaw axis) is done by a separate PID control for each axis. The output of the controller is the required speed for the actuating motor of the respective axis. This information is then processed by the motor controller that calculates the required input currents for the motors.
+In addition to the gyroscopes, the encoders were used to obtain the actual position of the telescope within the gondola\st{ and therefore provide a second set of data for the feedback loop}. The sensor data was filtered by a Kalman filter to decrease the sensor noise and deduce the current orientation of the telescope as well as the motion of the gondola with a high precision.
 
-The stabilisation algorithm is written in C as the most of the OBSW. The team refrained from using third party libraries, so the whole stabilisation code is built using standard C libraries. The analysis will be conducted on a Simulink model and acquired PID values are tested on an instrument during integration tests.
+The control of the gimbal (tracking and stabilisation as well as compensation of the gondola rotation for the yaw axis) was done by a separate PID control for each axis. The output of the controller was the required speed for the actuating motor of the respective axis. This information was then processed by the motor controller that calculated the required input \st{currents} for the motors.
 
-\textbf{Attitude determination - Kalman filter}
+The stabilisation algorithm was written in C as most of the OBSW. The team refrained from using third party libraries, so the whole stabilisation code is built using standard C libraries. The analysis was conducted on a Simulink model and acquired PID values were tested on \st{an} \hl{the} instrument during integration tests.
 
-\hl{The Kalman filter utilises the measured data from the gyroscope to predict the current angle of the telescope and fuses this predicted value with the absolute orientation of the telescope obtained by the star tracker in the update step of the Kalman filter. As the gyroscope only measures angular rates the absolute orientation cannot be determined without a reference value. Also, sensor noise and imperfections, e.\,g.~gyro bias result in a drift of the predicted values. As the gyroscope is sampled with a much higher frequency than the star tracker due to the necessary exposure time of the star tracker camera as well as the calculation time of the star tracker on the onboard software, the update step (sensor fusion of gyroscope data and star tracker data) is only done when a new set of data from the star tracker is available, while the prediction step using only the gyroscope data is done with the same sampling time as the gyroscope readout. The development including testing of this algorithm is done in MATLAB, while for the OBSW it is written in c. A simulation of the performance of the Kalman filter can be seen in figure \mbox{\ref{fig::software::Kalman_filter}}. 
-The sampling frequency of the gyroscope is $\SI{40}{\Hz}$ while the star tracker is sampled at $\SI{30}{\second}$. The blue lines show the actual error of the values estimated by the Kalman filter, while the black lines demonstrate a standard deviation of 1 ($\SI{68}{\percent}$) of an optimal Kalman filter. }
+\paragraph{Attitude determination - Kalman filter}
 
-\begin{figure}%[h]
+The Kalman filter utilised the measured data from the gyroscope to predict the current angle of the telescope and fused this predicted value with the absolute orientation of the telescope obtained by the star tracker in the update step of the Kalman filter. As the gyroscope only measures angular rates the absolute orientation cannot be determined without a reference value. Also, sensor noise and imperfections, e.\,g.~gyro bias result in a drift of the predicted values. As the gyroscope was sampled with a much higher frequency than the star tracker due to the necessary exposure time of the star tracker camera as well as the calculation time of the star tracker on the onboard software, the update step (sensor fusion of gyroscope data and star tracker data) was only done when a new set of data from the star tracker was available, while the prediction step using only the gyroscope data was done with the same sampling time as the gyroscope readout. 
+\hl{Additionally, the computation time of the star tracker was higher than the exposure time of the guiding camera and was therefore not negligible because the obtained results are outdated, resulting in wrong prediction of the bias drift and subsequently also the position of the telescope. To compensate this a subset of the most recent gyroscope measurements and position estimates was temporarily stored during the prediction of the Kalman filter when no new star tracker data was available. For the update step the Kalman filter went back in time and took the position estimates from the time when the star tracker result was valid (i.\,e.end of exposure). It used these estimates along with the stored gyroscope data to conduct the update step and re-predict the current position estimates of the telescope.}
+ The development including testing of this algorithm was done in MATLAB, while for the OBSW it was written in c. A simulation of the performance of the Kalman filter can be seen in figure \mbox{\ref{fig::software::Kalman_filter}} \hl{to \mbox{\ref{fig::software::Kalman_filter_delay_2}}}. 
+The sampling frequency of the gyroscope is $\SI{40}{\Hz}$ while the star tracker is sampled at $\SI{30}{\second}$ \hl{for figure \mbox{\ref{fig::software::Kalman_filter}}}. The blue lines show the actual error of the values estimated by the Kalman filter, while the black lines demonstrate a standard deviation of 1 ($\SI{68}{\percent}$) of an optimal\hl{ly tuned} Kalman filter. 
+\hl{Figure \mbox{\ref{fig::software::Kalman_filter}} shows the error of the position and bias estimates for the Kalman filter with a gyroscope sampling frequency of $\SI{40}{\Hz}$ and a star tracker sampling time of $\SI{30}{\second}$ but no additional star tracker delay. Figure \mbox{\ref{fig::software::Kalman_filter_delay_1}} shows the Kalman filter with a gyroscope sampling frequency of $\SI{40}{\Hz}$ and a star tracker sampling time of $\SI{10}{\second}$ with a delay of $\SI{8}{\s}$ and a linear angular speed profile of $\SI{1}{\degree\per\s}$ which was the upper estimated limit of the gondola rotation. Figure \mbox{\ref{fig::software::Kalman_filter_delay_2}} has a periodically oscillating angular rotation profile with the period time corresponding to an ideal pendulum with a length of $\SI{100}{\m}$ and a maximum displacement of approx. $\ang{1}$ (half angle). This simulated the expected swinging motion of the gondola. All three scenarios showed that the Kalman filter can handle the different sampling rates and delay times of the star tracker as well as the expected angular speed profiles of the balloon. The oscillating motion in figure \mbox{\ref{fig::software::Kalman_filter_delay_2}} gets stronger with a higher maximum angular offset and nearly disappears for dislocations below $\ang{0.5}$ (half angle).  }
+
+\begin{figure}[htb]
 	\centering
-	\includegraphics[width = 0.95\textwidth]{4-experiment-design/img/software/kalman_filter.eps}
-	\caption{\hl{MATLAB simulation of the Kalman filter with noise distribution of the gyroscope according to the data sheet [New figure]}}
+	\includegraphics[width = 0.8\textwidth]{4-experiment-design/img/software/kf_30_0_lin.eps}
+	\caption{MATLAB simulation of the Kalman filter with noise distribution of the gyroscope according to the data sheet \hl{[Changed figure]}}
 	\label{fig::software::Kalman_filter}
+\end{figure}
+\begin{figure}[htb]
+	\centering
+	\includegraphics[width = 0.8\textwidth]{4-experiment-design/img/software/kf_10_8_lin.eps}
+	\caption{MATLAB simulation of the Kalman filter including star tracker delay for a linear angular rotation profile \hl{[New figure]}}
+	\label{fig::software::Kalman_filter_delay_1}
+\end{figure}
+\begin{figure}[htb]
+	\centering
+	\includegraphics[width = 0.8\textwidth]{4-experiment-design/img/software/kf_10_8_cos_3_1800.eps}
+	\caption{MATLAB simulation of the Kalman filter including star tracker delay for a periodic angular rotation profile \hl{[New figure]}}
+	\label{fig::software::Kalman_filter_delay_2}
 \end{figure}
 
 \newpage
 \begin{landscape}
 	\begin{figure}
 		\includegraphics[width=\linewidth]{4-experiment-design/img/software/Control_loop.eps}
-		\caption{Control loop of the experiment\hl{[Updated figure]}}
+		\caption{Control loop of the experiment}
 		\label{fig::software::control_loop}
 	\end{figure}
 \end{landscape}
