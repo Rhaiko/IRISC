@@ -3,17 +3,17 @@ $  $\pagebreak
 
 \subsubsection{Purpose}
 
-The purpose of the On-Board Software consists of:
+The purpose of the On-Board Software consisted of:
 \begin{itemize}
-	\item Controlling the selecting and tracking of targets to observe.
-	\item Ensuring that the camera is not oriented towards the sun.
-	\item Reading data from sensors and controlling actuators when needed.
-	\item Processing and storing images taken by camera.
-	\item Logging housekeeping data.
-	\item When possible, sending images and housekeeping data to ground station.
+    \item Controlling the selecting and tracking of targets to observe.
+    \item Ensuring that the camera is not oriented towards the sun.
+    \item Reading data from sensors and controlling actuators when needed.
+    \item Processing and storing images taken by camera.
+    \item Logging housekeeping data.
+    \item When possible, sending images and housekeeping data to ground station.
 \end{itemize}
 
-The software is designed such that it can control the experiment autonomously throughout the whole experiment process but also enable control from ground through telecommands.
+The software was designed such that it can control the experiment autonomously throughout the whole experiment process but also enable control from ground through telecommands.
 
 \subsubsection{Design}
 \label{sec:4.8.2}
@@ -21,75 +21,80 @@ The software is designed such that it can control the experiment autonomously th
 \paragraph{a)} Process Overview
 
 \begin{figure}[H]
-	\centering
-	\includegraphics[width=.9\textwidth]{4-experiment-design/img/software/process-overview.png}
-	\caption{Relations between On-Board Computer and connected components.}
-	\label{fig:software-process-overview}
+    \centering
+    \includegraphics[width=.9\textwidth]{4-experiment-design/img/software/process-overview.png}
+    \caption{Relations between On-Board Computer and connected components.}
+    \label{fig:software-process-overview}
 \end{figure}
 
-All external components connected to the On-Board Computer and their interface are displayed in figure \ref{fig:software-process-overview}. The sanity camera provides an overview of the experiment and captures images on demand. The guiding camera provides an overall view in the direction the telescope is pointing and is also used as a star tracker to determine the gondola attitude.
+All external components connected to the On-Board Computer and their interface are displayed in figure \ref{fig:software-process-overview}. \st{The sanity camera provides an overview of the experiment and captures images on demand.} The guiding camera provides an overall view in the direction the telescope is pointing and is also used as a star tracker to determine the gondola attitude.
 
 \paragraph{b)} General and safety related concepts
 
-To ensure that the software is not erroneous rigorous testing will be done during development and after completion. A watchdog timer will be used to avoid software freezing. This timer will reset the On-Board Computer if it is not itself reset by the software within a certain period.
+\st{To ensure that the software is not erroneous rigorous testing will be done during development and after completion.} \hl{To ensure that the software would not be erroneous rigorous testing was planned to be done during development and after completion. However, due to lack of time and mediocre planning, parts of the software were not tested as thoroughly as desired.} A watchdog timer will be used to avoid failure due to software freezing. This timer will reset the On-Board Computer if it is not itself reset by the software within a certain period.
 
 \paragraph{c)} Interfaces
 
-If connection to ground is available, images compressed with a lossless compression will be sent down over the E-link over the course of the experiment. If the storage were to fail on touchdown for any reason, this would mean that not all data is lost. All communications over the E-link will be done using TCP to ensure that packet loss won't corrupt data.
+\st{While connection to ground was available, images compressed with a lossless compression were sent down over the E-link over the course of the experiment. If the storage were to fail on touchdown for any reason, this would mean that not all data would have been lost.} All communications over the E-link were done using TCP to ensure that packet loss wouldn't corrupt data.
 
 \input{4-experiment-design/tables/software-interfaces.tex}
 
-All housekeeping data will be stored in the form of text documents. This data will be transmitted to ground periodically. In the beginning of observations, images from the guiding camera will also be transmitted to verify that the system is working as intended. In the case that the images from the guiding camera are not as expected, an image from the sanity camera can be transmitted on demand. This is the only case a sanity image would be transmitted.
+\st{All housekeeping data is stored in the form of text documents. This data will be transmitted to ground periodically. In the beginning of observations, images from the guiding camera will also be transmitted to verify that the system is working as intended. In the case that the images from the guiding camera are not as expected, an image from the sanity camera can be transmitted on demand. This is the only case a sanity image would be transmitted.}
 
-So long as there is additional headroom in the link budget, images from the NIR camera will be transmitted to ground. How many and when images are transmitted as well as an upper limit on the data rate if needed shall be controlled from ground. A minimum bandwidth of 300\,kbit/s is required for sensor data and guiding images. Once the initial guiding images has been received and verified, the nominal bandwidth required to transmit 10 images per hour is 500\,kbit/s. Any available bandwidth above that can be used to transmit additional images.
+\st{So long as there is additional headroom in the link budget, images from the NIR camera will be transmitted to ground. How many and when images are transmitted as well as an upper limit on the data rate if needed shall be controlled from ground. A minimum bandwidth of 300\,kbit/s is required for sensor data and guiding images. Once the initial guiding images has been received and verified, the nominal bandwidth required to transmit 10 images per hour is 500\,kbit/s. Any available bandwidth above that can be used to transmit additional images.}
+
+\hl{The data rate requested was 300\,kbit/s. This was calculated with the assumption that guiding images would be transmitted to ground regularly. Instead, the choise was made to only transmit housekeeping data causing the required data rate to drop drastically.}
 
 \newpage
-The telecommands are very small compared to the telemetry. In the worst case scenario the command size is in the kbit range after all communication overhead is added. The following points shall be controllable from the ground station:
+The telecommands were very small compared to the telemetry. In the worst case scenario the command size is in the single kbit range after all communication overhead is added. The following points were controllable from the ground station:
 
 \begin{itemize}
-	\item Rebooting the entire system.
-	\item Updating the list of targets and their priorities.
-	\item Calibrating the tracking to remove any offsets that may have appeared.
-	\item Choosing how fast and how many NIR images will be transmitted.
-	\item Setting camera settings such as exposure time and sensor gain.
-	\item On-command image capturing with the guiding or sanity cameras.
+    \item Rebooting the entire system.
+    \item \st{Updating the list of targets and their priorities.}
+    \item \st{Calibrating the tracking to remove any offsets that may have appeared.}
+    \item \hl{Transmitting the next image captured with the guiding camera.}
+    \item \st{Choosing how fast and how many NIR images will be transmitted.}
+    \item Setting camera settings such as exposure time and sensor gain.
+    \item \st{On-command image capturing with the guiding or sanity cameras.}
+    \item \hl{Controlling downlink data rate}
+    \item \hl{Manually controlling telescope movement.}
 \end{itemize}
 
 \paragraph{d)} Data acquisition and storage
 
-All data will be compressed using zstd, a lossless compression. The resulting compression ratio is heavily dependent on the contents of the data. A ratio of 2:1 (original data size to compressed) is used as a rough estimate from testing.
+All data was be compressed using zstd, a lossless compression. The resulting compression ratio is heavily dependent on the contents of the data. A ratio of 2:1 (original data size to compressed) was used as a rough estimate for calculations from testing. \hl{The following is a preflight estimation of the data rate and storage space required}.
 
-The main bulk of data handled is the images taken by the cameras. Housekeeping data such as positioning, camera direction, time, etc will also be stored along with the images. The On-Board Computer has one SD card used for the OS and temporary storage. For the external data storage two SD cards are used for redundancy purposes. All data shall be saved on these external SD-cards.
+The main bulk of data handled was the images taken by the cameras. Housekeeping data such as positioning, camera direction, time, etc was also stored along with the images \hl{in csv logs}. The On-Board Computer had one SD card used for the OS and storage. \st{temporary storage. For the external data storage two SD cards are used for redundancy purposes. All data shall be saved on these external SD-cards.}
 
 Both the NIR camera and the guiding camera have a colour depth of 12\,bits, but the image file format demands 16\,bits\,per\,pixel. This results in extra zero-padding on the data. However as this appears regularly, the compression algorithm can easily reduce the size overhead greatly.
 
-As the NIR camera has a resolution of $5496 * 3672$ and 16\,bits\,per\,pixel, the raw image compressed size will be roughly 20\,MB. For a 4\,hour float phase and an exposure time of 30\,s a total of  9.69\,GB is required in on-board data storage for the images. An exposure time of 30\,s can't be guaranteed e.g. due to movements of the gondola. If the exposure time is dropped to 10\,s the total amount of data for continuous image capturing is 29\,GB.
+As the NIR camera has a resolution of $5496 * 3672$ and 16\,bits\,per\,pixel, the raw image compressed size is roughly 20\,MB. For a 4\,hour float phase and an exposure time of 30\,s a total of  9.69\,GB is required in on-board data storage for the images. An exposure time of 30\,s can't be guaranteed e.g. due to movements of the gondola. If the exposure time would be dropped to 10\,s the total amount of data for continuous image capturing would be 29\,GB.
 
-The guiding camera has a resolution of $1936 * 1096$ and 16\,bits\,per\,pixel, leading to a raw image compressed size of roughly 2.1\,MB. If the guiding camera is sampled every 10\,s the total data required for the images is 3\,GB.
+The guiding camera has a resolution of $1936 * 1096$ and 16\,bits\,per\,pixel, leading to a raw image compressed size of roughly 2.1\,MB. If the guiding camera would be sampled every 10\,s the total data required for the images would be 3\,GB.
 
 As the housekeeping data is negligible in size compared to the images and as the sanity images are only taken on demand, an SD-card size of 64\,GB will be sufficient for all data storage.
 
-With a maximum of 1\,Mbit per second data transfer rate to ground it takes at least 161.5\,s to transfer one image compressed losslessly to 50\,\% of original size. This means that with little down time between observations and for most exposure times, not all images can be transmitted to ground.
+With a maximum of 1\,Mbit per second data transfer rate to ground it would take at least 161.5\,s to transfer one image compressed losslessly to 50\,\% of original size. This means that with little down time between observations and for most exposure times, not all images could be transmitted to ground.
 
-The minimum data rate to the external storage required to save NIR images every 30\,s, guiding camera images every 10\,s, and sensor data polled each second is 900\,kbit/s.
+The minimum data rate to the \st{external} \hl{internal} storage required to save NIR images every 30\,s, guiding camera images every 10\,s, and sensor data polled each second is 900\,kbit/s.
 
 
 \paragraph{e)} Process Flow
 
-The system can either start in a testing mode, or in normal operation. The testing mode is used for pre-flight tests to ensure that all systems work as expected. Afterwards the system shall enter a sleep mode, a low activity state, with the camera in a safe launch position. During the ascent the thermal control system shall be running to ensure that all components of the experiment are within nominal temperature ranges.
+The system could either start in a testing mode, or in normal operation. The testing mode was used for pre-flight tests to ensure that all systems work as expected. Afterwards the system shall enter a sleep mode, a low activity state, with the camera in a safe launch position. During the ascent the thermal control system shall be running to ensure that all components of the experiment are within nominal temperature ranges.
 
-When the float phase is reached, the system will wake. This is done by tracking the altitude of the gondola using GPS data. After wake-up the system shall find its orientation and the position of the sun. Finally tracking and observation can start.
+When the float phase was reached, the system would wake. This was done by tracking the altitude of the gondola using GPS data. After wake-up the system shall find its orientation and the position of the sun. Finally tracking and observation could start.
 
-Astronomical targets are prioritised. The software shall track and observe the highest priority target within the field of view with varying camera settings until one of the following events happen:
+Astronomical targets are prioritised. The software shall track and observe the highest priority target within the field of view \st{with varying camera settings} until one of the following events happen:
 
 \begin{itemize}
-	\item Current target leaves operational field of view.
-	\item A higher priority target enters the field of view.
+    \item Current target leaves operational field of view.
+    \item A higher priority target enters the field of view.
 \end{itemize}
 
-If one of the aforementioned events happens, the software will switch current target following prioritisation. While observing targets, the On-Board Software shall store images and housekeeping data. If connection to ground is available this data shall be compressed using a lossless compression method and sent to ground.
+If one of the aforementioned events were to happen, the software would switch current target following prioritisation. While observing targets, the On-Board Software shall store images and housekeeping data. If connection to ground was available this data shall be compressed using a lossless compression method and sent to ground.
 
-At the end of the floating phase the camera shall be oriented in a landing position and the system shall shut down. Figure \ref{fig:software-activity-diagram} shows the complete process flow. Figure \ref{fig:software-state-diagram} shows a simple state diagram for the experiment. Observations are done in the Normal state. In the rare case of a software freeze, it will be reset without entering sleep mode.
+At the end of the floating phase the camera shall be oriented in a landing position and the system shall shut down. Figure \ref{fig:software-activity-diagram} shows the complete process flow. Figure \ref{fig:software-state-diagram} shows a simple state diagram for the experiment. Observations were done in the Normal state. In the rare case of a software freeze, it would be reset without entering sleep mode.
 
 \begin{figure}[H]
     \centering
@@ -99,92 +104,92 @@ At the end of the floating phase the camera shall be oriented in a landing posit
 \end{figure}
 
 \begin{figure}[H]
-	\centering
-	\includegraphics[width=.7\textwidth]{4-experiment-design/img/software/state-diagram.png}
-	\caption{State diagram for On-Board Software.}
-	\label{fig:software-state-diagram}
+    \centering
+    \includegraphics[width=.7\textwidth]{4-experiment-design/img/software/state-diagram.png}
+    \caption{State diagram for On-Board Software.}
+    \label{fig:software-state-diagram}
 \end{figure}
 
 \clearpage
 \paragraph{f)} Modularisation and pseudo code
 
 \begin{figure}[H]
-	\centering
-	\includegraphics[width=\textwidth]{4-experiment-design/img/software/composition-tree.png}
-	\caption{Composition tree of On-Board Software.}
-	\label{fig:software-composition-tree}
+    \centering
+    \includegraphics[width=\textwidth]{4-experiment-design/img/software/composition-tree.png}
+    \caption{Composition tree of On-Board Software.}
+    \label{fig:software-composition-tree}
 \end{figure}
 
-Figure \ref{fig:software-composition-tree} shows how the complete software is modularised. Each component is described below.
+Figure \ref{fig:software-composition-tree} shows how the complete software was modularised. Each component is described below.
 
 \begin{itemize}
 
-	\item Camera: Parent
-		\begin{itemize}
-			\item Guiding Camera: Communication link to the guiding camera.
-			\item NIR Camera: Communication link to the NIR camera.
-			\item Sanity Camera: Communication link to the sanity camera.
-		\end{itemize}
+    \item Camera: Parent
+        \begin{itemize}
+            \item Guiding Camera: Communication link to the guiding camera.
+            \item NIR Camera: Communication link to the NIR camera.
+            \item \st{Sanity Camera: Communication link to the sanity camera.}
+        \end{itemize}
 
-	\item Command: Module responsible for handling incoming commands from ground.
+    \item Command: Module responsible for handling incoming commands from ground.
 
-	\item E-link: Module responsible for communications over the E-link interface.
+    \item E-link: Module responsible for communications over the E-link interface.
 
     \item GPIO: Module responsible for communications through the Raspberry Pi GPIO.
 
-	\item Img Processing: Image processing, parent
-		\begin{itemize}
-			\item Data Queue: Buffer to hold camera data until Handler is ready
-			\item Image Handler: Module processing and storing images taken by camera.
-		\end{itemize}
+    \item Img Processing: Image processing, parent
+        \begin{itemize}
+            \item Data Queue: Buffer to hold camera data until Handler is ready
+            \item Image Handler: Module processing and storing images taken by camera.
+        \end{itemize}
 
-	\item Init: Module initialising each component.
+    \item Init: Module initialising each component.
 
-	\item Mode: Module responsible for the current state of the software.
+    \item Mode: Module responsible for the current state of the software.
 
-	\item Sensors: Parent
-		\begin{itemize}
+    \item Sensors: Parent
+        \begin{itemize}
             \item Encoder: Module holding encoder data.
             \item GPS: Module holding GPS data.
             \item Gyroscope: Module holding gyroscope data.
-			 \item Sensor Poller: Module responsible for polling sensors.
+             \item Sensor Poller: Module responsible for polling sensors.
             \item Star Tracker: Module holding absolute attitude obtained from the star tracker.
-			\item Temperature: Thermal sensors.
-		\end{itemize}
+            \item Temperature: Thermal sensors.
+        \end{itemize}
 
-	\item Telemetry: Parent
-		\begin{itemize}
-			\item Downlink: Module responsible for sending telemetry to ground.
-			\item Downlink Queue: Buffer to hold telemetry messages.
-		\end{itemize}
+    \item Telemetry: Parent
+        \begin{itemize}
+            \item Downlink: Module responsible for sending telemetry to ground.
+            \item Downlink Queue: Buffer to hold telemetry messages.
+        \end{itemize}
 
-	\item Thermal: Module responsible for active thermal control
+    \item Thermal: Module responsible for active thermal control
 
-	\item Control System: Parent
-		\begin{itemize}
-			\item Current Target: Module holding the current target to be observed.
-			\item Controller: Module responsible for keeping camera on target.
-			\item Gimbal: Module providing an interface to the gimbal motors.
-			\item Target Selection: Module responsible for keeping track of target prioritisation and positioning as well as controlling the main camera.
-		\end{itemize}
+    \item Control System: Parent
+        \begin{itemize}
+            \item Current Target: Module holding the current target to be observed.
+            \item Controller: Module responsible for keeping camera on target.
+            \item Gimbal: Module providing an interface to the gimbal motors.
+            \item Target Selection: Module responsible for keeping track of target prioritisation and positioning as well as controlling the main camera.
+        \end{itemize}
 
-	\item Watchdog: Timer to reset watchdog.
+    \item Watchdog: Timer to reset watchdog.
 
 \end{itemize}
 
 \subsubsection{Implementation}
 
-The code for the On-Board Software shall be implemented in C. An operating system will be used to enable the modularisation required. The chosen operating system is Linux with the Preempt RT kernel patch. Additional libraries, such as the ASI SDK library used for controlling the cameras, will be needed. The compression used for the telemetry is supplied by the zstd library.
+The code for the On-Board Software was implemented in C. An operating system was used to enable the modularisation required. The chosen operating system was Arch Linux ARM \st{with the Preempt RT kernel patch}. \st{Additional libraries, such as the ASI SDK library used for controlling the cameras, will be needed. The compression used for the telemetry is supplied by the zstd library.} \hl{Additional libraries used were: the ASI SDK library for controlling the cameras, zstd for data compression, cfitsio for handling .fit files, and ftd2xx for communications with the gyroscope.}
 
 \subsubsection{Unit Tests Performed}
 
 \paragraph{Cameras}
 
-hax The same software is used for the two ZWO cameras and therefore only the NIR camera is used in the test since it has the highest resolution and therefore higher requirements in terms of computer resources. The OBSW is compared against software provided by ZWO to see that it works as expected. A test is also performed to compare noise levels from the camera while using the USB 2.0 and 3.0 interfasces. The methodology and results are presented in Appendix \ref{app:camera_software_test}.
+The same software was used for the two ZWO cameras and therefore only the NIR camera was used in the test since it has the highest resolution and therefore higher requirements in terms of computer resources. The OBSW was compared against software provided by ZWO to see that it works as expected. A test was also performed to compare noise levels from the camera while using the USB 2.0 and 3.0 interfasces. The methodology and results are presented in Appendix \ref{app:camera_software_test}.
 
 \paragraph{GPS receiver}
 
-The GPS receiver and the OBSW controlling it is tested on a road trip across Sweden. The horizontal positioning is evaluated using Google satellite imaging and the altitude is evaluated using SRTM1 data to verify adequate accuracy. The methodology and results are presented in Appendix \ref{app:gps_test}. The GPS data from the receiver is deemed to be accurate.
+The GPS receiver and the OBSW controlling it was tested on a road trip across Sweden. The horizontal positioning was evaluated using Google satellite imaging and the altitude is evaluated using SRTM1 data to verify adequate accuracy. The methodology and results are presented in Appendix \ref{app:gps_test}. The GPS data from the receiver was deemed to be accurate.
 
 
 \subsubsection{Control system}
@@ -194,9 +199,9 @@ The main task of the control system was selecting and tracking the astronomical 
 
 The selection and tracking of targets was done by using the current time, position (GPS) and orientation star tracker and gyroscope) of the gondola. Once a suitable target in the operational field of view was selected, it was tracked during exposure. This included the compensation of the following motions:
 \begin{itemize}
-	\item Time-dependent rotational motion of the astronomical targets in the sky. This will be continuously compensated during exposure using models and/or interpolation of tables.
-	\item Position-dependent rotational motion of the astronomical targets in the sky. This will be corrected once for every picture, using the GPS data.
-	\item Rotation of the gondola in the z-axis; can be corrected during exposure using a gyroscope sensor.
+    \item Time-dependent rotational motion of the astronomical targets in the sky. This will be continuously compensated during exposure using models and/or interpolation of tables.
+    \item Position-dependent rotational motion of the astronomical targets in the sky. This will be corrected once for every picture, using the GPS data.
+    \item Rotation of the gondola in the z-axis; can be corrected during exposure using a gyroscope sensor.
 \end{itemize}
 
 Due to the nature of the motion of astronomical targets, it is necessary to use a 3-axis gimbal.
@@ -213,10 +218,10 @@ As the location of the astronomical targets changes with time and position of th
 
 The 4 chosen prioritisation parameters were:
 \begin{itemize}
-	\item No. of exposures already taken (exposure parameter)
-	\item Magnitude of the target (constant)
-	\item Position parameter
-	\item Type of target  (defined scientific parameter, constant)
+    \item No. of exposures already taken (exposure parameter)
+    \item Magnitude of the target (constant)
+    \item Position parameter
+    \item Type of target  (defined scientific parameter, constant)
 \end{itemize}
 
 The exposure parameter depends on the number of images of the target that have already been taken, and was defined as follows: \texttt{exp\_param\_list = [1,2,3,4,4,4,3,2,1,1,1]} for 0 to 9 exposures respectively, and 0 for all other. This ensured that not more than 10 images are taken (maximum defined in the scientific requirements) and that targets with more than 2 exposures were prioritised in order to get sufficient scientific data of one target.
@@ -225,7 +230,7 @@ The magnitude of the target is defined by the target itself and is therefore con
 
 The position parameter depends on the gondola attitude and was recalculated based on the current time, position and attitude each time. It was then calculated as follows: if the absolute difference between the gondola attitude and the target position is smaller than a set value (e.\,g.~maximum telescope range - $\ang{30}$) it was defined as 
 \begin{align*}
-	\left|\text{gondola attitude} - \text{target position} \right|
+    \left|\text{gondola attitude} - \text{target position} \right|
 \end{align*}
 otherwise as zero. This means that no targets that are outside the field of view were chosen, and the most central targets were preferred in order to minimise the risk of the target rotating out of the field of view during exposure.
 
@@ -246,16 +251,16 @@ The astronomical model used to determine the current position of the targets was
 To illustrate the necessity of tracking figure \mbox{\ref{fig::software::star_trails}} shows a simulated exposure of 5h of all IRISC targets starting on October 31, 12:00, 2019 in Esrange (with the position held constant). }
 
 \begin{figure}[htb]
-	\centering
-	\includegraphics[width = \textwidth]{4-experiment-design/img/software/position_map_31-10-19_12-00.eps}
-	\caption{MATLAB simulation of the tracking algorithm showing all visible IRISC targets and the Sun on October 31, 12:00, 2019 in Esrange \hl{[New figure]}}
-	\label{fig::software::position_map}
+    \centering
+    \includegraphics[width = \textwidth]{4-experiment-design/img/software/position_map_31-10-19_12-00.eps}
+    \caption{MATLAB simulation of the tracking algorithm showing all visible IRISC targets and the Sun on October 31, 12:00, 2019 in Esrange \hl{[New figure]}}
+    \label{fig::software::position_map}
 \end{figure}
 \begin{figure}[htb]
-	\centering
-	\includegraphics[width = \textwidth]{4-experiment-design/img/software/star_trails_31-10-19_12-00.eps}
-	\caption{MATLAB simulation of the tracking algorithm showing all visible IRISC targets and the Sun on October 31, 12:00, 2019 in Esrange \hl{[New figure]}}
-	\label{fig::software::star_trails}
+    \centering
+    \includegraphics[width = \textwidth]{4-experiment-design/img/software/star_trails_31-10-19_12-00.eps}
+    \caption{MATLAB simulation of the tracking algorithm showing all visible IRISC targets and the Sun on October 31, 12:00, 2019 in Esrange \hl{[New figure]}}
+    \label{fig::software::star_trails}
 \end{figure}
 
 \paragraph{Rotation of the gondola}
@@ -285,31 +290,31 @@ The sampling frequency of the gyroscope is $\SI{40}{\Hz}$ while the star tracker
 \hl{Figure \mbox{\ref{fig::software::Kalman_filter}} shows the error of the position and bias estimates for the Kalman filter with a gyroscope sampling frequency of $\SI{40}{\Hz}$ and a star tracker sampling time of $\SI{30}{\second}$ but no additional star tracker delay. Figure \mbox{\ref{fig::software::Kalman_filter_delay_1}} shows the Kalman filter with a gyroscope sampling frequency of $\SI{40}{\Hz}$ and a star tracker sampling time of $\SI{10}{\second}$ with a delay of $\SI{8}{\s}$ and a linear angular speed profile of $\SI{1}{\degree\per\s}$ which was the upper estimated limit of the gondola rotation. Figure \mbox{\ref{fig::software::Kalman_filter_delay_2}} has a periodically oscillating angular rotation profile with the period time corresponding to an ideal pendulum with a length of $\SI{100}{\m}$ and a maximum displacement of approx. $\ang{1}$ (half angle). This simulated the expected swinging motion of the gondola. All three scenarios showed that the Kalman filter can handle the different sampling rates and delay times of the star tracker as well as the expected angular speed profiles of the balloon. The oscillating motion in figure \mbox{\ref{fig::software::Kalman_filter_delay_2}} gets stronger with a higher maximum angular offset and nearly disappears for dislocations below $\ang{0.5}$ (half angle).  }
 
 \begin{figure}[htb]
-	\centering
-	\includegraphics[width = 0.8\textwidth]{4-experiment-design/img/software/kf_30_0_lin.eps}
-	\caption{MATLAB simulation of the Kalman filter with noise distribution of the gyroscope according to the data sheet \hl{[Changed figure]}}
-	\label{fig::software::Kalman_filter}
+    \centering
+    \includegraphics[width = 0.8\textwidth]{4-experiment-design/img/software/kf_30_0_lin.eps}
+    \caption{MATLAB simulation of the Kalman filter with noise distribution of the gyroscope according to the data sheet \hl{[Changed figure]}}
+    \label{fig::software::Kalman_filter}
 \end{figure}
 \begin{figure}[htb]
-	\centering
-	\includegraphics[width = 0.8\textwidth]{4-experiment-design/img/software/kf_10_8_lin.eps}
-	\caption{MATLAB simulation of the Kalman filter including star tracker delay for a linear angular rotation profile \hl{[New figure]}}
-	\label{fig::software::Kalman_filter_delay_1}
+    \centering
+    \includegraphics[width = 0.8\textwidth]{4-experiment-design/img/software/kf_10_8_lin.eps}
+    \caption{MATLAB simulation of the Kalman filter including star tracker delay for a linear angular rotation profile \hl{[New figure]}}
+    \label{fig::software::Kalman_filter_delay_1}
 \end{figure}
 \begin{figure}[htb]
-	\centering
-	\includegraphics[width = 0.8\textwidth]{4-experiment-design/img/software/kf_10_8_cos_3_1800.eps}
-	\caption{MATLAB simulation of the Kalman filter including star tracker delay for a periodic angular rotation profile \hl{[New figure]}}
-	\label{fig::software::Kalman_filter_delay_2}
+    \centering
+    \includegraphics[width = 0.8\textwidth]{4-experiment-design/img/software/kf_10_8_cos_3_1800.eps}
+    \caption{MATLAB simulation of the Kalman filter including star tracker delay for a periodic angular rotation profile \hl{[New figure]}}
+    \label{fig::software::Kalman_filter_delay_2}
 \end{figure}
 
 \newpage
 \begin{landscape}
-	\begin{figure}
-		\includegraphics[width=\linewidth]{4-experiment-design/img/software/Control_loop.eps}
-		\caption{Control loop of the experiment}
-		\label{fig::software::control_loop}
-	\end{figure}
+    \begin{figure}
+        \includegraphics[width=\linewidth]{4-experiment-design/img/software/Control_loop.eps}
+        \caption{Control loop of the experiment}
+        \label{fig::software::control_loop}
+    \end{figure}
 \end{landscape}
 
 
