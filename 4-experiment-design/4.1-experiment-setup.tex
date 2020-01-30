@@ -5,7 +5,7 @@
 
 
 %very general experiment setup
-The experiments mounted a telescope with an attached CMOS sensor inside the gondola, looking out as shown in figure \ref{fig::4-1_CAD}. The telescope was mounted on a gimbal system that provided stabilisation along two axes \st{(three if required, depending on simulation results, hardware is available)} and tracking in three dimensions. The sensor/telescope/gimbal system was shielded from the Sun's radiation and climatized in order to provide the required operation temperatures. This was achieved by using Peltier elements where heating or cooling may be necessary (e.\,g.~the sensor) and heating pads where there is only a chance of freezing (e.\,g.~the moving parts of the gimbal). The general setup with data flows can be seen in figure \ref{fig::4-1_block_diagram}. The individual sections of the experiment are described below.
+The experiment mounted a telescope with an attached CMOS sensor inside the gondola, looking out as shown in figure \ref{fig::4-1_CAD}. The telescope was mounted on a gimbal system that provided stabilisation along two axes \st{(three if required, depending on simulation results, hardware is available)} and tracking in three dimensions. The sensor/telescope/gimbal system was shielded from the Sun's radiation and climatized in order to provide the required operation temperatures. This was achieved by using Peltier elements where heating or cooling may be necessary (e.\,g.~the sensor) and heating pads where there is only a chance of freezing (e.\,g.~the moving parts of the gimbal). The general setup with data flows can be seen in figure \ref{fig::4-1_block_diagram}. The individual sections of the experiment are described below.
 
 \begin{figure}[h]
 	\centering
@@ -116,9 +116,9 @@ The control system was responsible for tracking the target in the sky and stabil
 
 \subsubsection{Attitude determination}
 \label{sec::4-1_attitude_determination}
-In order to determine the attitude of the gondola as it is rotating, the guiding camera will also function as a star tracker. As the relative orientation of the telescope with respect to the gondola is known, the gondola attitude can be calculated and used for the control system. The star tracker will be based on the system used by team GranaSAT which flew on Bexus 19. Their experiment was able to correctly identify 445 star fields and incorrectly identified 10. Several images had to be discarded due to a lack of found stars, but as their camera also acted as a horizon detector the FOV of stars was limited. As their software worked well and was run on-board on a Raspberry Pi the conditions are generally similar. Contact is established with members from team GranaSAT, and \hl{they have offered to aid and answer questions about the star tracker.} \st{with their support the star tracker software will be adapted for IRISC.} It should be noted that GranaSAT flew during night time, while IRISC will most likely be flying during day time. However, as the tracker will be used above the atmosphere it should be able to producer similar results anyway.
+In order to determine the attitude of the gondola as it was rotating, the guiding camera also functioned as a star tracker. As the relative orientation of the telescope with respect to the gondola was known, the gondola attitude could be calculated and used for the control system. The star tracker was \hl{inspired by} \st{based on} the system used by team GranaSAT which flew on Bexus 19. Their experiment was able to correctly identify 445 star fields and incorrectly identified 10. Several images had to be discarded due to a lack of found stars, but as their camera also acted as a horizon detector the FOV of stars was limited. As their software worked well and was run on-board on a Raspberry Pi the conditions were generally similar. Contact was established with members from team GranaSAT, and \hl{they offered to aid and answer questions about the star tracker.} \st{with their support the star tracker software will be adapted for IRISC.} It should be noted that GranaSAT flew during night time, while IRISC flew during day time. However, as the tracker was to be used above the atmosphere it was expected to be able to producer similar results anyway.
 
-Another system that has been shown to work under similar conditions is the Daystar Star Tracker \cite{daystar}. It was flown during daytime on a NASA balloon, piggybacking on a test of the WASP system. It was shown that daytime star tracking is possible with good results. Some of the modifications that had to be applied was a high pass filter to remove any Rayleigh scattering, and efficient star identification algorithms. Also, some extra image processing was needed. As their project was well documented, and all their software is open source, this too will be used to aid the development of the star tracker for IRISC.
+Another system that had been shown to work under similar conditions is the Daystar Star Tracker \cite{daystar}. It was flown during daytime on a NASA balloon, piggybacking on a test of the WASP system. It was shown that daytime star tracking is possible with good results. Some of the modifications that had to be applied was a high pass filter to remove any Rayleigh scattering, and efficient star identification algorithms. Also, some extra image processing was needed. As their project was well documented, and all their software is open source, this too was used to aid the development of the star tracker for IRISC.
 
 \st{After some consideration and testing, the star tracker used will be a slightly modified version of the Tetra algorithm developed by Julian Brown of MIT. This algorithm was chosen based on it being both calibrationless and very fast for the lost-in-space problem \mbox{\cite{tetra}}. Small adjustments and tuning is done in order to maximize performance for the specific use case of IRISC.}
 
@@ -127,49 +127,6 @@ Another system that has been shown to work under similar conditions is the Dayst
 \hl{During the weeks before the launch campaign, several major discoveries and changes were made. When the previously chosen Tetra program was ready to be run it did so for many days before it was found that the expected size of the new hash table would be in the order of several terabytes. As this was not within the storage budget or reasonable for a project such as IRISC an emergency solution was needed. Instead of Tetra, a solution that had been looked at much earlier was implemented, called Astrometry.net. Minor changes were made to the program, as it included much functionality that was not needed. Some of these were stripped away, and some were changed to provide output in the format that the IRISC OBSW expected.}
 
 %\colorbox{red}{currently not included: guiding scope \& camera -> needs to be included!}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 \raggedbottom

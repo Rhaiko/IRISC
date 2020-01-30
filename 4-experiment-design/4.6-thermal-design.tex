@@ -20,23 +20,23 @@
 
 \paragraph{Operating temperatures}
 
-The most obvious temperature requirement is in meeting the operating temperature for the various components, tabulated below.\\ 
+The most obvious temperature requirement was in meeting the operating temperature for the various components, tabulated below.\\ 
 
 \input{4-experiment-design/tables/thermal-tempranges.tex}
 
-As the ambient conditions are likely to be very cold, many of the components will need to be heated so that the electronics are able to operate.\\
+As the ambient conditions were likely to be very cold, many of the components would need to be heated so that the electronics would be able to operate.\\
 
-The motors will need to be maintained at between 0\textsuperscript{o}C and 60\textsuperscript{o}C. If the ambient conditions are assumed to be -70\,\textsuperscript{o}C, then the temperature of these motors will need to be raised by more than 80\,\textsuperscript{o}C, assuming a tolerance of 10\,\textsuperscript{o}C.\\
+The motors would need to be maintained at between 0\textsuperscript{o}C and 60\textsuperscript{o}C. If the ambient conditions were assumed to be -70\,\textsuperscript{o}C, then the temperature of these motors would need to be raised by more than 80\,\textsuperscript{o}C, assuming a tolerance of 10\,\textsuperscript{o}C.\\
 
-The main camera (ZWO ASI183MM) will need to be maintained at between -5\textsuperscript{o}C and 45\textsuperscript{o}C. The temperature of this component will need to increase by more than 75\,\textsuperscript{o}C. Likewise for the guiding camera. For the main camera to reduce noise there is value in keeping the optics cool while the electronics are warmed to the operating temperature. This should be taken into account in the thermal design.\\
+The main camera (ZWO ASI183MM) would need to be maintained at between -5\textsuperscript{o}C and 45\textsuperscript{o}C. The temperature of this component would need to increase by more than 75\,\textsuperscript{o}C. Likewise for the guiding camera. For the main camera to reduce noise there was value in keeping the optics cool while the electronics were warmed to the operating temperature. This was taken into account in the thermal design.\\
 
-The sanity camera (Raspberry Pi Camera v2.1) will need to be maintained at between -20\textsuperscript{o}C and 60\textsuperscript{o}C. The temperature of this component will need to increase by more than 60\,\textsuperscript{o}C.\\
+The sanity camera (Raspberry Pi Camera v2.1) would need to be maintained at between -20\textsuperscript{o}C and 60\textsuperscript{o}C. The temperature of this component would need to increase by more than 60\,\textsuperscript{o}C.\\
 
-For the electronics box, the temperature will need to be between 0\textsuperscript{o}C and 50\textsuperscript{o}C, for the Raspberry Pi, the most temperature sensitive component. A temperature increase of more than 80\textsuperscript{o}C is required\textsuperscript{o}C.\\
+For the electronics box, the temperature would need to be between 0\textsuperscript{o}C and 50\textsuperscript{o}C, for the Raspberry Pi, the most temperature sensitive component. A temperature increase of more than 80\textsuperscript{o}C was required\textsuperscript{o}C.\\
 
 \paragraph{SNR}
 
-In order to ensure minimal measurement error in acquiring images, the effect of temperature on the optics must be considered, and the temperature must be controlled if needed to ensure that the error is within an acceptable range.\\
+In order to ensure minimal measurement error in acquiring images, the effect of temperature on the optics had to be considered, and the temperature had to be controlled if needed to ensure that the error is within an acceptable range.\\
 
 Dark current is small residual currents that are present in the camera, generated irrespective of whether there is incident illumination. This dark current becomes present in the data in the form of random noise that is not trivial to subtract. By decreasing the operating temperature of the camera optics, the magnitude of dark current can be minimised and the signal to noise ratio increased. This relationship between signal to noise ratio and dark current is as follows\\
 
@@ -50,7 +50,7 @@ $t$ = Integration time (s)\\
 $Nd$ = Dark current (electrons/pixel/s)\\
 $Nr$ = Read noise (electrons)\\
 
-The ASI183 camera is specified as having a read noise of 1.6e @30db gain and a QE peak of 84\%. The camera also has the following relationship between dark current and sensor temperature. Calculations will be considered for an exposure time of 300s, which is the longer intended exposure time for higher quality imaging.  \\
+The ASI183 camera is specified as having a read noise of 1.6e @30db gain and a QE peak of 84\%. The camera also has the following relationship between dark current and sensor temperature. Calculations will be considered for an exposure time of 300s, which was the longer intended exposure time for higher quality imaging.  \\
 
 
 	\begin{figure}[H]
@@ -72,10 +72,10 @@ As an example, the SNR as affected by dark current at -10\,\textsuperscript{o}C 
 
 
 \paragraph{Optothermal stability}
-Another important effect will be the how thermal stresses and subsequent deflections can affect the optics of the camera, in particular the index of refraction, and hence the quality of the collected data. Variation of solar flux over the time of flight and from the heat signatures of the BEXUS module will need to be considered. A thermoelastic analysis should be conducted in finite element analysis software to evaluate the effects of the thermal environment, and the implication of those results on the validity of the data should be investigated. \
+Another important effect would be the how thermal stresses and subsequent deflections could affect the optics of the camera, in particular the index of refraction, and hence the quality of the collected data. Variation of solar flux over the time of flight and from the heat signatures of the BEXUS module would need to be considered. A thermoelastic analysis should be conducted in finite element analysis software to evaluate the effects of the thermal environment, and the implication of those results on the validity of the data should be investigated. \
 
 \paragraph{Condensation}
-Condensation may occur if air heated by the camera heating elements is able to condensate on the cold surfaces of the optics. This will deteriorate the quality of the detections and must also be mitigated.  \
+Condensation could occur if air heated by the camera heating elements was able to condensate on the cold surfaces of the optics. This would deteriorate the quality of the detections and must had to be mitigated.  \
 
 	\begin{figure}[H]
     \centering
@@ -88,22 +88,9 @@ Condensation may occur if air heated by the camera heating elements is able to c
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 \subsubsection{Thermal environment}
 \paragraph{Atmosphere ambient conditions}
-IRISC will ascend to and float in the stratosphere at an altitude of between 25 and 30\,km, after which it will experience altitude fluctuations of no more than 200\,m. This is the phase of flight during which the infrared camera will be operational and hence thermal control most necessary in ensuring sound optical performance. This part of the atmosphere is also characterised by relatively low temperatures. Based on the flights of number previous BEXUS missions seen in the graph of the atmosphere, it can be assumed that the atmospheric temperature during float will range between -70\,\textsuperscript{o}C and -50\,\textsuperscript{o}C. \\
+IRISC would ascend to and float in the stratosphere at an altitude of between 25 and 30\,km, after which it would experience altitude fluctuations of no more than 200\,m. This would be the phase of flight during which the infrared camera would be operational and hence thermal control most necessary in ensuring sound optical performance. This part of the atmosphere is also characterised by relatively low temperatures. Based on the flights of a number of previous BEXUS missions seen in the graph of the atmosphere, it could be assumed that the atmospheric temperature during float would range between -70\,\textsuperscript{o}C and -50\,\textsuperscript{o}C. \\
 
 	\begin{figure}[H]
     \centering
@@ -116,7 +103,7 @@ IRISC will ascend to and float in the stratosphere at an altitude of between 25 
 
 \paragraph{Solar flux}
 
-The extent of solar irradiance is characterised by several factors, including the sun’s height above the horizon, typically low for the polar latitudes that the balloon will be flying at, and the height in the atmosphere and atmospheric conditions, which will cause absorption and scattering of light. \\
+The extent of solar irradiance was characterised by several factors, including the sun’s height above the horizon, typically low for the polar latitudes that the balloon would be flying at, and the height in the atmosphere and atmospheric conditions, which would cause absorption and scattering of light. \\
 The total solar irradiance, neglecting atmospheric effects, at the Esrange latitude of 68\textsuperscript{o} and assuming a launch date of the 15th of October is demonstrated in the following graph of direct solar radiation, with a peak of ~500\,W/m\textsuperscript{2} at noon.\\
 
 	\begin{figure}[H]
@@ -129,7 +116,7 @@ The total solar irradiance, neglecting atmospheric effects, at the Esrange latit
 The degree of attenuation of solar radiation through the atmosphere can be described using the Beer–Lambert law, which relates the transmittance of radiation to optical depth. For an atmosphere with properties that change exponentially with respect to altitude, the optical depth can be estimated to also change exponentially with respect to altitude. \\
 
 \paragraph{Internal heat generation}
-Another factor affecting the thermal environment comes from the generation of heat by the electronic components in the electronics box, from each camera, and from each motor. This heat is generated from losses of the supplied power through electrical and mechanical processes. An estimate of the power drawn by each component will be conducted.
+Another factor affecting the thermal environment comes from the generation of heat by the electronic components in the electronics box, from each camera, and from each motor. This heat is generated from losses of the supplied power through electrical and mechanical processes. An estimate of the power drawn by each component was conducted.
 
 \input{4-experiment-design/tables/thermal-power.tex}
 

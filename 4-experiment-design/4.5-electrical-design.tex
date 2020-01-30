@@ -1,6 +1,6 @@
 \pagebreak
 \subsection{Electrical Design}
-The electrical design provides the hardware required for the implementation of the software, the sensors for the control system and furthermore a communication interface to the BEXUS system. A global diagram with the electrical interfaces between the IRISC experiment and BEXUS balloon are shown in figure \ref{fig:elec-ACD}. %The main interfaces are the E-Link and the power. But also, the camera's/ telescope should be able to watch the sky from the gondola.}}
+The electrical design provided the hardware required for the implementation of the software, the sensors for the control system and furthermore a communication interface to the BEXUS system. A global diagram with the electrical interfaces between the IRISC experiment and BEXUS balloon is shown in figure \ref{fig:elec-ACD}. %The main interfaces are the E-Link and the power. But also, the camera's/ telescope should be able to watch the sky from the gondola.}}
 \vspace{-.5cm}
 \begin{figure}[H]
 	\centering
@@ -12,7 +12,7 @@ The electrical design provides the hardware required for the implementation of t
 
 \subsubsection{Block Diagram}
 \label{sec:4.5.1}
-The architecture interconnect diagram of the electrical design is shown in figure \ref{fig:elec-AID}. The main controller is the Raspberry Pi. There is external storage for the obtained images. To stabilize the pictures the gyroscopes (relative) and encoders (absolute) are used. This will give enough information to stabilize the camera during one picture (accuracy $<$ 0.5 arcseconds required to achieve requirement P.8). Because the gondola also moves, a star tracker and GPS are used to measure this. Potentionally, an accelerometer and a compass will be used for additional complementary data. These only have to be accurate enough to have the target in the field of view of the camera ($<$ 0.5 degrees for the star tracker (P.9), $<$ 5 meters for the GPS (P.10)).
+The architecture interconnect diagram of the electrical design is shown in figure \ref{fig:elec-AID}. The main controller was the Raspberry Pi. There was external storage for the obtained images. To stabilize the pictures the gyroscopes (relative) and encoders (absolute) were used. This would give enough information to stabilize the camera during one picture (accuracy $<$ 0.5 arcseconds required to achieve requirement P.8). Because the gondola also moved, a star tracker and GPS were used to measure this. Potentionally, an accelerometer and a compass would be used for additional complementary data. These only had to be accurate enough to have the target in the field of view of the camera ($<$ 0.5 degrees for the star tracker (P.9), $<$ 5 meters for the GPS (P.10)).
 \vspace{-.5cm}
 \begin{figure}[H]
 	\centering

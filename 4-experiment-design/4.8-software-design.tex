@@ -27,15 +27,15 @@ The software was designed such that it can control the experiment autonomously t
     \label{fig:software-process-overview}
 \end{figure}
 
-All external components connected to the On-Board Computer and their interface are displayed in figure \ref{fig:software-process-overview}. \st{The sanity camera provides an overview of the experiment and captures images on demand.} The guiding camera provides an overall view in the direction the telescope is pointing and is also used as a star tracker to determine the gondola attitude.
+All external components connected to the On-Board Computer and their interface are displayed in figure \ref{fig:software-process-overview}. \st{The sanity camera provides an overview of the experiment and captures images on demand.} The guiding camera provided an overall view in the direction the telescope was pointing and was also used as a star tracker to determine the gondola attitude.
 
 \paragraph{b)} General and safety related concepts
 
-\st{To ensure that the software is not erroneous rigorous testing will be done during development and after completion.} \hl{To ensure that the software would not be erroneous rigorous testing was planned to be done during development and after completion. However, due to lack of time and mediocre planning, parts of the software were not tested as thoroughly as desired.} A watchdog timer will be used to avoid failure due to software freezing. This timer will reset the On-Board Computer if it is not itself reset by the software within a certain period.
+\st{To ensure that the software is not erroneous rigorous testing will be done during development and after completion.} \hl{To ensure that the software would not be erroneous rigorous testing was planned to be done during development and after completion. However, due to lack of time and mediocre planning, parts of the software were not tested as thoroughly as desired.} A watchdog timer was used to avoid failure due to software freezing. This timer would reset the On-Board Computer if it were not itself reset by the software within a certain period.
 
 \paragraph{c)} Interfaces
 
-\st{While connection to ground was available, images compressed with a lossless compression were sent down over the E-link over the course of the experiment. If the storage were to fail on touchdown for any reason, this would mean that not all data would have been lost.} All communications over the E-link were done using TCP to ensure that packet loss wouldn't corrupt data.
+\st{While connection to ground was available, images compressed with a lossless compression were sent down over the E-link over the course of the experiment. If the storage were to fail on touchdown for any reason, this would mean that not all data would have been lost.} All communications over the E-link was done using TCP to ensure that packet loss wouldn't corrupt data.
 
 \input{4-experiment-design/tables/software-interfaces.tex}
 
@@ -43,9 +43,9 @@ All external components connected to the On-Board Computer and their interface a
 
 \st{So long as there is additional headroom in the link budget, images from the NIR camera will be transmitted to ground. How many and when images are transmitted as well as an upper limit on the data rate if needed shall be controlled from ground. A minimum bandwidth of 300\,kbit/s is required for sensor data and guiding images. Once the initial guiding images has been received and verified, the nominal bandwidth required to transmit 10 images per hour is 500\,kbit/s. Any available bandwidth above that can be used to transmit additional images.}
 
-\hl{The data rate requested was 300\,kbit/s. This was calculated with the assumption that guiding images would be transmitted to ground regularly. Instead, the choise was made to only transmit housekeeping data causing the required data rate to drop drastically.}
+\hl{The data rate requested was 300\,kbit/s. This was calculated with the assumption that guiding images would be transmitted to ground regularly. Instead, the choice was made to only transmit housekeeping data causing the required data rate to drop drastically.}
 
-The telecommands were very small compared to the telemetry. In the worst case scenario the command size is in the single kbit range after all communication overhead is added. The following points were controllable from the ground station:
+The telecommands were very small compared to the telemetry. In the worst case scenario the command size would be in the single kbit range after all communication overhead was added. The following points were controllable from the ground station:
 
 \begin{itemize}
     \item Rebooting the entire system.
@@ -61,17 +61,17 @@ The telecommands were very small compared to the telemetry. In the worst case sc
 
 \paragraph{d)} Data acquisition and storage
 
-All data was be compressed using zstd, a lossless compression. The resulting compression ratio is heavily dependent on the contents of the data. A ratio of 2:1 (original data size to compressed) was used as a rough estimate for calculations from testing. \hl{The following is a preflight estimation of the data rate and storage space required}.
+All data was compressed using zstd, a lossless compression. The resulting compression ratio was heavily dependent on the contents of the data. A ratio of 2:1 (original data size to compressed) was used as a rough estimate for calculations from testing. \hl{The following is a preflight estimation of the data rate and storage space required}.
 
 The main bulk of data handled was the images taken by the cameras. Housekeeping data such as positioning, camera direction, time, etc was also stored along with the images \hl{in csv logs}. The On-Board Computer had one SD card used for the OS and storage. \st{temporary storage. For the external data storage two SD cards are used for redundancy purposes. All data shall be saved on these external SD-cards.}
 
-Both the NIR camera and the guiding camera have a colour depth of 12\,bits, but the image file format demands 16\,bits\,per\,pixel. This results in extra zero-padding on the data. However as this appears regularly, the compression algorithm can easily reduce the size overhead greatly.
+Both the NIR camera and the guiding camera had a colour depth of 12\,bits, but the image file format demands 16\,bits\,per\,pixel. This resulted in extra zero-padding on the data. However as this appeared regularly, the compression algorithm could easily reduce the size overhead greatly.
 
-As the NIR camera has a resolution of $5496 * 3672$ and 16\,bits\,per\,pixel, the raw image compressed size is roughly 20\,MB. For a 4\,hour float phase and an exposure time of 30\,s a total of  9.69\,GB is required in on-board data storage for the images. An exposure time of 30\,s can't be guaranteed e.g. due to movements of the gondola. If the exposure time would be dropped to 10\,s the total amount of data for continuous image capturing would be 29\,GB.
+As the NIR camera had a resolution of $5496 * 3672$ and 16\,bits\,per\,pixel, the raw image compressed size was roughly 20\,MB. For a 4\,hour float phase and an exposure time of 30\,s a total of  9.69\,GB would be required in on-board data storage for the images. An exposure time of 30\,s couldn't be guaranteed e.g. due to movements of the gondola. If the exposure time would be dropped to 10\,s the total amount of data for continuous image capturing would be 29\,GB.
 
-The guiding camera has a resolution of $1936 * 1096$ and 16\,bits\,per\,pixel, leading to a raw image compressed size of roughly 2.1\,MB. If the guiding camera would be sampled every 10\,s the total data required for the images would be 3\,GB.
+The guiding camera had a resolution of $1936 * 1096$ and 16\,bits\,per\,pixel, leading to a raw image compressed size of roughly 2.1\,MB. If the guiding camera would be sampled every 10\,s the total data required for the images would be 3\,GB.
 
-As the housekeeping data is negligible in size compared to the images and as the sanity images are only taken on demand, an SD-card size of 64\,GB will be sufficient for all data storage.
+As the housekeeping data was negligible in size compared to the images and as the sanity images were only taken on demand, an SD-card size of 64\,GB was deemed to be sufficient for all data storage.
 
 With a maximum of 1\,Mbit per second data transfer rate to ground it would take at least 161.5\,s to transfer one image compressed losslessly to 50\,\% of original size. This means that with little down time between observations and for most exposure times, not all images could be transmitted to ground.
 
@@ -80,11 +80,11 @@ The minimum data rate to the \st{external} \hl{internal} storage required to sav
 
 \paragraph{e)} Process Flow
 
-The system could either start in a testing mode, or in normal operation. The testing mode was used for pre-flight tests to ensure that all systems work as expected. Afterwards the system shall enter a sleep mode, a low activity state, with the camera in a safe launch position. During the ascent the thermal control system shall be running to ensure that all components of the experiment are within nominal temperature ranges.
+The system could either start in a testing mode, or in normal operation. The testing mode was used for pre-flight tests to ensure that all systems work as expected. Afterwards the system were to enter a sleep mode, a low activity state, with the camera in a safe launch position. During the ascent the thermal control system would be running to ensure that all components of the experiment were within nominal temperature ranges.
 
 When the float phase was reached, the system would wake. This was done by tracking the altitude of the gondola using GPS data. After wake-up the system shall find its orientation and the position of the sun. Finally tracking and observation could start.
 
-Astronomical targets are prioritised. The software shall track and observe the highest priority target within the field of view \st{with varying camera settings} until one of the following events happen:
+Astronomical targets were prioritised. The software shall track and observe the highest priority target within the field of view \st{with varying camera settings} until one of the following events happen:
 
 \begin{itemize}
     \item Current target leaves operational field of view.
