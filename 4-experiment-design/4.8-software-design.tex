@@ -27,43 +27,35 @@ The software was designed such that it can control the experiment autonomously t
     \label{fig:software-process-overview}
 \end{figure}
 
-All external components connected to the On-Board Computer and their interface are displayed in figure \ref{fig:software-process-overview}. \st{The sanity camera provides an overview of the experiment and captures images on demand.} The guiding camera provided an overall view in the direction the telescope was pointing and was also used as a star tracker to determine the gondola attitude.
+All external components connected to the On-Board Computer and their interface are displayed in figure \ref{fig:software-process-overview}. The guiding camera provided an overall view in the direction the telescope was pointing and was also used as a star tracker to determine the gondola attitude.
 
 \paragraph{b)} General and safety related concepts
 
-\st{To ensure that the software is not erroneous rigorous testing will be done during development and after completion.} \hl{To ensure that the software would not be erroneous rigorous testing was planned to be done during development and after completion. However, due to lack of time and mediocre planning, parts of the software were not tested as thoroughly as desired.} A watchdog timer was used to avoid failure due to software freezing. This timer would reset the On-Board Computer if it were not itself reset by the software within a certain period.
+To ensure that the software would not be erroneous rigorous testing was planned to be done during development and after completion. However, due to lack of time and mediocre planning, parts of the software were not tested as thoroughly as desired. A watchdog timer was used to avoid failure due to software freezing. This timer would reset the On-Board Computer if it were not itself reset by the software within a certain period.
 
 \paragraph{c)} Interfaces
 
-\st{While connection to ground was available, images compressed with a lossless compression were sent down over the E-link over the course of the experiment. If the storage were to fail on touchdown for any reason, this would mean that not all data would have been lost.} All communications over the E-link was done using TCP to ensure that packet loss wouldn't corrupt data.
+All communications over the E-link was done using TCP to ensure that packet loss wouldn't corrupt data.
 
 \input{4-experiment-design/tables/software-interfaces.tex}
 
-\st{All housekeeping data is stored in the form of text documents. This data will be transmitted to ground periodically. In the beginning of observations, images from the guiding camera will also be transmitted to verify that the system is working as intended. In the case that the images from the guiding camera are not as expected, an image from the sanity camera can be transmitted on demand. This is the only case a sanity image would be transmitted.}
-
-\st{So long as there is additional headroom in the link budget, images from the NIR camera will be transmitted to ground. How many and when images are transmitted as well as an upper limit on the data rate if needed shall be controlled from ground. A minimum bandwidth of 300\,kbit/s is required for sensor data and guiding images. Once the initial guiding images has been received and verified, the nominal bandwidth required to transmit 10 images per hour is 500\,kbit/s. Any available bandwidth above that can be used to transmit additional images.}
-
-\hl{The data rate requested was 300\,kbit/s. This was calculated with the assumption that guiding images would be transmitted to ground regularly. Instead, the choice was made to only transmit housekeeping data causing the required data rate to drop drastically.}
+The data rate requested was 300\,kbit/s. This was calculated with the assumption that guiding images would be transmitted to ground regularly. Instead, the choice was made to only transmit housekeeping data causing the required data rate to drop drastically.
 
 The telecommands were very small compared to the telemetry. In the worst case scenario the command size would be in the single kbit range after all communication overhead was added. The following points were controllable from the ground station:
 
 \begin{itemize}
     \item Rebooting the entire system.
-    \item \st{Updating the list of targets and their priorities.}
-    \item \st{Calibrating the tracking to remove any offsets that may have appeared.}
-    \item \hl{Transmitting the next image captured with the guiding camera.}
-    \item \st{Choosing how fast and how many NIR images will be transmitted.}
+    \item Transmitting the next image captured with the guiding camera.
     \item Setting camera settings such as exposure time and sensor gain.
-    \item \st{On-command image capturing with the guiding or sanity cameras.}
-    \item \hl{Controlling downlink data rate}
-    \item \hl{Manually controlling telescope movement.}
+    \item Controlling downlink data rate
+    \item Manually controlling telescope movement.
 \end{itemize}
 
 \paragraph{d)} Data acquisition and storage
 
-All data was compressed using zstd, a lossless compression. The resulting compression ratio was heavily dependent on the contents of the data. A ratio of 2:1 (original data size to compressed) was used as a rough estimate for calculations from testing. \hl{The following is a preflight estimation of the data rate and storage space required}.
+All data was compressed using zstd, a lossless compression. The resulting compression ratio was heavily dependent on the contents of the data. A ratio of 2:1 (original data size to compressed) was used as a rough estimate for calculations from testing. The following is a preflight estimation of the data rate and storage space required.
 
-The main bulk of data handled was the images taken by the cameras. Housekeeping data such as positioning, camera direction, time, etc was also stored along with the images \hl{in csv logs}. The On-Board Computer had one SD card used for the OS and storage. \st{temporary storage. For the external data storage two SD cards are used for redundancy purposes. All data shall be saved on these external SD-cards.}
+The main bulk of data handled was the images taken by the cameras. Housekeeping data such as positioning, camera direction, time, etc was also stored along with the images in csv logs. The On-Board Computer had one SD card used for the OS and storage. 
 
 Both the NIR camera and the guiding camera had a colour depth of 12\,bits, but the image file format demands 16\,bits\,per\,pixel. This resulted in extra zero-padding on the data. However as this appeared regularly, the compression algorithm could easily reduce the size overhead greatly.
 
@@ -75,7 +67,7 @@ As the housekeeping data was negligible in size compared to the images and as th
 
 With a maximum of 1\,Mbit per second data transfer rate to ground it would take at least 161.5\,s to transfer one image compressed losslessly to 50\,\% of original size. This means that with little down time between observations and for most exposure times, not all images could be transmitted to ground.
 
-The minimum data rate to the \st{external} \hl{internal} storage required to save NIR images every 30\,s, guiding camera images every 10\,s, and sensor data polled each second is 900\,kbit/s.
+The minimum data rate to the internal storage required to save NIR images every 30\,s, guiding camera images every 10\,s, and sensor data polled each second is 900\,kbit/s.
 
 
 \paragraph{e)} Process Flow
@@ -84,7 +76,7 @@ The system could either start in a testing mode, or in normal operation. The tes
 
 When the float phase was reached, the system would wake. This was done by tracking the altitude of the gondola using GPS data. After wake-up the system shall find its orientation and the position of the sun. Finally tracking and observation could start.
 
-Astronomical targets were prioritised. The software shall track and observe the highest priority target within the field of view \st{with varying camera settings} until one of the following events happen:
+Astronomical targets were prioritised. The software shall track and observe the highest priority target within the field of view until one of the following events happen:
 
 \begin{itemize}
     \item Current target leaves operational field of view.
@@ -127,7 +119,6 @@ Figure \ref{fig:software-composition-tree} shows how the complete software was m
         \begin{itemize}
             \item Guiding Camera: Communication link to the guiding camera.
             \item NIR Camera: Communication link to the NIR camera.
-            \item \st{Sanity Camera: Communication link to the sanity camera.}
         \end{itemize}
 
     \item Command: Module responsible for handling incoming commands from ground.
@@ -178,7 +169,7 @@ Figure \ref{fig:software-composition-tree} shows how the complete software was m
 
 \subsubsection{Implementation}
 
-The code for the On-Board Software was implemented in C. An operating system was used to enable the modularisation required. The chosen operating system was Arch Linux ARM \st{with the Preempt RT kernel patch}. \st{Additional libraries, such as the ASI SDK library used for controlling the cameras, will be needed. The compression used for the telemetry is supplied by the zstd library.} \hl{Additional libraries used were: the ASI SDK library for controlling the cameras, zstd for data compression, cfitsio for handling .fit files, and ftd2xx for communications with the gyroscope.}
+The code for the On-Board Software was implemented in C. An operating system was used to enable the modularisation required. The chosen operating system was Arch Linux ARM. Additional libraries used were: the ASI SDK library for controlling the cameras, zstd for data compression, cfitsio for handling .fit files, and ftd2xx for communications with the gyroscope.
 
 \subsubsection{Unit Tests Performed}
 
@@ -204,8 +195,6 @@ The selection and tracking of targets was done by using the current time, positi
 \end{itemize}
 
 Due to the nature of the motion of astronomical targets, it is necessary to use a 3-axis gimbal.
-
-\st{The three axes and the names for the rotation axes are shown in figure \mbox{\ref{fig::software::Yaw_Pitch_Roll}}.}
 
 \paragraph{Selection of targets}
 
@@ -241,24 +230,24 @@ To get a final prioritisation value for each target, all prioritisation paramete
 
 \paragraph{Tracking of astronomical targets}
 
-The time-dependent and the position-dependent rotational motion of the astronomical targets was calculated by using an astronomical model and provided the control input for the subsequent stages of the control system. Because the state vectors for this model are time (internal clock) and position (GPS) and the input vector is the selected target (defined in the system, not a variable state for the exposure of one image), the state vectors cannot be affected by the control system (not controllable). Therefore, no dedicated feedback loop was used for this part of the control system. \st{However, the input data from the GPS may be filtered before use.} The output vector then provided the input for the compensation of rotation (of the gondola in the z-axis) and the stabilisation of the gimbal.
+The time-dependent and the position-dependent rotational motion of the astronomical targets was calculated by using an astronomical model and provided the control input for the subsequent stages of the control system. Because the state vectors for this model are time (internal clock) and position (GPS) and the input vector is the selected target (defined in the system, not a variable state for the exposure of one image), the state vectors cannot be affected by the control system (not controllable). Therefore, no dedicated feedback loop was used for this part of the control system. The output vector then provided the input for the compensation of rotation (of the gondola in the z-axis) and the stabilisation of the gimbal.
 
 The astronomical model used to determine the current position of the targets was the Alt Az (Altitude Azimuth) reference frame. It defines the position of the astronomical target with respect to geographic north and zenith and depends on current the time, date and position of the observer. It is calculated based on the RA DEC (Right Ascension, Declination) of the astronomical target. The formulas required for this conversion are given in \mbox{\cite{RaDec2AltAz}}.
 
-\hl{Figure \mbox{\ref{fig::software::position_map}} shows the positions of the IRISC targets on October 31st, 12:00, 2019 in Esrange as simulated by the tracking algorithm in MATLAB. The positions are accurate within arcminutes if compared with commercial astronomy software for the absolute position. The difference that occurs within one $\SI{30}{\s}$ exposure is negligible. The same would be true for exposures of several hours.
+Figure \mbox{\ref{fig::software::position_map}} shows the positions of the IRISC targets on October 31st, 12:00, 2019 in Esrange as simulated by the tracking algorithm in MATLAB. The positions are accurate within arcminutes if compared with commercial astronomy software for the absolute position. The difference that occurs within one $\SI{30}{\s}$ exposure is negligible. The same would be true for exposures of several hours.
 
-To illustrate the necessity of tracking figure \mbox{\ref{fig::software::star_trails}} shows a simulated exposure of 5h of all IRISC targets starting on October 31, 12:00, 2019 in Esrange (with the position held constant). }
+To illustrate the necessity of tracking figure \mbox{\ref{fig::software::star_trails}} shows a simulated exposure of 5h of all IRISC targets starting on October 31, 12:00, 2019 in Esrange (with the position held constant). 
 
 \begin{figure}[htb]
     \centering
     \includegraphics[width = \textwidth]{4-experiment-design/img/software/position_map_31-10-19_12-00.eps}
-    \caption{MATLAB simulation of the tracking algorithm showing all visible IRISC targets and the Sun on October 31, 12:00, 2019 in Esrange \hl{[New figure]}}
+    \caption{MATLAB simulation of the tracking algorithm showing all visible IRISC targets and the Sun on October 31, 12:00, 2019 in Esrange}
     \label{fig::software::position_map}
 \end{figure}
 \begin{figure}[htb]
     \centering
     \includegraphics[width = \textwidth]{4-experiment-design/img/software/star_trails_31-10-19_12-00.eps}
-    \caption{MATLAB simulation of the tracking algorithm showing all visible IRISC targets and the Sun on October 31, 12:00, 2019 in Esrange \hl{[New figure]}}
+    \caption{MATLAB simulation of the tracking algorithm showing all visible IRISC targets and the Sun on October 31, 12:00, 2019 in Esrange}
     \label{fig::software::star_trails}
 \end{figure}
 
@@ -270,40 +259,38 @@ The uncontrolled rotational motion of the gondola around the z-axis could be dir
 
 \paragraph{Stabilisation of the gimbal}
 
-The stabilisation of the gimbal only needed to be active during exposure in order to avoid blurred pictures. \hl{However, to simplify implementation and improve the performance of the star tracker it was enabled the entire time once the system went into the mode responsible for taking images.} It was responsible for compensating all kinds of small-scale, unpredicted movements of the gondola. In order to achieve this, an active feedback loop that requires information about the gondola movements was needed. \st{This information is gathered by using accelerometers and gyroscopes for all 3 axes.} \hl{The sensor data for the feedback loop was provided by the Kalman filter using the gyroscope and the star tracker. This setup has the accuracy (angular resolution) of the gyroscope while also being bias-compensated and providing not only the relative motion of the telescope but also the absolute pointing within the accuracy of the star tracker.}
+The stabilisation of the gimbal only needed to be active during exposure in order to avoid blurred pictures. However, to simplify implementation and improve the performance of the star tracker it was enabled the entire time once the system went into the mode responsible for taking images. It was responsible for compensating all kinds of small-scale, unpredicted movements of the gondola. In order to achieve this, an active feedback loop that requires information about the gondola movements was needed. The sensor data for the feedback loop was provided by the Kalman filter using the gyroscope and the star tracker. This setup has the accuracy (angular resolution) of the gyroscope while also being bias-compensated and providing not only the relative motion of the telescope but also the absolute pointing within the accuracy of the star tracker.
 
-\st{After the target is selected, the gyroscopes are reset so there is no offset-error and the best accuracy can be achieved. With this setup, it is possible to measure the movements of the gondola with an accuracy higher than the corresponding angular resolution of one pixel. Once the gyroscopes are reset the value of the attitude determination system is held constant within the control system, because the accuracy of the gyroscopes is orders of magnitude higher than that of the attitude determination system. }
+In addition to the gyroscopes, the encoders were used to obtain the actual position of the telescope within the gondola. The sensor data was filtered by a Kalman filter to decrease the sensor noise and deduce the current orientation of the telescope as well as the motion of the gondola with a high precision.
 
-In addition to the gyroscopes, the encoders were used to obtain the actual position of the telescope within the gondola\st{ and therefore provide a second set of data for the feedback loop}. The sensor data was filtered by a Kalman filter to decrease the sensor noise and deduce the current orientation of the telescope as well as the motion of the gondola with a high precision.
+The control of the gimbal (tracking and stabilisation as well as compensation of the gondola rotation for the yaw axis) was done by a separate PID control for each axis. The output of the controller was the required speed for the actuating motor of the respective axis. This information was then processed by the motor controller that calculated the required input for the motors.
 
-The control of the gimbal (tracking and stabilisation as well as compensation of the gondola rotation for the yaw axis) was done by a separate PID control for each axis. The output of the controller was the required speed for the actuating motor of the respective axis. This information was then processed by the motor controller that calculated the required input \st{currents} for the motors.
-
-The stabilisation algorithm was written in C as most of the OBSW. The team refrained from using third party libraries, so the whole stabilisation code is built using standard C libraries. The analysis was conducted on a Simulink model and acquired PID values were tested on \st{an} \hl{the} instrument during integration tests.
+The stabilisation algorithm was written in C as most of the OBSW. The team refrained from using third party libraries, so the whole stabilisation code is built using standard C libraries. The analysis was conducted on a Simulink model and acquired PID values were tested on the instrument during integration tests.
 
 \paragraph{Attitude determination - Kalman filter}
 
 The Kalman filter utilised the measured data from the gyroscope to predict the current angle of the telescope and fused this predicted value with the absolute orientation of the telescope obtained by the star tracker in the update step of the Kalman filter. As the gyroscope only measures angular rates the absolute orientation cannot be determined without a reference value. Also, sensor noise and imperfections, e.\,g.~gyro bias result in a drift of the predicted values. As the gyroscope was sampled with a much higher frequency than the star tracker due to the necessary exposure time of the star tracker camera as well as the calculation time of the star tracker on the onboard software, the update step (sensor fusion of gyroscope data and star tracker data) was only done when a new set of data from the star tracker was available, while the prediction step using only the gyroscope data was done with the same sampling time as the gyroscope readout. 
-\hl{Additionally, the computation time of the star tracker was higher than the exposure time of the guiding camera and was therefore not negligible because the obtained results are outdated, resulting in wrong prediction of the bias drift and subsequently also the position of the telescope. To compensate this a subset of the most recent gyroscope measurements and position estimates was temporarily stored during the prediction of the Kalman filter when no new star tracker data was available. For the update step the Kalman filter went back in time and took the position estimates from the time when the star tracker result was valid (i.\,e.end of exposure). It used these estimates along with the stored gyroscope data to conduct the update step and re-predict the current position estimates of the telescope.}
- The development including testing of this algorithm was done in MATLAB, while for the OBSW it was written in c. A simulation of the performance of the Kalman filter can be seen in figure \mbox{\ref{fig::software::Kalman_filter}} \hl{to \mbox{\ref{fig::software::Kalman_filter_delay_2}}}. 
-The sampling frequency of the gyroscope is $\SI{40}{\Hz}$ while the star tracker is sampled at $\SI{30}{\second}$ \hl{for figure \mbox{\ref{fig::software::Kalman_filter}}}. The blue lines show the actual error of the values estimated by the Kalman filter, while the black lines demonstrate a standard deviation of 1 ($\SI{68}{\percent}$) of an optimal\hl{ly tuned} Kalman filter. 
-\hl{Figure \mbox{\ref{fig::software::Kalman_filter}} shows the error of the position and bias estimates for the Kalman filter with a gyroscope sampling frequency of $\SI{40}{\Hz}$ and a star tracker sampling time of $\SI{30}{\second}$ but no additional star tracker delay. Figure \mbox{\ref{fig::software::Kalman_filter_delay_1}} shows the Kalman filter with a gyroscope sampling frequency of $\SI{40}{\Hz}$ and a star tracker sampling time of $\SI{10}{\second}$ with a delay of $\SI{8}{\s}$ and a linear angular speed profile of $\SI{1}{\degree\per\s}$ which was the upper estimated limit of the gondola rotation. Figure \mbox{\ref{fig::software::Kalman_filter_delay_2}} has a periodically oscillating angular rotation profile with the period time corresponding to an ideal pendulum with a length of $\SI{100}{\m}$ and a maximum displacement of approx. $\ang{1}$ (half angle). This simulated the expected swinging motion of the gondola. All three scenarios showed that the Kalman filter can handle the different sampling rates and delay times of the star tracker as well as the expected angular speed profiles of the balloon. The oscillating motion in figure \mbox{\ref{fig::software::Kalman_filter_delay_2}} gets stronger with a higher maximum angular offset and nearly disappears for dislocations below $\ang{0.5}$ (half angle).  }
+Additionally, the computation time of the star tracker was higher than the exposure time of the guiding camera and was therefore not negligible because the obtained results are outdated, resulting in wrong prediction of the bias drift and subsequently also the position of the telescope. To compensate this a subset of the most recent gyroscope measurements and position estimates was temporarily stored during the prediction of the Kalman filter when no new star tracker data was available. For the update step the Kalman filter went back in time and took the position estimates from the time when the star tracker result was valid (i.\,e.end of exposure). It used these estimates along with the stored gyroscope data to conduct the update step and re-predict the current position estimates of the telescope.
+ The development including testing of this algorithm was done in MATLAB, while for the OBSW it was written in c. A simulation of the performance of the Kalman filter can be seen in figure \mbox{\ref{fig::software::Kalman_filter}} to \mbox{\ref{fig::software::Kalman_filter_delay_2}}. 
+The sampling frequency of the gyroscope is $\SI{40}{\Hz}$ while the star tracker is sampled at $\SI{30}{\second}$ for figure \mbox{\ref{fig::software::Kalman_filter}}. The blue lines show the actual error of the values estimated by the Kalman filter, while the black lines demonstrate a standard deviation of 1 ($\SI{68}{\percent}$) of an optimally tuned Kalman filter. 
+Figure \mbox{\ref{fig::software::Kalman_filter}} shows the error of the position and bias estimates for the Kalman filter with a gyroscope sampling frequency of $\SI{40}{\Hz}$ and a star tracker sampling time of $\SI{30}{\second}$ but no additional star tracker delay. Figure \mbox{\ref{fig::software::Kalman_filter_delay_1}} shows the Kalman filter with a gyroscope sampling frequency of $\SI{40}{\Hz}$ and a star tracker sampling time of $\SI{10}{\second}$ with a delay of $\SI{8}{\s}$ and a linear angular speed profile of $\SI{1}{\degree\per\s}$ which was the upper estimated limit of the gondola rotation. Figure \mbox{\ref{fig::software::Kalman_filter_delay_2}} has a periodically oscillating angular rotation profile with the period time corresponding to an ideal pendulum with a length of $\SI{100}{\m}$ and a maximum displacement of approx. $\ang{1}$ (half angle). This simulated the expected swinging motion of the gondola. All three scenarios showed that the Kalman filter can handle the different sampling rates and delay times of the star tracker as well as the expected angular speed profiles of the balloon. The oscillating motion in figure \mbox{\ref{fig::software::Kalman_filter_delay_2}} gets stronger with a higher maximum angular offset and nearly disappears for dislocations below $\ang{0.5}$ (half angle).
 
 \begin{figure}[htb]
     \centering
     \includegraphics[width = 0.8\textwidth]{4-experiment-design/img/software/kf_30_0_lin.eps}
-    \caption{MATLAB simulation of the Kalman filter with noise distribution of the gyroscope according to the data sheet \hl{[Changed figure]}}
+    \caption{MATLAB simulation of the Kalman filter with noise distribution of the gyroscope according to the data sheet}
     \label{fig::software::Kalman_filter}
 \end{figure}
 \begin{figure}[htb]
     \centering
     \includegraphics[width = 0.8\textwidth]{4-experiment-design/img/software/kf_10_8_lin.eps}
-    \caption{MATLAB simulation of the Kalman filter including star tracker delay for a linear angular rotation profile \hl{[New figure]}}
+    \caption{MATLAB simulation of the Kalman filter including star tracker delay for a linear angular rotation profile}
     \label{fig::software::Kalman_filter_delay_1}
 \end{figure}
 \begin{figure}[htb]
     \centering
     \includegraphics[width = 0.8\textwidth]{4-experiment-design/img/software/kf_10_8_cos_3_1800.eps}
-    \caption{MATLAB simulation of the Kalman filter including star tracker delay for a periodic angular rotation profile \hl{[New figure]}}
+    \caption{MATLAB simulation of the Kalman filter including star tracker delay for a periodic angular rotation profile}
     \label{fig::software::Kalman_filter_delay_2}
 \end{figure}
 
